@@ -13,7 +13,7 @@ public class Dalle
 	public Dalle(){this(0,0);}
 	public Dalle(int x, int y)
 	{
-		this.nom = ++Dalle.nbDalle;
+		this.nom = Dalle.nbDalle++;
 		this.dallesVoisines = new Dalle[6];
 		this.x = x;
 		this.y = y;
@@ -27,7 +27,7 @@ public class Dalle
 	
 	private void setVoisine(int cote, Dalle d)
 	{
-		if(cote < 2 ){cote -= 3;}
+		if(cote > 2 ){cote -= 3;}
 		else         {cote += 3;}
 		this.dallesVoisines[cote] = d;
 	}
