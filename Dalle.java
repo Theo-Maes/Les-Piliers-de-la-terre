@@ -1,9 +1,9 @@
 public class Dalle
 {
-	private final int MODIF_X = new int[] { 0 , 49, 49, 0 ,-49,-49};
-	private final int MODIF_Y = new int[] {67 , 33,-33,-67,-33, 33};
+	private int[] MODIF_X = new int[] { 0 , 49, 49, 0 ,-49,-49};
+	private int[] MODIF_Y = new int[] {67 , 33,-33,-67,-33, 33};
 	
-	private static int nbDalle = 0;
+	private static char nbDalle = 'A';
 	private char nom;
 	
 	private Dalle[] dallesVoisines;
@@ -35,23 +35,24 @@ public class Dalle
 	public boolean ajouterVoisine(int cote, Dalle d)
 	{
 		if(this.dallesVoisines[cote] != null){return false;}
-		d.setX(this.x + MODIF_X(cote));
-		d.setY(this.y + MODIF_Y(cote));
+		d.setX(this.x + MODIF_X[cote]);
+		d.setY(this.y + MODIF_Y	[cote]);
 		this.dallesVoisines[cote] =  d;
-		d.setDalle(cote, this);
+		d.setVoisine(cote, this);
 		return true;
 	}
 	
 	public String toString()
 	{
-		String sRet = this.nom ;
-		for(Dalle d : this dallesVoisines)
+		String sRet = this.nom +"";
+		for(Dalle d : this.dallesVoisines)
 		{
 			if(d != null)
 			{
 				sRet += "|" + d.nom;
 			}
 		}
+		return sRet;
 	}
 	
 	public String toStringXY()
