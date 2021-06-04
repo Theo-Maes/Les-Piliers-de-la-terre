@@ -1,7 +1,7 @@
 public class Dalle
 {
 	private int[] MODIF_X = new int[] { 0 , 49, 49, 0 ,-49,-49};
-	private int[] MODIF_Y = new int[] {67 , 33,-33,-67,-33, 33};
+	private int[] MODIF_Y = new int[] {-67,-33, 33, 67, 33,-33};
 	
 	private static char nbDalle = 'A';
 	private char nom;
