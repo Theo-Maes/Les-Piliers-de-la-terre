@@ -43,7 +43,8 @@ public class Dalle
 		else         {cote += 3;}
 		this.dallesVoisines[cote] = d;
 	}
-	private void priseControle(char joueur)
+  
+  	private void priseControle(char joueur)
 	{
 		this.controle = joueur;
 		int cpt=0;
@@ -78,6 +79,7 @@ public class Dalle
 		this.piliers[coin]    = null;
 		this.construire[coin] = false;
 	}
+  
 	public boolean ajouterVoisine(int cote, Dalle d)
 	{
 		if(this.dallesVoisines[cote] != null){return false;}
@@ -87,13 +89,15 @@ public class Dalle
 		d.setVoisine(cote, this);
 		return true;
 	}
-	public void RAZConstruire()
+  
+  	public void RAZConstruire()
 	{
 		for(int cpt=0;cpt<6;cpt++)
 		{
 			this.construire[cpt] = true;
 		}
-  }
+  	}
+	
 	public String toString()
 	{
 		String sRet = this.nom +"";
