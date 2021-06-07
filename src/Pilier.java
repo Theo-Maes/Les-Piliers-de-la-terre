@@ -19,8 +19,9 @@ public class Pilier
 	}
 	
 	public char getCoul(){return this.coul;}
+	
 	public String toString()
 	{
-		return "" + this.coul;
+		return this.coul + "(" + this.x + "," + this.y + ")";
 	}
 }
