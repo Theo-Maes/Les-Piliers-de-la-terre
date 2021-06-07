@@ -1,3 +1,12 @@
+/** Les Piliers de la terres
+ * @author Paul
+ * @author Alan
+ * @author Théo
+ * @author Thomas
+ * @author Jason
+ * @author Pierre
+ */
+
 public class Plateau
 {
 	public static void main(String[] args)
