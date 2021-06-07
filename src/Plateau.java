@@ -6,14 +6,14 @@ public class Plateau
 		
 		for(int i=0; i<ensDalles.length; i++)
 			ensDalles[i] = new Dalle();
-																//ensDalles[0] == dalle A					ensDalles[8]  == dalle I
-																//ensDalles[1] == dalle B					ensDalles[9]  == dalle J
-																//ensDalles[2] == dalle C					ensDalles[10] == dalle K
-																//ensDalles[3] == dalle D					ensDalles[11] == dalle L
-																//ensDalles[4] == dalle E					ensDalles[12] == dalle M
-																//ensDalles[5] == dalle F					ensDalles[13] == dalle N
-																//ensDalles[6] == dalle G					ensDalles[14] == dalle O
-																//ensDalles[7] == dalle H					ensDalles[15] == dalle P
+			//ensDalles[0] == dalle A					ensDalles[8]  == dalle I
+			//ensDalles[1] == dalle B					ensDalles[9]  == dalle J
+			//ensDalles[2] == dalle C					ensDalles[10] == dalle K
+			//ensDalles[3] == dalle D					ensDalles[11] == dalle L
+			//ensDalles[4] == dalle E					ensDalles[12] == dalle M
+			//ensDalles[5] == dalle F					ensDalles[13] == dalle N
+			//ensDalles[6] == dalle G					ensDalles[14] == dalle O
+			//ensDalles[7] == dalle H					ensDalles[15] == dalle P
 		
 		//ensDalles[0] == dalle A
 		ensDalles[0].ajouterVoisine(4, ensDalles[1]);	//Dalle B	
