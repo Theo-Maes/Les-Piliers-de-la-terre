@@ -18,6 +18,7 @@ public class Pilier
 	}
 	
 	public char getCoul(){return this.coul;}
+	public int getNbPilier(){return Pilier.nbPilier;}
 	
 	public String toString()
 	{
