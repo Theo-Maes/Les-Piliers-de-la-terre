@@ -5,7 +5,7 @@ public class Plateau
 	private Boolean bMVictoire = false;
 	private Boolean bGVictoire = false;
 	
-	private int pilierAjouter;
+	private int nbPilierAjouter;
 	
 	public Plateau()
 	{
@@ -125,11 +125,11 @@ public class Plateau
 		if( g == 9) this.bGVictoire = true;
 		
 		//Lorsque les Architectes ont construit 24 Piliers
-		if ( this.pilierAjouter == 48 )
+		if ( this.nbPilierAjouter == 48 )
 		{
 			if ( m == g )
 			{
-				this.bMVictoire = verifEgalite();
+				this.bMVictoire = verifEgalite(m, g);
 				this.bGVictoire = !this.bMVictoire;
 			}
 				
@@ -143,9 +143,9 @@ public class Plateau
 		
 	}
 	
-	public boolean verifEgalite()
+	public boolean verifEgalite(int m,int g)
 	{
-		return getDetruit('G') < getDetruit('M');
+		return this.ensDalles[g].getDetruit('G') < this.ensDalles[m].getDetruit('M');
 	}
 	
 	public void ajouter(Dalle d, int coin)
@@ -153,7 +153,7 @@ public class Plateau
 		if(d.ajouterPilier(coin))
 		{
 			for(Dalle dalle : this.ensDalles)dalle.RAZConstruire();
-			this.pilierAjouter++;
+			this.nbPilierAjouter++;
 		}
 	
 	}
