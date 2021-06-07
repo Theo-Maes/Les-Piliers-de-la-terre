@@ -18,8 +18,9 @@ public class Pilier
 		else this.coul = 'M';
 	}
 	
+	public char getCoul(){return this.coul;}
 	public String toString()
 	{
-		return this.coul;
+		return "" + this.coul;
 	}
 }
