@@ -9,6 +9,7 @@ public class Dalle
 	private char nom;
 	
 	private char controle; // p=personne G=joueur gris M=joueur marron
+	private static int[] detruit; // nombre de pilier detruit par joueur 0=G et 1=M
 	
 	private Pilier[] piliers;
 	private Dalle[] dallesVoisines;
@@ -26,13 +27,15 @@ public class Dalle
 		this.x = x;
 		this.y = y;
 		this.controle = 'p';
+		this.detruit = new int[] {0,0};
 	}
 	
-	public void setX(int x)  {this.x = x;}
-	public void setY(int y)  {this.y = y;}
-	public int  getX  (){return this.x  ;}
-	public int  getY  (){return this.y  ;}
-	public char getNom(){return this.nom;}
+	public void setX  (int x){this.x = x   ;}
+	public void setY  (int y){this.y = y   ;}
+	public int  getX       (){return this.x       ;}
+	public int  getY       (){return this.y       ;}
+	public char getNom     (){return this.nom     ;}
+	public char getControle(){return this.controle;}
 	
 	private void setVoisine(int cote, Dalle d)
 	{
@@ -41,7 +44,7 @@ public class Dalle
 		this.dallesVoisines[cote] = d;
 	}
   
-	private void priseControle(char joueur)
+  	private void priseControle(char joueur)
 	{
 		this.controle = joueur;
 		int cpt=0;
@@ -59,13 +62,20 @@ public class Dalle
 		//on vérifie si on arrive à 4 piliers
 		int cpt = 0;
 		for(Pilier p : this.piliers)
-			if(p.getCoul() == tmp.getCoul()){cpt++;}
+			if(p != null)
+				if(p.getCoul() == tmp.getCoul()){cpt++;}
 		if(cpt == 4){this.priseControle(tmp.getCoul());}
 		return true;
 	}
   
 	public void detruire(int coin)
 	{
+		switch(this.piliers[coin].getCoul())
+		{
+			case 'G' : Dalle.detruit[0]++; break;
+			case 'M' : Dalle.detruit[1]++; break;
+			default  : break;
+		}
 		this.piliers[coin]    = null;
 		this.construire[coin] = false;
 	}
@@ -80,27 +90,36 @@ public class Dalle
 		return true;
 	}
   
-	public void RAZConstruire()
+  	public void RAZConstruire()
 	{
 		for(int cpt=0;cpt<6;cpt++)
 		{
 			this.construire[cpt] = true;
 		}
-  }
-  
+  	}
+	
 	public String toString()
 	{
 		String sRet = this.nom +"";
-		for(Dalle d : this.dallesVoisines)
+		for(Pilier p : this.piliers)
 		{
-			if(d != null)
+			if(p != null)
 			{
-				sRet += "|" + d.nom;
+				sRet+= "|" + p.getCoul();
+			}
+			else
+			{
+				sRet+= "|" + " ";
 			}
 		}
 		return sRet;
 	}
-	
+	public int getDetruit(char joueur)
+	{
+		if(joueur == 'G')
+			return this.detruit[0];
+		return this.detruit[1];
+	}
 	public String toStringXY()
 	{
 		return "Dalle " + this.nom + " : (" + this.x + "," + this.y + ")";
