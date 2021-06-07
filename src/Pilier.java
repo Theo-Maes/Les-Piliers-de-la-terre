@@ -3,7 +3,6 @@ public class Pilier
 	private int x;
 	private int y;
 	private char coul;
-	
 	private static int nbPilier = 0;
 	 
 	
