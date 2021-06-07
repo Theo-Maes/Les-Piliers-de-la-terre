@@ -4,7 +4,7 @@ public class Dalle
 	private final int[] MODIF_Y  = new int[] {-67,-33, 33, 67, 33,-33};
 	private final int[] PILIER_X = new int[] {-16, 16, 33, 16,-16,-33};
 	private final int[] PILIER_Y = new int[] {-33,-33,  0, 33, 33,  0};
-	
+	private boolean[] construire;
 	private static char nbDalle = 'A';
 	private char nom;
 	
@@ -19,8 +19,10 @@ public class Dalle
 	public Dalle(int x, int y)
 	{
 		this.nom = Dalle.nbDalle++;
-		this.dallesVoisines = new  Dalle[6];
-		this.piliers        = new Pilier[6];
+		this.dallesVoisines =  new  Dalle[6];
+		this.piliers        =  new Pilier[6];
+		this.construire     = new boolean[6];
+		this.RAZConstruire();
 		this.x = x;
 		this.y = y;
 		this.controle = 'p';
@@ -41,12 +43,16 @@ public class Dalle
 	private void priseControle(char joueur)
 	{
 		this.controle = joueur;
+		int cpt=0;
 		for(Pilier p : this.piliers)
-			if(p.controle != joueur){this.detruire(p);}
+		{
+			cpt++;
+			if(p.getCoul() != joueur){this.detruire(cpt);}
+		}
 	}
 	public boolean ajouterPilier(int coin)
 	{
-		if(this.piliers[coin] != null){return false;}
+		if(this.piliers[coin] != null || !this.construire[coin] ){return false;}
 		Pilier tmp = new Pilier(this.x + PILIER_X[coin], this.y + PILIER_Y[coin]);
 		this.piliers[coin] = tmp;
 		//on vérifie si on arrive à 4 piliers
@@ -54,8 +60,13 @@ public class Dalle
 		for(Pilier p : this.piliers)
 			if(p.getCoul() == tmp.getCoul()){cpt++;}
 		if(cpt == 4){this.priseControle(tmp.getCoul());}
+		return true;
 	}
-	
+	public void detruire(int coin)
+	{
+		this.piliers[coin]    = null;
+		this.construire[coin] = false;
+	}
 	public boolean ajouterVoisine(int cote, Dalle d)
 	{
 		if(this.dallesVoisines[cote] != null){return false;}
@@ -65,7 +76,13 @@ public class Dalle
 		d.setVoisine(cote, this);
 		return true;
 	}
-	
+	public void RAZConstruire()
+	{
+		for(int cpt=0;cpt<6;cpt++)
+		{
+			this.construire[cpt] = true;
+		}
+	}
 	public String toString()
 	{
 		String sRet = this.nom +"";
