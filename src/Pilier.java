@@ -22,6 +22,6 @@ public class Pilier
 	
 	public String toString()
 	{
-		return "" + this.coul;
+		return this.coul + "(" + this.x + "," + this.y + ")";
 	}
 }
