@@ -1,3 +1,12 @@
+/** Les Piliers de la terres
+ * @author Paul
+ * @author Alan
+ * @author Théo
+ * @author Thomas
+ * @author Jason
+ * @author Pierre
+ */
+
 public class Dalle
 {
 	private final int[] MODIF_X  = new int[] { 0 , 49, 49, 0 ,-49,-49};
