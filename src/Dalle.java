@@ -41,7 +41,7 @@ public class Dalle
 		this.dallesVoisines[cote] = d;
 	}
   
-  private void priseControle(char joueur)
+  	private void priseControle(char joueur)
 	{
 		this.controle = joueur;
 		int cpt=0;
@@ -80,13 +80,14 @@ public class Dalle
 		return true;
 	}
   
-  public void RAZConstruire()
+  	public void RAZConstruire()
 	{
 		for(int cpt=0;cpt<6;cpt++)
 		{
 			this.construire[cpt] = true;
 		}
-  }
+  	}
+	
 	public String toString()
 	{
 		String sRet = this.nom +"";
