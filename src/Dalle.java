@@ -30,11 +30,12 @@ public class Dalle
 		this.detruit = new int[] {0,0};
 	}
 	
-	public void setX(int x)  {this.x = x;}
-	public void setY(int y)  {this.y = y;}
-	public int  getX  (){return this.x  ;}
-	public int  getY  (){return this.y  ;}
-	public char getNom(){return this.nom;}
+	public void setX(int x)  {return this.x = x   ;}
+	public void setY(int y)  {return this.y = y   ;}
+	public int  getX  ()     {return this.x       ;}
+	public int  getY  ()     {return this.y       ;}
+	public char getNom()     {return this.nom     ;}
+	public char getControle(){return this.controle;}
 	
 	private void setVoisine(int cote, Dalle d)
 	{
@@ -96,21 +97,15 @@ public class Dalle
 	public String toString()
 	{
 		String sRet = this.nom +"";
-		for(Dalle d : this.dallesVoisines)
+		for(Pilier p : this.piliers)
 		{
-			if(d != null)
+			if(p != null)
 			{
-				for(Pilier p : this.piliers)
-				{
-					if(p != null)
-					{
-						sRet+= "|" + p.getCoul();
-					}
-					else
-					{
-						sRet+= "|" + " ";
-					}
-				}
+				sRet+= "|" + p.getCoul();
+			}
+			else
+			{
+				sRet+= "|" + " ";
 			}
 		}
 		return sRet;
