@@ -1,3 +1,5 @@
+package iut.equipe26.projetTut.metier;
+
 public class Dalle
 {
 	private final int[] MODIF_X  = new int[] { 0 , 49, 49, 0 ,-49,-49};
