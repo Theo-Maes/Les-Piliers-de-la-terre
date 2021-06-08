@@ -26,10 +26,19 @@ public class Plateau
 		this.ensDalles = new Dalle[16];
 		this.j1 = new Joueur();
 		this.j2 = new Joueur();
-		
-		
+	}
+	
+	public void dalleCustom(/*int  ,*/ int numVoisine )
+	{
+
+	}
+
+	public void plateauAuto() 
+	{
+
 		for(int i=0; i<this.ensDalles.length; i++)
 			this.ensDalles[i] = new Dalle();
+
 		//this.ensDalles[0] == dalle A					this.ensDalles[8]  == dalle I
 		//this.ensDalles[1] == dalle B					this.ensDalles[9]  == dalle J
 		//this.ensDalles[2] == dalle C					this.ensDalles[10] == dalle K
@@ -122,7 +131,6 @@ public class Plateau
 		
 		for (Dalle d : this.ensDalles)
 			System.out.println(d);
-		
 	}
 	
 	public void verification()
