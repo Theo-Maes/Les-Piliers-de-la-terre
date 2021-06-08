@@ -9,7 +9,7 @@ public class Dalle
 	private char nom;
 	
 	private char controle; // p=personne G=joueur gris M=joueur marron
-	private int[] detruit; // nombre de pilier detruit par joueur 0=G et 1=M
+	//private static int[] detruit;  nombre de pilier detruit par joueur 0=G et 1=M
 	
 	private Pilier[] piliers;
 	private Dalle[] dallesVoisines;
@@ -27,7 +27,7 @@ public class Dalle
 		this.x = x;
 		this.y = y;
 		this.controle = 'p';
-		this.detruit = new int[] {0,0};
+		//this.detruit = new int[] {0,0};
 	}
 	
 	public void setX  (int x){this.x = x   ;}
@@ -72,8 +72,8 @@ public class Dalle
 	{
 		switch(this.piliers[coin].getCoul())
 		{
-			case 'G' : this.detruit[0]++; break;
-			case 'M' : this.detruit[1]++; break;
+			case 'G' : /*detruire 1 pour joueur 1*/; break;
+			case 'M' : /*------- ---------------2*/; break;
 			default  : break;
 		}
 		this.piliers[coin]    = null;
