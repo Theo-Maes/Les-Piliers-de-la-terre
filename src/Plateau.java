@@ -14,11 +14,17 @@ public class Plateau
 	private Boolean bMVictoire = false;
 	private Boolean bGVictoire = false;
 	
-	private int pilierAjouter;
+	private static int compteur = 0;
+	
+	private Joueur j1;	//G
+	private Joueur j2;	//M
 	
 	public Plateau()
 	{
 		this.ensDalles = new Dalle[16];
+		this.j1 = new Joueur();
+		this.j2 = new Joueur();
+		
 		
 		for(int i=0; i<this.ensDalles.length; i++)
 			this.ensDalles[i] = new Dalle();
@@ -42,14 +48,14 @@ public class Plateau
 		this.ensDalles[1].ajouterVoisine(2, this.ensDalles[4]);	//Dalle E
 		
 		//this.ensDalles[2] == dalle C
-		this.ensDalles[2].ajouterVoisine(4, this.ensDalles[4]);	//Dalle E
-		this.ensDalles[2].ajouterVoisine(3, this.ensDalles[8]);	//Dalle I
-		this.ensDalles[2].ajouterVoisine(2, this.ensDalles[5]);	//Dalle F
+		this.ensDalles[2].ajouterVoisine(4, this.ensDalles[4]);		//Dalle E
+		this.ensDalles[2].ajouterVoisine(3, this.ensDalles[8]);		//Dalle I
+		this.ensDalles[2].ajouterVoisine(2, this.ensDalles[5]);		//Dalle F
 		
 		//this.ensDalles[3] == dalle D
-		this.ensDalles[3].ajouterVoisine(4, this.ensDalles[6]);	//Dalle G
+		this.ensDalles[3].ajouterVoisine(4, this.ensDalles[6]);		//Dalle G
 		this.ensDalles[3].ajouterVoisine(3, this.ensDalles[10]);	//Dalle K
-		this.ensDalles[3].ajouterVoisine(2, this.ensDalles[7]);	//Dalle H
+		this.ensDalles[3].ajouterVoisine(2, this.ensDalles[7]);		//Dalle H
 		
 		//this.ensDalles[4] == dalle E
 		this.ensDalles[4].ajouterVoisine(4, this.ensDalles[7]);		//Dalle H
@@ -57,9 +63,9 @@ public class Plateau
 		this.ensDalles[4].ajouterVoisine(2, this.ensDalles[8]);		//Dalle I
 		
 		//this.ensDalles[5] == dalle F
-		this.ensDalles[5].ajouterVoisine(4, this.ensDalles[8]);	//Dalle I
+		this.ensDalles[5].ajouterVoisine(4, this.ensDalles[8]);		//Dalle I
 		this.ensDalles[5].ajouterVoisine(3, this.ensDalles[12]);	//Dalle M
-		this.ensDalles[5].ajouterVoisine(2, this.ensDalles[9]);	//Dalle J
+		this.ensDalles[5].ajouterVoisine(2, this.ensDalles[9]);		//Dalle J
 		
 		//this.ensDalles[6] == dalle G
 		this.ensDalles[6].ajouterVoisine(2, this.ensDalles[10]);	//Dalle K
@@ -106,11 +112,11 @@ public class Plateau
 		for (Dalle d : this.ensDalles)
 			System.out.println(d.toStringXY());
 		
-		ajouter(this.ensDalles[0], 2);
-		ajouter(this.ensDalles[0], 4);
-		ajouter(this.ensDalles[1], 2);
-		ajouter(this.ensDalles[2], 0);
-		ajouter(this.ensDalles[4], 0);
+		ajoutPilier(this.ensDalles[0], 2);
+		ajoutPilier(this.ensDalles[0], 4);
+		ajoutPilier(this.ensDalles[1], 2);
+		ajoutPilier(this.ensDalles[2], 0);
+		ajoutPilier(this.ensDalles[4], 0);
 		
 		for (Dalle d : this.ensDalles)
 			System.out.println(d);
@@ -120,21 +126,16 @@ public class Plateau
 	public void verification()
 	{
 		
-		//Si un Architecte possède 9 Dalle
-		int m = 0;
-		int g = 0;
-		
-		for (Dalle d : this.ensDalles)
-		{
-			if ( d.getControle() == 'M') m++;
-			if ( d.getControle() == 'G') g++;
-		}
+		//Si un Architecte possède 9 Dalles
+		int g = j1.getNbDalle();
+		int m = j2.getNbDalle();
 		
 		if( m == 9) this.bMVictoire = true;
 		if( g == 9) this.bGVictoire = true;
 		
-		//Lorsque les Architectes ont construit 24 Piliers
-		if ( this.pilierAjouter == 48 )
+		//Lorsque chaque Architectes ont construit 24 Piliers
+		int pilierTotal = this.j1.getNbPilier() + this.j2.getNbPilier();
+		if ( pilierTotal == 0 )
 		{
 			if ( m == g )
 			{
@@ -151,19 +152,33 @@ public class Plateau
 		}
 		
 	}
-	
+  
 	public boolean verifEgalite()
 	{
-		return getDetruit('G') < getDetruit('M');
+		if ( this.j1.getPilierDetruit() == this.j2.getPilierDetruit() )
+		{
+			//Afficher ecran egalité
+		}
+		else
+			return this.j2.getPilierDetruit() > this.j1.getPilierDetruit();
+		
 	}
 	
-	public void ajouter(Dalle d, int coin)
+	public void ajoutPilier(Dalle d, int coin)	//Ajout d'un pilier
 	{
 		if(d.ajouterPilier(coin))
 		{
 			for(Dalle dalle : this.ensDalles)dalle.RAZConstruire();
-			this.pilierAjouter++;
+			
+			if( getNbTour()%2 == 0)		//Si c'est pair, c'est le premier joueur qui joue
+				this.j1.decrementer();	//Nombre de pilier du joueur qui baisse
+			else
+				this.j2.decrementer();
+			
+			Plateau.ajoutTour();
 		}
-	
 	}
+	
+	public int getNbTour()	{return Plateau.compteur;}
+	private static void ajoutTour(){Plateau.compteur++;}
 }
