@@ -9,7 +9,7 @@ public class Dalle
 	private char nom;
 	
 	private char controle; // p=personne G=joueur gris M=joueur marron
-	//private static int[] detruit;  nombre de pilier detruit par joueur 0=G et 1=M
+	//private static int[] detruit;  nombre de pilier detruit par joueur 0=G et 1=M 
 	
 	private Pilier[] piliers;
 	private Dalle[] dallesVoisines;
