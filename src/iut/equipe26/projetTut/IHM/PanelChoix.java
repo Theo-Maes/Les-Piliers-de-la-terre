@@ -52,5 +52,7 @@ public class PanelChoix extends JPanel implements ActionListener
 		if(e.getSource() == this.btnPlateauAuto) {
 			Controleur.getInstance().getPlateau().plateauAuto();
 		}
+
+		new FrameJeu();
 	}
 }
