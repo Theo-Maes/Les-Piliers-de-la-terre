@@ -125,4 +125,3 @@ public class Dalle
 		return "Dalle " + this.nom + " : (" + this.x + "," + this.y + ")";
 	}
 }
-

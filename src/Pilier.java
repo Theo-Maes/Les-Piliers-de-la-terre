@@ -1,3 +1,12 @@
+/** Les Piliers de la terres
+ * @author Paul
+ * @author Alan
+ * @author Théo
+ * @author Thomas
+ * @author Jason
+ * @author Pierre
+ */
+
 public class Pilier
 {
 	private int x;
@@ -18,6 +27,7 @@ public class Pilier
 	}
 	
 	public char getCoul(){return this.coul;}
+	public int getNbPilier(){return Pilier.nbPilier;}
 	
 	public String toString()
 	{
