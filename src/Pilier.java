@@ -1,9 +1,17 @@
+/** Les Piliers de la terres
+ * @author Paul
+ * @author Alan
+ * @author Théo
+ * @author Thomas
+ * @author Jason
+ * @author Pierre
+ */
+
 public class Pilier
 {
 	private int x;
 	private int y;
 	private char coul;
-	
 	private static int nbPilier = 0;
 	 
 	

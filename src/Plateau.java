@@ -1,3 +1,12 @@
+/** Les Piliers de la terres
+ * @author Paul
+ * @author Alan
+ * @author Théo
+ * @author Thomas
+ * @author Jason
+ * @author Pierre
+ */
+
 public class Plateau
 {
 	private Dalle[] ensDalles;
@@ -19,14 +28,14 @@ public class Plateau
 		
 		for(int i=0; i<this.ensDalles.length; i++)
 			this.ensDalles[i] = new Dalle();
-																//this.ensDalles[0] == dalle A					this.ensDalles[8]  == dalle I
-																//this.ensDalles[1] == dalle B					this.ensDalles[9]  == dalle J
-																//this.ensDalles[2] == dalle C					this.ensDalles[10] == dalle K
-																//this.ensDalles[3] == dalle D					this.ensDalles[11] == dalle L
-																//this.ensDalles[4] == dalle E					this.ensDalles[12] == dalle M
-																//this.ensDalles[5] == dalle F					this.ensDalles[13] == dalle N
-																//this.ensDalles[6] == dalle G					this.ensDalles[14] == dalle O
-																//this.ensDalles[7] == dalle H					this.ensDalles[15] == dalle P
+		//this.ensDalles[0] == dalle A					this.ensDalles[8]  == dalle I
+		//this.ensDalles[1] == dalle B					this.ensDalles[9]  == dalle J
+		//this.ensDalles[2] == dalle C					this.ensDalles[10] == dalle K
+		//this.ensDalles[3] == dalle D					this.ensDalles[11] == dalle L
+		//this.ensDalles[4] == dalle E					this.ensDalles[12] == dalle M
+		//this.ensDalles[5] == dalle F					this.ensDalles[13] == dalle N
+		//this.ensDalles[6] == dalle G					this.ensDalles[14] == dalle O
+		//this.ensDalles[7] == dalle H					this.ensDalles[15] == dalle P
 		
 		//this.ensDalles[0] == dalle A
 		this.ensDalles[0].ajouterVoisine(4, this.ensDalles[1]);	//Dalle B	
@@ -143,7 +152,7 @@ public class Plateau
 		}
 		
 	}
-	//test
+  
 	public boolean verifEgalite()
 	{
 		if ( this.j1.getPilierDetruit() == this.j2.getPilierDetruit() )
@@ -168,16 +177,8 @@ public class Plateau
 			
 			Plateau.ajoutTour();
 		}
-	
 	}
 	
 	public int getNbTour()	{return Plateau.compteur;}
 	private static void ajoutTour(){Plateau.compteur++;}
-	
-	public static void main(String[] args)
-	{
-		new Plateau();
-		
-	}
-	
 }
