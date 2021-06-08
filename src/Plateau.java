@@ -14,7 +14,7 @@ public class Plateau
 	private Boolean bMVictoire = false;
 	private Boolean bGVictoire = false;
 	
-	private int nbPilierAjouter;
+	private int pilierAjouter;
 	
 	public Plateau()
 	{
@@ -22,14 +22,14 @@ public class Plateau
 		
 		for(int i=0; i<this.ensDalles.length; i++)
 			this.ensDalles[i] = new Dalle();
-			//this.ensDalles[0] == dalle A					this.ensDalles[8]  == dalle I
-			//this.ensDalles[1] == dalle B					this.ensDalles[9]  == dalle J
-			//this.ensDalles[2] == dalle C					this.ensDalles[10] == dalle K
-			//this.ensDalles[3] == dalle D					this.ensDalles[11] == dalle L
-			//this.ensDalles[4] == dalle E					this.ensDalles[12] == dalle M
-			//this.ensDalles[5] == dalle F					this.ensDalles[13] == dalle N
-			//this.ensDalles[6] == dalle G					this.ensDalles[14] == dalle O
-			//this.ensDalles[7] == dalle H					this.ensDalles[15] == dalle P
+		//this.ensDalles[0] == dalle A					this.ensDalles[8]  == dalle I
+		//this.ensDalles[1] == dalle B					this.ensDalles[9]  == dalle J
+		//this.ensDalles[2] == dalle C					this.ensDalles[10] == dalle K
+		//this.ensDalles[3] == dalle D					this.ensDalles[11] == dalle L
+		//this.ensDalles[4] == dalle E					this.ensDalles[12] == dalle M
+		//this.ensDalles[5] == dalle F					this.ensDalles[13] == dalle N
+		//this.ensDalles[6] == dalle G					this.ensDalles[14] == dalle O
+		//this.ensDalles[7] == dalle H					this.ensDalles[15] == dalle P
 		
 		//this.ensDalles[0] == dalle A
 		this.ensDalles[0].ajouterVoisine(4, this.ensDalles[1]);	//Dalle B	
@@ -134,11 +134,11 @@ public class Plateau
 		if( g == 9) this.bGVictoire = true;
 		
 		//Lorsque les Architectes ont construit 24 Piliers
-		if ( this.nbPilierAjouter == 48 )
+		if ( this.pilierAjouter == 48 )
 		{
 			if ( m == g )
 			{
-				this.bMVictoire = verifEgalite(m, g);
+				this.bMVictoire = verifEgalite();
 				this.bGVictoire = !this.bMVictoire;
 			}
 				
@@ -152,9 +152,9 @@ public class Plateau
 		
 	}
 	
-	public boolean verifEgalite(int m,int g)
+	public boolean verifEgalite()
 	{
-		return this.ensDalles[g].getDetruit('G') < this.ensDalles[m].getDetruit('M');
+		return getDetruit('G') < getDetruit('M');
 	}
 	
 	public void ajouter(Dalle d, int coin)
@@ -162,7 +162,7 @@ public class Plateau
 		if(d.ajouterPilier(coin))
 		{
 			for(Dalle dalle : this.ensDalles)dalle.RAZConstruire();
-			this.nbPilierAjouter++;
+			this.pilierAjouter++;
 		}
 	
 	}
