@@ -1,4 +1,4 @@
-package ihm;
+package iut.equipe26.projetTut.IHM;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

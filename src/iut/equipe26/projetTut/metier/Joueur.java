@@ -1,3 +1,5 @@
+package iut.equipe26.projetTut.metier;
+
 public class Joueur
 {
 	private String    nom;

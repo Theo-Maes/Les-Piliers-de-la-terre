@@ -1,4 +1,7 @@
-import ihm.FrameJeu;
+package iut.equipe26.projetTut;
+
+import iut.equipe26.projetTut.IHM.FrameJeu;
+import iut.equipe26.projetTut.metier.Plateau;
 
 /** Les Piliers de la terres
  * @author Paul

@@ -1,4 +1,4 @@
-package ihm;
+package iut.equipe26.projetTut.IHM;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
