@@ -16,7 +16,6 @@ import iut.equipe26.projetTut.metier.Plateau;
 public class Controleur {
 	
 	private Plateau plateau;
-	private FrameJeu frameJeu;
 	private FrameMenu frameMenu;
 	private static Controleur instance;
 
@@ -24,7 +23,6 @@ public class Controleur {
 		Controleur.instance = this;
 
 		this.plateau   = new Plateau();
-		this.frameJeu  = new FrameJeu();
 		this.frameMenu = new FrameMenu();
 
 	}
