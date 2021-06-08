@@ -1,0 +1,13 @@
+./src/iut/equipe26/projetTut/IHM/BGPanel.java
+./src/iut/equipe26/projetTut/IHM/FrameJeu.java
+./src/iut/equipe26/projetTut/IHM/FrameJoueur.java
+./src/iut/equipe26/projetTut/IHM/PanelAction.java
+./src/iut/equipe26/projetTut/IHM/PanelChoix.java
+./src/iut/equipe26/projetTut/IHM/PanelJoueur.java
+
+./src/iut/equipe26/projetTut/metier/Dalle.java
+./src/iut/equipe26/projetTut/metier/Joueur.java
+./src/iut/equipe26/projetTut/metier/Pilier.java
+./src/iut/equipe26/projetTut/metier/Plateau.java
+
+./src/iut/equipe26/projetTut/Controleur.java

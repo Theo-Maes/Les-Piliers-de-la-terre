@@ -1,61 +1,67 @@
 package iut.equipe26.projetTut.IHM;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import iut.equipe26.projetTut.Controleur;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.*;
+import javax.swing.*;
+import java.awt.GridLayout;
+import java.awt.event.*;
+import java.awt.Dimension;
+import java.awt.Image;
 
 public class PanelChoix extends JPanel implements ActionListener
 {
-	private FrameMenu frameMenu;
-	private JButton btnPlateauAuto;
-	private JButton btnPlateauCustom;
-
-	public PanelChoix(FrameMenu frameMenu) 
-	{
-		this.frameMenu = frameMenu;
-
-		this.setLayout(null);
-
-
-		this.btnPlateauAuto   = new JButton("Plateau Automatique");
-		this.btnPlateauCustom = new JButton("Plateau Custom"     );
-
-
-		this.btnPlateauAuto   .setBounds(200, 265, 260, 76);
-		this.btnPlateauCustom .setBounds(200, 370, 260, 76);
-
-
-		this.add(this.btnPlateauAuto   );
-		this.add(this.btnPlateauCustom );	
-
+	private FrameJoueur frmJ;
+	private boolean bAvatar = true;
+	private JButton[]  boutons;
+	private String []  avatars = new String[] {"Lardon","1664","lutin","Cookie","fine","iut","pachimari","krokmou","peppe"};
+	private String [] couleurs = new String[] {"gris", "marron", "violet", "rouge", "vert","cyan","bleu","jaune","orange"};
 	
-		this.btnPlateauAuto   .addActionListener(this);
-		this.btnPlateauCustom .addActionListener(this);
-	}
-
-
-	public void paintComponent (Graphics g) 
+	public PanelChoix(FrameJoueur frmJ)
 	{
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D)g;
-		g2.drawImage(Toolkit.getDefaultToolkit().getImage("src/ressource/images/Background.jpg"), 0, 0, this);
-	}
-
-	
-	public void actionPerformed(ActionEvent e) 
-	{
-		if(e.getSource() == this.btnPlateauAuto) {
-			Controleur.getInstance().getPlateau().plateauAuto();
+		this.frmJ = frmJ;
+		this.setLayout(new GridLayout(3,3,10,10));
+		this.boutons = new JButton[this.avatars.length];
+		
+		
+		//creation
+		for(int cpt=0; cpt<this.avatars.length; cpt++)
+		{
+			ImageIcon imgicn = new ImageIcon("./src/ressource/avatar/" + this.avatars[cpt] + ".png");
+			Image tmp = imgicn.getImage();
+			Image tmp2 = tmp.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH);
+			this.boutons[cpt] = new JButton(new ImageIcon(tmp2));
+			this.boutons[cpt].setPreferredSize(new Dimension(20,20));
 		}
-
-		this.frameMenu.setVisible(false);
-		new FrameJeu();
+		//positionnement
+		for(int cpt=0; cpt<this.boutons.length; cpt++)
+			this.add(this.boutons[cpt]);
+		//activation
+		for(int cpt=0; cpt<this.boutons.length; cpt++)
+			this.boutons[cpt].addActionListener(this);
 	}
+	
+	public void actionPerformed(ActionEvent e)
+	{
+		for(int cpt=0; cpt<this.boutons.length; cpt++)
+		{
+			if(e.getSource() == this.boutons[cpt])
+			{
+				if(bAvatar){this.frmJ.setAvatar ( this.avatars [cpt]);}
+				else       {this.frmJ.setCouleur( this.couleurs[cpt]);}
+			}
+		}
+	}
+	
+	public void changerCouleur()
+	{
+		for(int cpt=0; cpt<this.boutons.length; cpt++)
+			this.boutons[cpt].setIcon(new ImageIcon("./src/ressource/couleur/" + this.couleurs[cpt] + ".png"));
+		this.bAvatar = false;
+	}
+	
+	public void changerAvatar()
+	{
+		for(int cpt=0; cpt<this.boutons.length; cpt++)
+			this.boutons[cpt].setIcon(new ImageIcon("./src/ressource/avatar/" + this.avatars[cpt] + ".png"));
+		this.bAvatar = true;
+	}
+	public boolean getChoix(){return this.bAvatar;}
 }
