@@ -114,12 +114,12 @@ public class Dalle
 		}
 		return sRet;
 	}
-	public int getDetruit(char joueur)
+	/*public int getDetruit(char joueur)
 	{
 		if(joueur == 'G')
 			return this.detruit[0];
 		return this.detruit[1];
-	}
+	}*/
 	public String toStringXY()
 	{
 		return "Dalle " + this.nom + " : (" + this.x + "," + this.y + ")";
