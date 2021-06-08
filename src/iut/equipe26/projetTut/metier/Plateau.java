@@ -1,3 +1,5 @@
+package iut.equipe26.projetTut.metier;
+
 /** Les Piliers de la terres
  * @author Paul
  * @author Alan
@@ -14,22 +16,28 @@ public class Plateau
 	private Boolean bMVictoire = false;
 	private Boolean bGVictoire = false;
 	
-	private int nbPilierAjouter;
+	private static int compteur = 0;
+	
+	private Joueur j1;	//G
+	private Joueur j2;	//M
 	
 	public Plateau()
 	{
 		this.ensDalles = new Dalle[16];
+		this.j1 = new Joueur();
+		this.j2 = new Joueur();
+		
 		
 		for(int i=0; i<this.ensDalles.length; i++)
 			this.ensDalles[i] = new Dalle();
-			//this.ensDalles[0] == dalle A					this.ensDalles[8]  == dalle I
-			//this.ensDalles[1] == dalle B					this.ensDalles[9]  == dalle J
-			//this.ensDalles[2] == dalle C					this.ensDalles[10] == dalle K
-			//this.ensDalles[3] == dalle D					this.ensDalles[11] == dalle L
-			//this.ensDalles[4] == dalle E					this.ensDalles[12] == dalle M
-			//this.ensDalles[5] == dalle F					this.ensDalles[13] == dalle N
-			//this.ensDalles[6] == dalle G					this.ensDalles[14] == dalle O
-			//this.ensDalles[7] == dalle H					this.ensDalles[15] == dalle P
+		//this.ensDalles[0] == dalle A					this.ensDalles[8]  == dalle I
+		//this.ensDalles[1] == dalle B					this.ensDalles[9]  == dalle J
+		//this.ensDalles[2] == dalle C					this.ensDalles[10] == dalle K
+		//this.ensDalles[3] == dalle D					this.ensDalles[11] == dalle L
+		//this.ensDalles[4] == dalle E					this.ensDalles[12] == dalle M
+		//this.ensDalles[5] == dalle F					this.ensDalles[13] == dalle N
+		//this.ensDalles[6] == dalle G					this.ensDalles[14] == dalle O
+		//this.ensDalles[7] == dalle H					this.ensDalles[15] == dalle P
 		
 		//this.ensDalles[0] == dalle A
 		this.ensDalles[0].ajouterVoisine(4, this.ensDalles[1]);	//Dalle B	
@@ -42,14 +50,14 @@ public class Plateau
 		this.ensDalles[1].ajouterVoisine(2, this.ensDalles[4]);	//Dalle E
 		
 		//this.ensDalles[2] == dalle C
-		this.ensDalles[2].ajouterVoisine(4, this.ensDalles[4]);	//Dalle E
-		this.ensDalles[2].ajouterVoisine(3, this.ensDalles[8]);	//Dalle I
-		this.ensDalles[2].ajouterVoisine(2, this.ensDalles[5]);	//Dalle F
+		this.ensDalles[2].ajouterVoisine(4, this.ensDalles[4]);		//Dalle E
+		this.ensDalles[2].ajouterVoisine(3, this.ensDalles[8]);		//Dalle I
+		this.ensDalles[2].ajouterVoisine(2, this.ensDalles[5]);		//Dalle F
 		
 		//this.ensDalles[3] == dalle D
-		this.ensDalles[3].ajouterVoisine(4, this.ensDalles[6]);	//Dalle G
+		this.ensDalles[3].ajouterVoisine(4, this.ensDalles[6]);		//Dalle G
 		this.ensDalles[3].ajouterVoisine(3, this.ensDalles[10]);	//Dalle K
-		this.ensDalles[3].ajouterVoisine(2, this.ensDalles[7]);	//Dalle H
+		this.ensDalles[3].ajouterVoisine(2, this.ensDalles[7]);		//Dalle H
 		
 		//this.ensDalles[4] == dalle E
 		this.ensDalles[4].ajouterVoisine(4, this.ensDalles[7]);		//Dalle H
@@ -57,9 +65,9 @@ public class Plateau
 		this.ensDalles[4].ajouterVoisine(2, this.ensDalles[8]);		//Dalle I
 		
 		//this.ensDalles[5] == dalle F
-		this.ensDalles[5].ajouterVoisine(4, this.ensDalles[8]);	//Dalle I
+		this.ensDalles[5].ajouterVoisine(4, this.ensDalles[8]);		//Dalle I
 		this.ensDalles[5].ajouterVoisine(3, this.ensDalles[12]);	//Dalle M
-		this.ensDalles[5].ajouterVoisine(2, this.ensDalles[9]);	//Dalle J
+		this.ensDalles[5].ajouterVoisine(2, this.ensDalles[9]);		//Dalle J
 		
 		//this.ensDalles[6] == dalle G
 		this.ensDalles[6].ajouterVoisine(2, this.ensDalles[10]);	//Dalle K
@@ -106,11 +114,11 @@ public class Plateau
 		for (Dalle d : this.ensDalles)
 			System.out.println(d.toStringXY());
 		
-		ajouter(this.ensDalles[0], 2);
-		ajouter(this.ensDalles[0], 4);
-		ajouter(this.ensDalles[1], 2);
-		ajouter(this.ensDalles[2], 0);
-		ajouter(this.ensDalles[4], 0);
+		ajoutPilier(this.ensDalles[0], 2);
+		ajoutPilier(this.ensDalles[0], 4);
+		ajoutPilier(this.ensDalles[1], 2);
+		ajoutPilier(this.ensDalles[2], 0);
+		ajoutPilier(this.ensDalles[4], 0);
 		
 		for (Dalle d : this.ensDalles)
 			System.out.println(d);
@@ -120,25 +128,20 @@ public class Plateau
 	public void verification()
 	{
 		
-		//Si un Architecte possède 9 Dalle
-		int m = 0;
-		int g = 0;
-		
-		for (Dalle d : this.ensDalles)
-		{
-			if ( d.getControle() == 'M') m++;
-			if ( d.getControle() == 'G') g++;
-		}
+		//Si un Architecte possède 9 Dalles
+		int g = j1.getNbDalle();
+		int m = j2.getNbDalle();
 		
 		if( m == 9) this.bMVictoire = true;
 		if( g == 9) this.bGVictoire = true;
 		
-		//Lorsque les Architectes ont construit 24 Piliers
-		if ( this.nbPilierAjouter == 48 )
+		//Lorsque chaque Architectes ont construit 24 Piliers
+		int pilierTotal = this.j1.getNbPilier() + this.j2.getNbPilier();
+		if ( pilierTotal == 0 )
 		{
 			if ( m == g )
 			{
-				this.bMVictoire = verifEgalite(m, g);
+				this.bMVictoire = verifEgalite();
 				this.bGVictoire = !this.bMVictoire;
 			}
 				
@@ -151,19 +154,34 @@ public class Plateau
 		}
 		
 	}
-	
-	public boolean verifEgalite(int m,int g)
+  
+	public boolean verifEgalite()
 	{
-		return this.ensDalles[g].getDetruit('G') < this.ensDalles[m].getDetruit('M');
+		if ( this.j1.getPilierDetruit() == this.j2.getPilierDetruit() )
+		{
+			return true;
+			//Afficher ecran egalité
+		}
+		else
+			return this.j2.getPilierDetruit() > this.j1.getPilierDetruit();
+		
 	}
 	
-	public void ajouter(Dalle d, int coin)
+	public void ajoutPilier(Dalle d, int coin)	//Ajout d'un pilier
 	{
 		if(d.ajouterPilier(coin))
 		{
 			for(Dalle dalle : this.ensDalles)dalle.RAZConstruire();
-			this.nbPilierAjouter++;
+			
+			if( getNbTour()%2 == 0)		//Si c'est pair, c'est le premier joueur qui joue
+				this.j1.decrementer();	//Nombre de pilier du joueur qui baisse
+			else
+				this.j2.decrementer();
+			
+			Plateau.ajoutTour();
 		}
-	
 	}
+	
+	public int getNbTour()	{return Plateau.compteur;}
+	private static void ajoutTour(){Plateau.compteur++;}
 }

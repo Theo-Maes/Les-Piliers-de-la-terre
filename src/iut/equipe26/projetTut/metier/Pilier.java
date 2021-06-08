@@ -1,3 +1,5 @@
+package iut.equipe26.projetTut.metier;
+
 /** Les Piliers de la terres
  * @author Paul
  * @author Alan
