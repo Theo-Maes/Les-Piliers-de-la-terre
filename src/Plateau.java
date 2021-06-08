@@ -157,6 +157,7 @@ public class Plateau
 	{
 		if ( this.j1.getPilierDetruit() == this.j2.getPilierDetruit() )
 		{
+			return true;
 			//Afficher ecran egalité
 		}
 		else
