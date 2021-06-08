@@ -143,7 +143,7 @@ public class Plateau
 		}
 		
 	}
-	
+	//test
 	public boolean verifEgalite()
 	{
 		if ( this.j1.getPilierDetruit() == this.j2.getPilierDetruit() )
