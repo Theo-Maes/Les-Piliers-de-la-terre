@@ -1,12 +1,3 @@
-/** Les Piliers de la terres
- * @author Paul
- * @author Alan
- * @author Théo
- * @author Thomas
- * @author Jason
- * @author Pierre
- */
-
 public class Dalle
 {
 	private final int[] MODIF_X  = new int[] { 0 , 49, 49, 0 ,-49,-49};
@@ -18,7 +9,7 @@ public class Dalle
 	private char nom;
 	
 	private char controle; // p=personne G=joueur gris M=joueur marron
-	private static int[] detruit; // nombre de pilier detruit par joueur 0=G et 1=M
+	//private static int[] detruit;  nombre de pilier detruit par joueur 0=G et 1=M 
 	
 	private Pilier[] piliers;
 	private Dalle[] dallesVoisines;
@@ -36,7 +27,7 @@ public class Dalle
 		this.x = x;
 		this.y = y;
 		this.controle = 'p';
-		this.detruit = new int[] {0,0};
+		//this.detruit = new int[] {0,0};
 	}
 	
 	public void setX  (int x){this.x = x   ;}
@@ -81,8 +72,8 @@ public class Dalle
 	{
 		switch(this.piliers[coin].getCoul())
 		{
-			case 'G' : Dalle.detruit[0]++; break;
-			case 'M' : Dalle.detruit[1]++; break;
+			case 'G' : /*detruire 1 pour joueur 1*/; break;
+			case 'M' : /*------- ---------------2*/; break;
 			default  : break;
 		}
 		this.piliers[coin]    = null;
@@ -123,15 +114,14 @@ public class Dalle
 		}
 		return sRet;
 	}
-	public int getDetruit(char joueur)
+	/*public int getDetruit(char joueur)
 	{
 		if(joueur == 'G')
 			return this.detruit[0];
 		return this.detruit[1];
-	}
+	}*/
 	public String toStringXY()
 	{
 		return "Dalle " + this.nom + " : (" + this.x + "," + this.y + ")";
 	}
 }
-
