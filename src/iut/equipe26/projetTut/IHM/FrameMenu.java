@@ -1,12 +1,10 @@
 package iut.equipe26.projetTut.IHM;
 
-import java.awt.BorderLayout;
-
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 public class FrameMenu extends JFrame 
 {
+	private static FrameMenu instance;
 
 	public FrameMenu() 
 	{
@@ -15,10 +13,14 @@ public class FrameMenu extends JFrame
 		this.setSize(700, 600);
 
 
-		this.add(new PanelChoix() );
+		this.add(new PanelChoix(this) );
 		
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setVisible(true);
 	}
+
+	// public FrameMenu getFrame() { return instance; }
+
+	// public void close() { this.close(); }
 }
