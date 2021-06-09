@@ -2,7 +2,7 @@ package iut.equipe26.projetTut.metier;
 
 public class Dalle
 {
-	private final int[] MODIF_X  = new int[] { 0 , 49, 49, 0 ,-49,-49};
+	private final int[] MODIF_X  = new int[] {  0, 49, 49,  0,-49,-49};
 	private final int[] MODIF_Y  = new int[] {-67,-33, 33, 67, 33,-33};
 	private final int[] PILIER_X = new int[] {-16, 16, 33, 16,-16,-33};
 	private final int[] PILIER_Y = new int[] {-33,-33,  0, 33, 33,  0};
@@ -22,8 +22,8 @@ public class Dalle
 	public Dalle(int x, int y)
 	{
 		this.nom = Dalle.nbDalle++;
-		this.dallesVoisines =  new  Dalle[6];
-		this.piliers        =  new Pilier[6];
+		this.dallesVoisines = new   Dalle[6];
+		this.piliers        = new  Pilier[6];
 		this.construire     = new boolean[6];
 		this.RAZConstruire();
 		this.x = x;
@@ -32,8 +32,8 @@ public class Dalle
 		//this.detruit = new int[] {0,0};
 	}
 	
-	public void setX  (int x){this.x = x   ;}
-	public void setY  (int y){this.y = y   ;}
+	public void setX  (int x){this.x = x          ;}
+	public void setY  (int y){this.y = y          ;}
 	public int  getX       (){return this.x       ;}
 	public int  getY       (){return this.y       ;}
 	public char getNom     (){return this.nom     ;}
@@ -61,7 +61,32 @@ public class Dalle
 		if(this.piliers[coin] != null || !this.construire[coin] ){return false;}
 		Pilier tmp = new Pilier(this.x + PILIER_X[coin], this.y + PILIER_Y[coin]);
 		this.piliers[coin] = tmp;
-		//on vérifie si on arrive à 4 piliers
+		4Pilier(tmp);
+		
+		if(this.voisines[coin] != null)
+		{
+			int c = coin - 2;
+			if(c < 0){c += 6;}
+			this.voisines[coin].setPilier(c, tmp);
+		}
+		int voisine = coin - 1;
+		if(voisine == -1){voisine = 5;}
+		if(this.voisines[voisine] != null)
+		{
+			
+			int v = voisine - 3;
+			if(v < 0){v += 6;}
+			this.voisines[voisine].setPilier(v, tmp);
+		}
+		
+	}
+	private void setPilier(int coin, Pilier p)
+	{
+		this.piliers[coin] = p;
+	}
+	
+	public void 4Piliers(Pilier tmp)
+	{
 		int cpt = 0;
 		for(Pilier p : this.piliers)
 			if(p != null)
@@ -69,7 +94,6 @@ public class Dalle
 		if(cpt == 4){this.priseControle(tmp.getCoul());}
 		return true;
 	}
-  
 	public void detruire(int coin)
 	{
 		switch(this.piliers[coin].getCoul())
@@ -78,10 +102,39 @@ public class Dalle
 			case 'M' : /*------- ---------------2*/; break;
 			default  : break;
 		}
-		this.piliers[coin]    = null;
+		this.piliers[coin]    =  null;
+		this.construire[coin] = false;
+		
+		if(this.voisines[coin] != null)
+		{
+			int c = coin - 2;
+			if(c < 0){c += 6;}
+			this.voisines[coin].casserPilier(c);
+		}
+		int voisine = coin - 1;
+		if(voisine == -1){voisine = 5;}
+		if(this.voisines[voisine] != null)
+		{
+			int v = voisine - 3;
+			if(v < 0){v += 6;}
+			this.voisines[voisine].casserPilier(v);
+		}
+		perteControle()
+	}
+	private void casserPilier(int coin)
+	{
+		this.piliers[coin]    =  null;
 		this.construire[coin] = false;
 	}
-  
+	
+	public void perteControle()
+	{
+		int pilier=0;
+		for(Pilier p : this.piliers)
+			if(p.getCoul() == this.getControle()){pilier ++;}
+		if(pilier < 4){this.setControle('p');}
+
+	}
 	public boolean ajouterVoisine(int cote, Dalle d)
 	{
 		if(this.dallesVoisines[cote] != null){return false;}
