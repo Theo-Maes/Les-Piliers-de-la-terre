@@ -9,13 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.*;
 
-public class PanelChoix extends JPanel implements ActionListener
+public class PanelChoixMenu extends JPanel implements ActionListener
 {
 	private FrameMenu frameMenu;
 	private JButton btnPlateauAuto;
 	private JButton btnPlateauCustom;
 
-	public PanelChoix(FrameMenu frameMenu) 
+	public PanelChoixMenu(FrameMenu frameMenu) 
 	{
 		this.frameMenu = frameMenu;
 
