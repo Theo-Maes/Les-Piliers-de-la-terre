@@ -13,27 +13,26 @@ import iut.equipe26.projetTut.metier.Plateau;
  * @author Pierre
  */
 
-public class Controleur {
+public class Controleur 
+{
 	
 	private Plateau plateau;
 	private FrameMenu frameMenu;
 	private static Controleur instance;
 
-	public Controleur() {
+	public Controleur() 
+	{
 		Controleur.instance = this;
 
 		this.plateau   = new Plateau();
 		this.frameMenu = new FrameMenu();
-
 	}
 
-	public static Controleur getInstance() {
-		return instance;
-	}
+	public static Controleur getInstance() { return instance; }
+	public        Plateau    getPlateau()  { return plateau;  }
 
-	public Plateau getPlateau() { return plateau; }
-
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		new Controleur();
 	}
 }
