@@ -19,6 +19,7 @@ public class PanelStat extends JPanel
 		
 		Font fontNomJoueur = new Font("Courier", Font.BOLD, 30);
 		JLabel lblNomJoueur = new JLabel(this.joueur.getNom(), JLabel.CENTER);
+		lblNomJoueur.setForeground(this.joueur.getCouleur());
 		lblNomJoueur.setFont(fontNomJoueur);
 		
 		ImageIcon imgAvatar = new ImageIcon("src/ressource/avatar/" + this.joueur.getAvatar() + ".png");
