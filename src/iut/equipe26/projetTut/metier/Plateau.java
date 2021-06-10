@@ -19,7 +19,9 @@ public class Plateau
 	
 	private Boolean bMVictoire = false;
 	private Boolean bGVictoire = false;
-
+  
+	private Boolean bEgalite   = false;
+	
 	private static int compteur = 0;
 	
 	private Joueur j1;	//G
@@ -153,8 +155,7 @@ public class Plateau
 		{
 			if ( m == g )
 			{
-				this.bMVictoire = verifEgalite();
-				this.bGVictoire = !this.bMVictoire;
+				verifEgalite();
 			}
 				
 			else
@@ -167,16 +168,11 @@ public class Plateau
 		
 	}
   
-	public boolean verifEgalite()
+	public void verifEgalite()
 	{
-		if ( this.j1.getPilierDetruit() == this.j2.getPilierDetruit() )
-		{
-			return true;
-			//Afficher ecran egalité
-		}
-		else
-			return this.j2.getPilierDetruit() > this.j1.getPilierDetruit();
-		
+		if( this.j1.getPilierDetruit() == this.j2.getPilierDetruit() )  this.bEgalite   = true;
+		if( this.j1.getPilierDetruit() > this.j2.getPilierDetruit () )  this.bGVictoire = true;
+		if( this.j2.getPilierDetruit() > this.j1.getPilierDetruit () )  this.bMVictoire = true;
 	}
 	
 	public void ajoutPilier(Dalle d, int coin)	//Ajout d'un pilier
