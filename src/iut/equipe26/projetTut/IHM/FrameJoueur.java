@@ -17,10 +17,12 @@ public class FrameJoueur extends JFrame
 		this.setLocation(50,50);
 		this.setSize(200, 600);
 		this.setLayout( new BorderLayout());
+
 		//creation
 		this.panelJoueur = new PanelJoueur(j)   ;
 		this.panelChoix  = new PanelChoix (this);
 		this.panelAction = new PanelAction(this);
+		
 		//positionnement
 		this.add(this.panelJoueur,BorderLayout.NORTH );
 		this.add(this.panelChoix, BorderLayout.CENTER);
@@ -39,10 +41,14 @@ public class FrameJoueur extends JFrame
 	{
 		this.panelJoueur.setAvatar(avatar);
 	}
+
+
 	public void setCouleur(String couleur)
 	{
 		this.panelJoueur.setCouleur(couleur);
 	}
+
+
 	public boolean getChoix(){return this.panelChoix.getChoix();}
 	
 	public void changerAvatar (){this.panelChoix.changerAvatar ();}
