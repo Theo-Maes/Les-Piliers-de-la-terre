@@ -1,6 +1,9 @@
 package iut.equipe26.projetTut.IHM;
 
 import javax.swing.*;
+
+import iut.equipe26.projetTut.Controleur;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -101,7 +104,6 @@ public class FrameFinPartie extends JFrame implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		if (e.getSource() == this.btnQuitter)
-			 System.exit(0);
+		Controleur.getInstance().setFrameJeuActuelle(new FrameMenu());
 	}
 }
