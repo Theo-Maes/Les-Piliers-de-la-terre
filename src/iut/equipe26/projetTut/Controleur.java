@@ -69,17 +69,17 @@ public class Controleur extends ComponentAdapter
 		{
 			this.frameActuelle.setLocation( (int) this.frameJoueurD.getLocation().getX() - this.frameActuelle.getWidth(), (int) this.frameJoueurD.getLocation().getY());
 			this.frameJoueurG .setLocation( (int) this.frameActuelle .getLocation().getX() - this.frameJoueurG.getWidth(), (int) this.frameJoueurD.getLocation().getY());
-			return;
+			//return;
 		}
 
 		if(e.getSource() == this.frameJoueurG) 
 		{
 			this.frameActuelle.setLocation( (int) this.frameJoueurG  .getLocation().getX() + this.frameJoueurG.getWidth(), (int) this.frameJoueurG.getLocation().getY());
 			this.frameJoueurD .setLocation( (int) this.frameActuelle .getLocation().getX() + this.frameActuelle.getWidth(), (int) this.frameJoueurG.getLocation().getY());
-			return;
+			//return;
 		}
 
-		this.frameJoueurG.setLocation( (int) this.frameActuelle.getLocation().getX()-  this.frameJoueurG.getWidth(), (int) this.frameActuelle.getLocation().getY());
+		this.frameJoueurG.setLocation( (int) this.frameActuelle.getLocation().getX() - this.frameJoueurG.getWidth(), (int) this.frameActuelle.getLocation().getY());
 		this.frameJoueurD.setLocation( (int) this.frameActuelle.getLocation().getX() + this.frameActuelle.getWidth(), (int) this.frameActuelle.getLocation().getY());
 	}
 
