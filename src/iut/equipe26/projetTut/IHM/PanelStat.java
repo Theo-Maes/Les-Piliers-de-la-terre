@@ -61,13 +61,13 @@ public class PanelStat extends JPanel
 		JPanel panelInfo = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel lblNbPilierDetruit = new JLabel("Nombre de pilier detruit : " + this.joueur.getPilierDetruit());
 		JLabel lblNbDalle         = new JLabel("Nombre de dalle(s) possédé(s) : " + this.joueur.getNbDalle() + "/9");
-		// JLabel lblDallePerdue     = new JLabel("Nombre de dalle(s) perdue(s) : " + this.joueur.getDallePerdue());
+		JLabel lblDallePerdue     = new JLabel("Nombre de dalle(s) perdue(s) : " + this.joueur.getDallePerdue());
 		JLabel lblDalleTotal      = new JLabel("Nombre de dalle(s) gagnée(s) en tout : " + ( this.joueur.getNbDalle() + this.joueur.getDallePerdue() ) );
 		
 		
 		panelInfo.add(lblNbPilierDetruit);
 		panelInfo.add(lblNbDalle);
-		//panelInfo.add(lblDallePerdue);
+		panelInfo.add(lblDallePerdue);
 		
 		panelInfoMilieu.add(panelPilierRestant);
 		panelInfoMilieu.add(panelInfo);

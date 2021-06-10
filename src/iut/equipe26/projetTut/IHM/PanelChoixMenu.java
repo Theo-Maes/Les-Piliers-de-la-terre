@@ -11,13 +11,11 @@ import java.awt.*;
 
 public class PanelChoixMenu extends JPanel implements ActionListener
 {
-	private FrameMenu frameMenu;
 	private JButton btnPlateauAuto;
 	private JButton btnPlateauCustom;
 
-	public PanelChoixMenu(FrameMenu frameMenu) 
+	public PanelChoixMenu() 
 	{
-		this.frameMenu = frameMenu;
 
 		this.setLayout(null);
 
@@ -54,6 +52,6 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 			Controleur.getInstance().getPlateau().plateauAuto();
 		}
 
-		Controleur.getInstance().setFrameActuelle(new FrameJeu());
+		Controleur.getInstance().setframeJeuActuelle(new FrameJeu());
 	}
 }

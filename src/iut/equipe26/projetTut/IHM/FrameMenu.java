@@ -12,11 +12,11 @@ public class FrameMenu extends JFrame
 		this.setSize(700, 600);
 
 		
-		this.add(new PanelChoixMenu(this) );
+		this.add(new PanelChoixMenu() );
 
 
 		this.addComponentListener(Controleur.getInstance());
-		this.addWindowListener(Controleur.getInstance());
+		this.addWindowListener   (Controleur.getInstance());
 
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
