@@ -39,6 +39,8 @@ public class Dalle
 	public char getNom     (){return this.nom     ;}
 	public char getControle(){return this.controle;}
 	
+	public void setControle(char c){this.controle = c;}
+	
 	private void setVoisine(int cote, Dalle d)
 	{
 		if(cote > 2 ){cote -= 3;}
@@ -61,38 +63,37 @@ public class Dalle
 		if(this.piliers[coin] != null || !this.construire[coin] ){return false;}
 		Pilier tmp = new Pilier(this.x + PILIER_X[coin], this.y + PILIER_Y[coin]);
 		this.piliers[coin] = tmp;
-		4Pilier(tmp);
+		piliersCapture(tmp);
 		
-		if(this.voisines[coin] != null)
+		if(this.dallesVoisines[coin] != null)
 		{
 			int c = coin - 2;
 			if(c < 0){c += 6;}
-			this.voisines[coin].setPilier(c, tmp);
+			this.dallesVoisines[coin].setPilier(c, tmp);
 		}
 		int voisine = coin - 1;
 		if(voisine == -1){voisine = 5;}
-		if(this.voisines[voisine] != null)
+		if(this.dallesVoisines[voisine] != null)
 		{
 			
 			int v = voisine - 3;
 			if(v < 0){v += 6;}
-			this.voisines[voisine].setPilier(v, tmp);
+			this.dallesVoisines[voisine].setPilier(v, tmp);
 		}
-		
+		return true;
 	}
 	private void setPilier(int coin, Pilier p)
 	{
 		this.piliers[coin] = p;
 	}
 	
-	public void 4Piliers(Pilier tmp)
+	public void piliersCapture(Pilier tmp)
 	{
 		int cpt = 0;
 		for(Pilier p : this.piliers)
 			if(p != null)
 				if(p.getCoul() == tmp.getCoul()){cpt++;}
 		if(cpt == 4){this.priseControle(tmp.getCoul());}
-		return true;
 	}
 	public void detruire(int coin)
 	{
@@ -105,21 +106,21 @@ public class Dalle
 		this.piliers[coin]    =  null;
 		this.construire[coin] = false;
 		
-		if(this.voisines[coin] != null)
+		if(this.dallesVoisines[coin] != null)
 		{
 			int c = coin - 2;
 			if(c < 0){c += 6;}
-			this.voisines[coin].casserPilier(c);
+			this.dallesVoisines[coin].casserPilier(c);
 		}
 		int voisine = coin - 1;
 		if(voisine == -1){voisine = 5;}
-		if(this.voisines[voisine] != null)
+		if(this.dallesVoisines[voisine] != null)
 		{
 			int v = voisine - 3;
 			if(v < 0){v += 6;}
-			this.voisines[voisine].casserPilier(v);
+			this.dallesVoisines[voisine].casserPilier(v);
 		}
-		perteControle()
+		perteControle();
 	}
 	private void casserPilier(int coin)
 	{
