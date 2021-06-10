@@ -198,14 +198,14 @@ public class Plateau
 	
 	public boolean enfermement(Dalle d, int coin)//int coin = indice du pilier posé
 	{
-		Piliers[] tabPilier = d.getPiliers();	//Les piliers de la dalle où ont ajoute le pilier
+		Pilier[] tabPilier = d.getPiliers();	//Les piliers de la dalle où ont ajoute le pilier
 		
-		if (d.getPrc(coin).getCoul() == tabPilier[coin])	return false;	//Si l'un des deux est de la meme couleur
-		if (d.getSvt(coin).getCoul() == tabPilier[coin])	return false;
+		if (d.getPrc(coin).getCoul() == tabPilier[coin].getCoul())	return false;	//Si l'un des deux est de la meme couleur
+		if (d.getSvt(coin).getCoul() == tabPilier[coin].getCoul())	return false;
 		
 		
 		//Pour les précedents
-		if (d.getPrc(coin).getCoul() != tabPilier[coin])
+		if (d.getPrc(coin).getCoul() != tabPilier[coin].getCoul())
 		{
 			Pilier p = d.getPrc(coin);
 			
@@ -214,10 +214,11 @@ public class Plateau
 			
 			if (d.getPrc(coinPrc) != null && d.getPrc(coinPrc).getCoul() != p.getCoul())
 			{
+				int coin0 = coinPrc-1;
+				if (coin0<0)coin0 = 5;
+				
 				if(d.getDalleV(coinPrc) == null)
 				{
-					int coin0 = coinPrc-1;
-					if (coin0<0)coin0 = 5;
 					if(d.getDalleV(coin0) == null)
 					{
 						d.detruire(coinPrc);
@@ -252,12 +253,10 @@ public class Plateau
 					return true;
 				}
 			}
-				
-			getSvt
 		}
 		
 		//Pour les suivants
-		if (d.getSvt(coin).getCoul() != tabPilier[coin])
+		if (d.getSvt(coin).getCoul() != tabPilier[coin].getCoul())
 		{
 			Pilier p = d.getSvt(coin);
 			
@@ -266,10 +265,11 @@ public class Plateau
 			
 			if (d.getSvt(getSvt) != null && d.getSvt(getSvt).getCoul() != p.getCoul())
 			{
+				int coin0 = getSvt-1;
+				if (coin0<0)coin0 = 5;
+
 				if(d.getDalleV(getSvt) == null)
 				{
-					int coin0 = getSvt-1;
-					if (coin0<0)coin0 = 5;
 					if(d.getDalleV(coin0) == null)
 					{
 						d.detruire(getSvt);
@@ -304,9 +304,8 @@ public class Plateau
 					return true;
 				}
 			}
-				
-			
 		}
+		return false;
 	}
 	
 	
