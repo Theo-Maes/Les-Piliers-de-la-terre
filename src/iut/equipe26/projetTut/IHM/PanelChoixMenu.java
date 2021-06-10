@@ -13,6 +13,7 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 {
 	private JButton btnPlateauAuto;
 	private JButton btnPlateauCustom;
+	private JButton btnQuitter;
 
 	public PanelChoixMenu() 
 	{
@@ -22,18 +23,22 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 
 		this.btnPlateauAuto   = new JButton("Plateau Automatique");
 		this.btnPlateauCustom = new JButton("Plateau Custom"     );
+		this.btnQuitter       = new JButton("Quitter"            );
 
 
-		this.btnPlateauAuto   .setBounds(200, 265, 260, 76);
-		this.btnPlateauCustom .setBounds(200, 370, 260, 76);
+		this.btnPlateauAuto   .setBounds(700/2-260/2, 265   , 260, 76);
+		this.btnPlateauCustom .setBounds(700/2-260/2, 370   , 260, 76);
+		this.btnQuitter       .setBounds(700-100    , 600-75, 100, 50);
 
 
 		this.add(this.btnPlateauAuto   );
 		this.add(this.btnPlateauCustom );	
+		this.add(this.btnQuitter       );
 
 	
 		this.btnPlateauAuto   .addActionListener(this);
 		this.btnPlateauCustom .addActionListener(this);
+		this.btnQuitter       .addActionListener(this);
 
 	}
 
@@ -48,10 +53,11 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 	
 	public void actionPerformed(ActionEvent e) 
 	{
+		if (e.getSource() == this.btnQuitter) System.exit(0);
 		if(e.getSource() == this.btnPlateauAuto) {
 			Controleur.getInstance().getPlateau().plateauAuto();
 		}
 
-		Controleur.getInstance().setframeJeuActuelle(new FrameJeu());
+		Controleur.getInstance().setFrameJeuActuelle(new FrameJeu());
 	}
 }
