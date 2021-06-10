@@ -9,6 +9,8 @@ public class Joueur
 	private int nbPilier;
 	private int nbDalle ;
 	private int pilierDetruit;
+	private int nbDallePerdue;
+	private int nbDalleTourAvant;
 	
 	public Joueur(String nom, String coul, String avatar)
 	{
@@ -16,9 +18,11 @@ public class Joueur
 		this.coul   = coul  ;
 		this.avatar = avatar;
 		
-		this.nbPilier      = 24;
-		this.nbDalle       =  0;
-		this.pilierDetruit =  0;
+		this.nbPilier         = 24;
+		this.nbDalle          =  0;
+		this.pilierDetruit    =  0;
+		this.nbDallePerdue    =  0;
+		this.nbDalleTourAvant =  0;
 	}
 	
 	public Joueur(){this("","","");}
@@ -29,6 +33,7 @@ public class Joueur
 	public int getNbPilier     (){return this.nbPilier     ;}
 	public int getNbDalle      (){return this.nbDalle      ;}
 	public int getPilierDetruit(){return this.pilierDetruit;}
+	public int getDallePerdue  (){return this.nbDallePerdue;}
 	
 	public void setNom   (String nom)   {this.nom = nom      ;}
 	public void setCoul  (String coul)  {this.coul = coul    ;}
@@ -60,6 +65,12 @@ public class Joueur
 		if(this.nbPilier<1){return false;}
 		this.nbPilier--;
 		return true;
+	}
+	
+	public void dallePerdue()
+	{
+		if(this.nbDalleTourAvant > this.nbDalle)this.nbDallePerdue++;
+		this.nbDalleTourAvant = this.nbDalle;
 	}
 	public String toString()
 	{
