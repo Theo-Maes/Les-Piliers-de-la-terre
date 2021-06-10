@@ -32,12 +32,33 @@ public class Dalle
 		//this.detruit = new int[] {0,0};
 	}
 	
-	public void setX  (int x){this.x = x          ;}
-	public void setY  (int y){this.y = y          ;}
-	public int  getX       (){return this.x       ;}
-	public int  getY       (){return this.y       ;}
-	public char getNom     (){return this.nom     ;}
-	public char getControle(){return this.controle;}
+	public void setX  (int x){this.x = x           ;}
+	public void setY  (int y){this.y = y           ;}
+	public int  getX       (){return this.x        ;}
+	public int  getY       (){return this.y        ;}
+	public char getNom     (){return this.nom      ;}
+	public char getControle(){return this.controle ;}
+	public Pilier[] getPiliers(){return this.piliers;}
+	
+	public Pilier getPrc(int coin)
+	{
+		coin = coin-1;
+		if (coin<0)coin = 5;
+		return this.piliers[coin];
+	}
+	
+	public Pilier getSvt(int coin)
+	{
+		coin = coin+1;
+		if(coin>5)
+			coin = 0;
+		return this.piliers[coin];
+	}
+	
+	public Dalle getDalleV(int coin)
+	{
+		return this.dallesVoisines[coin];
+	}
 	
 	public void setControle(char c){this.controle = c;}
 	
@@ -136,6 +157,7 @@ public class Dalle
 		if(pilier < 4){this.setControle('p');}
 
 	}
+	
 	public boolean ajouterVoisine(int cote, Dalle d)
 	{
 		if(this.dallesVoisines[cote] != null){return false;}
@@ -145,7 +167,27 @@ public class Dalle
 		d.setVoisine(cote, this);
 		return true;
 	}
-  
+	
+	public Pilier[] repererPilierVoisin(int coin)
+    {
+        Pilier[] pilierVoisin = new Pilier[3];
+        int c1 = coin + 1;
+        int c2 = coin - 1;
+        if(c1 > 5){c1 = 0;}
+        if(c2 < 0){c2 = 5;}
+        pilierVoisin[0] = this.piliers[c1];
+        pilierVoisin[1] = this.piliers[c2];
+        if(this.dalleVoisine[coin] != null)
+            pilierVoisin[2] = this.dalleVoisine[coin].this.pilier[c1];
+        else
+            if(this.dalleVoisine[c1] != null)
+                pilierVoisin[2] = this.dalleVoisine[coin].this.pilier[c2];
+
+        }
+        
+        return pilierVoisin;
+    }
+	
   	public void RAZConstruire()
 	{
 		for(int cpt=0;cpt<6;cpt++)
