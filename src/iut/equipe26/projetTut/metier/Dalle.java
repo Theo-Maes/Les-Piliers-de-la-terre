@@ -168,26 +168,6 @@ public class Dalle
 		return true;
 	}
 	
-	public Pilier[] repererPilierVoisin(int coin)
-    {
-        Pilier[] pilierVoisin = new Pilier[3];
-        int c1 = coin + 1;
-        int c2 = coin - 1;
-        if(c1 > 5){c1 = 0;}
-        if(c2 < 0){c2 = 5;}
-        pilierVoisin[0] = this.piliers[c1];
-        pilierVoisin[1] = this.piliers[c2];
-        if(this.dalleVoisine[coin] != null)
-            pilierVoisin[2] = this.dalleVoisine[coin].this.pilier[c1];
-        else
-            if(this.dalleVoisine[c1] != null)
-                pilierVoisin[2] = this.dalleVoisine[coin].this.pilier[c2];
-
-        }
-        
-        return pilierVoisin;
-    }
-	
   	public void RAZConstruire()
 	{
 		for(int cpt=0;cpt<6;cpt++)

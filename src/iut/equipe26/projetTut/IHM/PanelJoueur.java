@@ -40,7 +40,7 @@ public class PanelJoueur extends JPanel implements ActionListener,FocusListener
 
 		//positionnement
 
-		this.panelPseudo.add ( new JLabel( "Pseudo" ) );
+		this.panelPseudo.add ( new JLabel( "Pseudo", JLabel.CENTER ) );
 		this.panelPseudo.add ( this.txtPseudo );
 
 		this.add ( this.panelPseudo, BorderLayout.NORTH  );
