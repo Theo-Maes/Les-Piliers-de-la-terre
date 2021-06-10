@@ -36,6 +36,7 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 	
 		this.btnPlateauAuto   .addActionListener(this);
 		this.btnPlateauCustom .addActionListener(this);
+
 	}
 
 
@@ -54,6 +55,6 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 		}
 
 		this.frameMenu.setVisible(false);
-		new FrameJeu();
+		Controleur.getInstance().setFrameActuelle(new FrameJeu());
 	}
 }

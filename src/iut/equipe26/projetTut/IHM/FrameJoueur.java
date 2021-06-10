@@ -1,5 +1,6 @@
 package iut.equipe26.projetTut.IHM;
 
+import iut.equipe26.projetTut.Controleur;
 import iut.equipe26.projetTut.metier.Joueur;
 import javax.swing.*;
 import java.awt.BorderLayout;
@@ -9,8 +10,7 @@ public class FrameJoueur extends JFrame
 	private PanelJoueur panelJoueur;
 	private PanelChoix  panelChoix ;
 	private PanelAction panelAction;
-	
-	
+
 	public FrameJoueur(Joueur j)
 	{
 		this.setTitle("Joueur");
@@ -28,10 +28,11 @@ public class FrameJoueur extends JFrame
 		
 		//activation
 		
-		
+		this.addComponentListener(Controleur.getInstance());
 		
 		//autres
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		this.setResizable(false);
 		this.setVisible(true);
 	}
 	
@@ -48,9 +49,4 @@ public class FrameJoueur extends JFrame
 	public void changerAvatar (){this.panelChoix.changerAvatar ();}
 	public void changerCouleur(){this.panelChoix.changerCouleur();}
 	
-	public static void main(String[] args)
-	{
-		Joueur j = new Joueur("Alan","violet","1664");
-		new FrameJoueur(j);
-	}
 }

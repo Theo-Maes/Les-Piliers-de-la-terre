@@ -1,4 +1,4 @@
-//package iut.equipe26.projetTut.IHM;
+package iut.equipe26.projetTut.IHM;
 
 import javax.swing.*;
 import java.awt.*;
@@ -97,7 +97,6 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible(true);
-		
 	}
 	
 	public void actionPerformed(ActionEvent e)

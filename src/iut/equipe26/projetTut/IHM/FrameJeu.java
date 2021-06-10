@@ -1,9 +1,7 @@
 package iut.equipe26.projetTut.IHM;
 
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import iut.equipe26.projetTut.Controleur;
 
 public class FrameJeu extends JFrame 
 {
@@ -30,7 +28,9 @@ public class FrameJeu extends JFrame
 		this.add(bgPanel);
 		this.majIHM();
 
+		this.addComponentListener(Controleur.getInstance());
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setResizable(false);
 		this.setVisible(true);
 	}
 
