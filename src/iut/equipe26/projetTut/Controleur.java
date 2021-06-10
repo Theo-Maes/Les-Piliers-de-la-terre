@@ -68,8 +68,8 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		
 		if(this.frameActuelle == null || this.frameJoueurD == null || this.frameJoueurG == null ) return;
 
-		this.frameJoueurG.setLocation( (int) this.frameActuelle.getLocation().getX() - this.frameJoueurG.getWidth(), (int) this.frameActuelle.getLocation().getY());
-		this.frameJoueurD.setLocation( (int) this.frameActuelle.getLocation().getX() + this.frameActuelle.getWidth(), (int) this.frameActuelle.getLocation().getY());
+		this.frameJoueurG.setLocation( (int) this.frameActuelle.getLocation().getX() - 5 - this.frameJoueurG.getWidth(), (int) this.frameActuelle.getLocation().getY());
+		this.frameJoueurD.setLocation( (int) this.frameActuelle.getLocation().getX() + 5 + this.frameActuelle.getWidth(), (int) this.frameActuelle.getLocation().getY());
 	}
 
 	public void windowIconified(WindowEvent e) 

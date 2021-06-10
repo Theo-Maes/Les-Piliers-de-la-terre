@@ -30,14 +30,19 @@ public class PanelChoix extends JPanel implements ActionListener
 			this.boutons[cpt] = new JButton(new ImageIcon(tmp2));
 			this.boutons[cpt].setPreferredSize(new Dimension(20,20));
 		}
+
+
 		//positionnement
 		for(int cpt=0; cpt<this.boutons.length; cpt++)
 			this.add(this.boutons[cpt]);
+
+
 		//activation
 		for(int cpt=0; cpt<this.boutons.length; cpt++)
 			this.boutons[cpt].addActionListener(this);
 	}
 	
+
 	public void actionPerformed(ActionEvent e)
 	{
 		for(int cpt=0; cpt<this.boutons.length; cpt++)
