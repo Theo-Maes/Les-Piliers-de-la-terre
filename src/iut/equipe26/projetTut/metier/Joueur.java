@@ -1,10 +1,14 @@
 package iut.equipe26.projetTut.metier;
 
+import java.awt.Color;
+
 public class Joueur
 {
 	private String    nom;
 	private String   coul;
 	private String avatar;
+	
+	private Color couleur;
 	
 	private int nbPilier;
 	private int nbDalle ;
@@ -14,9 +18,11 @@ public class Joueur
 	
 	public Joueur(String nom, String coul, String avatar)
 	{
-		this.nom    = nom   ;
-		this.coul   = coul  ;
-		this.avatar = avatar;
+		this.nom     = nom   ;
+		this.coul    = coul  ;
+		this.avatar  = avatar;
+		
+		this.couleur = this.setCouleur();
 		
 		this.nbPilier         = 24;
 		this.nbDalle          =  0;
@@ -30,14 +36,33 @@ public class Joueur
 	public String getNom       (){return this.nom          ;}
 	public String getCoul      (){return this.coul         ;}
 	public String getAvatar    (){return this.avatar       ;}
+	public Color getCouleur    (){return this.couleur      ;}
 	public int getNbPilier     (){return this.nbPilier     ;}
 	public int getNbDalle      (){return this.nbDalle      ;}
 	public int getPilierDetruit(){return this.pilierDetruit;}
 	public int getDallePerdue  (){return this.nbDallePerdue;}
 	
+	
 	public void setNom   (String nom)   {this.nom = nom      ;}
 	public void setCoul  (String coul)  {this.coul = coul    ;}
 	public void setAvatar(String avatar){this.avatar = avatar;}
+	
+	public Color setCouleur()
+	{
+		switch(this.coul)
+		{
+			case "rouge"  -> {return new Color( 255,   0,   0  );}
+			case "marron" -> {return new Color(  96,  64,  44  );}
+			case "violet" -> {return new Color( 132,  11, 199  );}
+			case "vert"   -> {return new Color(  67, 216,  76  );}
+			case "cyan"   -> {return new Color(  24, 237, 230  );}
+			case "bleu"   -> {return new Color(  27,  32, 240  );}
+			case "jaune"  -> {return new Color( 196, 205,  36  );}
+			case "orange" -> {return new Color( 255, 129,  50  );}
+			default       -> {return new Color(  48,  46,  46  );}//Gris
+			
+		}
+	}
 	
 	public boolean priseDalle(int nb)
 	{
