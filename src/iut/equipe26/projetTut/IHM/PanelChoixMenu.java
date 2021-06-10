@@ -54,7 +54,6 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 			Controleur.getInstance().getPlateau().plateauAuto();
 		}
 
-		this.frameMenu.setVisible(false);
 		Controleur.getInstance().setFrameActuelle(new FrameJeu());
 	}
 }

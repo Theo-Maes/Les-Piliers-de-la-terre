@@ -27,11 +27,10 @@ public class FrameJoueur extends JFrame
 		this.add(this.panelAction,BorderLayout.SOUTH );
 		
 		//activation
-		
-		this.addComponentListener(Controleur.getInstance());
-		
+		this.addWindowListener(Controleur.getInstance());
+
 		//autres
-		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+		this.setUndecorated(true);
 		this.setResizable(false);
 		this.setVisible(true);
 	}

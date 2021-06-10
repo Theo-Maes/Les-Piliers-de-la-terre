@@ -16,8 +16,9 @@ public class FrameMenu extends JFrame
 
 
 		this.addComponentListener(Controleur.getInstance());
+		this.addWindowListener(Controleur.getInstance());
 
-
+		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setVisible(true);
