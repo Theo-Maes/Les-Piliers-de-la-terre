@@ -39,7 +39,7 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		
 		this.plateau   = new Plateau();
 		
-		this.setframeJeuActuelle(new FrameMenu());
+		this.setFrameJeuActuelle(new FrameMenu());
 		this.setframeSuiviActuelle(new FrameJoueur(new Joueur()), new FrameJoueur(new Joueur()));
 
 
@@ -52,7 +52,7 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 	public        Plateau    getPlateau()  { return plateau;  }
 
 
-	public void setframeJeuActuelle(JFrame frameJeuActuelle) 
+	public void setFrameJeuActuelle(JFrame frameJeuActuelle) 
 	{
 		if(this.frameJeuActuelle != null) this.frameJeuActuelle.dispose();
 		 this.frameJeuActuelle = frameJeuActuelle;
