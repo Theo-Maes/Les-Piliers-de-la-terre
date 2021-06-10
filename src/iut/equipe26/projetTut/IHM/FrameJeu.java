@@ -28,7 +28,11 @@ public class FrameJeu extends JFrame
 		this.add(bgPanel);
 		this.majIHM();
 
+		
 		this.addComponentListener(Controleur.getInstance());
+		this.addWindowListener(Controleur.getInstance());
+
+
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setVisible(true);

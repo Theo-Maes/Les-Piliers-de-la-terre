@@ -7,8 +7,11 @@ import iut.equipe26.projetTut.metier.Plateau;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
+
 import java.awt.Toolkit;
 
 /** Les Piliers de la terres
@@ -20,7 +23,7 @@ import java.awt.Toolkit;
  * @author Pierre
  */
 
-public class Controleur extends ComponentAdapter
+public class Controleur extends ComponentAdapter implements	WindowListener 
 {
 	
 	private Plateau     plateau;
@@ -36,25 +39,24 @@ public class Controleur extends ComponentAdapter
 		Controleur.instance = this;
 		
 		this.plateau   = new Plateau();
-
+		
 		this.setFrameActuelle(new FrameMenu());
 
 		this.frameJoueurG = new FrameJoueur(new Joueur());
 		this.frameJoueurD = new FrameJoueur(new Joueur());
 
 		this.frameJoueurG.setLocation( (int) this.frameActuelle.getLocation().getX() - this.frameJoueurG.getWidth(), (int) this.frameActuelle.getLocation().getY());
-		this.frameJoueurD.setLocation( (int) this.frameActuelle.getLocation().getX() + this.frameActuelle   .getWidth(), (int) this.frameActuelle.getLocation().getY());
+		this.frameJoueurD.setLocation( (int) this.frameActuelle.getLocation().getX() + this.frameActuelle.getWidth(), (int) this.frameActuelle.getLocation().getY());
 	}
 
 
-	public static Controleur getInstance() { return instance; }
-
-
-	public Plateau getPlateau() { return plateau; }
+	public static Controleur getInstance() { return instance; }	
+	public        Plateau    getPlateau()  { return plateau;  }
 
 
 	public void setFrameActuelle(JFrame frameActuelle) 
 	{
+		if(this.frameActuelle != null) this.frameActuelle.dispose();
 		 this.frameActuelle = frameActuelle;
 		 this.frameActuelle.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-this.frameActuelle.getWidth()/2, 
 		 								Toolkit.getDefaultToolkit().getScreenSize().height/2-this.frameActuelle.getHeight()/2);
@@ -63,27 +65,34 @@ public class Controleur extends ComponentAdapter
 
 	public void componentMoved(ComponentEvent e)
 	{
+		
 		if(this.frameActuelle == null || this.frameJoueurD == null || this.frameJoueurG == null ) return;
-
-		if(e.getSource() == this.frameJoueurD) 
-		{
-			this.frameActuelle.setLocation( (int) this.frameJoueurD.getLocation().getX() - this.frameActuelle.getWidth(), (int) this.frameJoueurD.getLocation().getY());
-			this.frameJoueurG .setLocation( (int) this.frameActuelle .getLocation().getX() - this.frameJoueurG.getWidth(), (int) this.frameJoueurD.getLocation().getY());
-			//return;
-		}
-
-		if(e.getSource() == this.frameJoueurG) 
-		{
-			this.frameActuelle.setLocation( (int) this.frameJoueurG  .getLocation().getX() + this.frameJoueurG.getWidth(), (int) this.frameJoueurG.getLocation().getY());
-			this.frameJoueurD .setLocation( (int) this.frameActuelle .getLocation().getX() + this.frameActuelle.getWidth(), (int) this.frameJoueurG.getLocation().getY());
-			//return;
-		}
 
 		this.frameJoueurG.setLocation( (int) this.frameActuelle.getLocation().getX() - this.frameJoueurG.getWidth(), (int) this.frameActuelle.getLocation().getY());
 		this.frameJoueurD.setLocation( (int) this.frameActuelle.getLocation().getX() + this.frameActuelle.getWidth(), (int) this.frameActuelle.getLocation().getY());
 	}
 
-	public static void main(String[] args) {
+	public void windowIconified(WindowEvent e) 
+	{
+		this.frameJoueurD.setState(JFrame.ICONIFIED);
+		this.frameJoueurG.setState(JFrame.ICONIFIED);
+	}
+
+	public void windowDeiconified(WindowEvent e) 
+	{
+		this.frameActuelle.setState(JFrame.NORMAL);
+		this.frameJoueurD.setState (JFrame.NORMAL);
+		this.frameJoueurG.setState (JFrame.NORMAL);
+	}
+
+	public void windowOpened     (WindowEvent e) {}
+	public void windowClosing    (WindowEvent e) {}
+	public void windowClosed     (WindowEvent e) {}
+	public void windowActivated  (WindowEvent e) {}
+	public void windowDeactivated(WindowEvent e) {}
+
+	public static void main(String[] args) 
+	{
 		new Controleur();
 	}
 }
