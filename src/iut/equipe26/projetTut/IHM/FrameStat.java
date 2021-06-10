@@ -14,7 +14,7 @@ public class FrameStat extends JFrame
 	public FrameStat(Joueur j)
 	{
 		this.j = j;
-		this.setTitle("Statistique de " + j.getNom() );
+		this.setTitle("Statistique de " + this.j.getNom() );
 		this.setLocation(50,50);
 		this.setSize(300, 600);
 		
