@@ -2,7 +2,10 @@ package iut.equipe26.projetTut.IHM;
 
 import iut.equipe26.projetTut.metier.Joueur;
 import javax.swing.*;
+
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
+
 import java.awt.event.*;
 import java.awt.Image;
 import java.awt.Dimension;
@@ -13,26 +16,41 @@ public class PanelJoueur extends JPanel implements ActionListener,FocusListener
 	private JTextField txtPseudo;
 	private JLabel     lblAvatar;
 	private JLabel    lblCouleur;
+
+	private JPanel    panelPseudo;
 	
 	public PanelJoueur(Joueur j)
 	{
 		this.j = j;
 		this.setPreferredSize(new Dimension (200,200));
+
+		this.setLayout ( new BorderLayout() );
+
 		//creation
+
 		this.txtPseudo  = new JTextField("<Pseudo>");
 		this.lblAvatar  = new JLabel();
 		this.setAvatar("iut");
 		this.lblCouleur = new JLabel();
 		this.setCouleur("gris");
+
+		this.panelPseudo = new JPanel();
+
+		this.panelPseudo.setLayout ( new GridLayout ( 2, 1) );
+
 		//positionnement
-		this.add(this.txtPseudo, BorderLayout.NORTH);
+
+		this.panelPseudo.add ( new JLabel( "Pseudo" ) );
+		this.panelPseudo.add ( this.txtPseudo );
+
+		this.add ( this.panelPseudo, BorderLayout.NORTH  );
 		this.add(this.lblAvatar,  BorderLayout.WEST);
 		this.add(this.lblCouleur, BorderLayout.EAST);
 		
 		//activation
 		
 		this.txtPseudo.addActionListener(this);
-		txtPseudo.addFocusListener(this); 
+		this.txtPseudo.addFocusListener(this); 
 
 	}
 	

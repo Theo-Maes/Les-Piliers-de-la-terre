@@ -15,7 +15,7 @@ public class FrameJoueur extends JFrame
 	{
 		this.setTitle("Joueur");
 		this.setLocation(50,50);
-		this.setSize(200, 600);
+		this.setSize(300, 600); 
 		this.setLayout( new BorderLayout());
 
 		//creation

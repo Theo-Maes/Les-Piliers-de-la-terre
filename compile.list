@@ -7,7 +7,6 @@
 ./src/iut/equipe26/projetTut/IHM/PanelChoix.java
 ./src/iut/equipe26/projetTut/IHM/PanelChoixMenu.java
 ./src/iut/equipe26/projetTut/IHM/PanelJoueur.java
-./src/iut/equipe26/projetTut/IHM/PanelStat.java
 
 ./src/iut/equipe26/projetTut/metier/Dalle.java
 ./src/iut/equipe26/projetTut/metier/Joueur.java
