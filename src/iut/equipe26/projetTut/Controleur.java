@@ -27,26 +27,24 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 {
 	
 	private Plateau     plateau;
-	private FrameJoueur frameJoueurG;
-	private FrameJoueur frameJoueurD;
-	private JFrame      frameActuelle;
+	private JFrame      frameJeuActuelle;
+	private JFrame      frameSuiviActuelleG;
+	private JFrame      frameSuiviActuelleD;
 
 	private static Controleur instance;
 
 	public Controleur() 
 	{
-
 		Controleur.instance = this;
 		
 		this.plateau   = new Plateau();
 		
-		this.setFrameActuelle(new FrameMenu());
+		this.setframeJeuActuelle(new FrameMenu());
+		this.setframeSuiviActuelle(new FrameJoueur(new Joueur()), new FrameJoueur(new Joueur()));
 
-		this.frameJoueurG = new FrameJoueur(new Joueur());
-		this.frameJoueurD = new FrameJoueur(new Joueur());
 
-		this.frameJoueurG.setLocation( (int) this.frameActuelle.getLocation().getX() - this.frameJoueurG.getWidth(), (int) this.frameActuelle.getLocation().getY());
-		this.frameJoueurD.setLocation( (int) this.frameActuelle.getLocation().getX() + this.frameActuelle.getWidth(), (int) this.frameActuelle.getLocation().getY());
+		this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + this.frameJeuActuelle.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
 	}
 
 
@@ -54,35 +52,50 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 	public        Plateau    getPlateau()  { return plateau;  }
 
 
-	public void setFrameActuelle(JFrame frameActuelle) 
+	public void setframeJeuActuelle(JFrame frameJeuActuelle) 
 	{
-		if(this.frameActuelle != null) this.frameActuelle.dispose();
-		 this.frameActuelle = frameActuelle;
-		 this.frameActuelle.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-this.frameActuelle.getWidth()/2, 
-		 								Toolkit.getDefaultToolkit().getScreenSize().height/2-this.frameActuelle.getHeight()/2);
+		if(this.frameJeuActuelle != null) this.frameJeuActuelle.dispose();
+		 this.frameJeuActuelle = frameJeuActuelle;
+		 this.frameJeuActuelle.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-this.frameJeuActuelle.getWidth()/2, 
+		 								Toolkit.getDefaultToolkit().getScreenSize().height/2-this.frameJeuActuelle.getHeight()/2);
+	}
+
+	public void setframeSuiviActuelle(JFrame frameSuiviActuelleG, JFrame frameSuiviActuelleD) 
+	{
+		if(this.frameSuiviActuelleG != null && this.frameSuiviActuelleD != null)
+		{
+			this.frameSuiviActuelleD.dispose();
+			this.frameSuiviActuelleG.dispose();
+		}
+		
+		this.frameSuiviActuelleG = frameSuiviActuelleG;
+		this.frameSuiviActuelleD = frameSuiviActuelleD;
+
+		this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + this.frameJeuActuelle.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
 	}
 
 
 	public void componentMoved(ComponentEvent e)
 	{
 		
-		if(this.frameActuelle == null || this.frameJoueurD == null || this.frameJoueurG == null ) return;
+		if(this.frameJeuActuelle == null || this.frameSuiviActuelleD == null || this.frameSuiviActuelleG == null ) return;
 
-		this.frameJoueurG.setLocation( (int) this.frameActuelle.getLocation().getX() - 5 - this.frameJoueurG.getWidth(), (int) this.frameActuelle.getLocation().getY());
-		this.frameJoueurD.setLocation( (int) this.frameActuelle.getLocation().getX() + 5 + this.frameActuelle.getWidth(), (int) this.frameActuelle.getLocation().getY());
+		this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - 5 - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + 5 + this.frameJeuActuelle.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
 	}
 
 	public void windowIconified(WindowEvent e) 
 	{
-		this.frameJoueurD.setState(JFrame.ICONIFIED);
-		this.frameJoueurG.setState(JFrame.ICONIFIED);
+		this.frameSuiviActuelleD.setState(JFrame.ICONIFIED);
+		this.frameSuiviActuelleG.setState(JFrame.ICONIFIED);
 	}
 
 	public void windowDeiconified(WindowEvent e) 
 	{
-		this.frameActuelle.setState(JFrame.NORMAL);
-		this.frameJoueurD.setState (JFrame.NORMAL);
-		this.frameJoueurG.setState (JFrame.NORMAL);
+		this.frameJeuActuelle.setState(JFrame.NORMAL);
+		this.frameSuiviActuelleD.setState (JFrame.NORMAL);
+		this.frameSuiviActuelleG.setState (JFrame.NORMAL);
 	}
 
 	public void windowOpened     (WindowEvent e) {}

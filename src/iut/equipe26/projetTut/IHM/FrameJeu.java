@@ -29,8 +29,8 @@ public class FrameJeu extends JFrame
 		this.majIHM();
 
 		
-		this.addComponentListener(Controleur.getInstance());
-		this.addWindowListener(Controleur.getInstance());
+		this.addComponentListener (Controleur.getInstance());
+		this.addWindowListener    (Controleur.getInstance());
 
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
