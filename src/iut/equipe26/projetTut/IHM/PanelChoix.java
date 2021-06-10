@@ -65,7 +65,12 @@ public class PanelChoix extends JPanel implements ActionListener
 	public void changerAvatar()
 	{
 		for(int cpt=0; cpt<this.boutons.length; cpt++)
-			this.boutons[cpt].setIcon(new ImageIcon("./src/ressource/avatar/" + this.avatars[cpt] + ".png"));
+		{
+			ImageIcon imgicn = new ImageIcon("./src/ressource/avatar/" + this.avatars[cpt] + ".png");
+			Image tmp = imgicn.getImage();
+			Image tmp2 = tmp.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH);
+			this.boutons[cpt].setIcon(new ImageIcon(tmp2));
+		}
 		this.bAvatar = true;
 	}
 	public boolean getChoix(){return this.bAvatar;}
