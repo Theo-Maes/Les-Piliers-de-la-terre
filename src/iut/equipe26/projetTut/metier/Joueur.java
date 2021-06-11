@@ -20,12 +20,7 @@ public class Joueur
 	{
 		this.nomCouleur = coul;
 		this.nomAvatar  = avatar;
-		
-		if( nom!= null && nom.contains(" "))
-		{
-			nom.replaceAll(" ", "_");
-		}
-		else this.nom = nom;
+		this.nom = nom;
 
 		if(coul != null)
 		this.couleur = this.setCouleur();

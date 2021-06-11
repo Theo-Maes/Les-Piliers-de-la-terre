@@ -65,7 +65,7 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 	{
 		if(this.frameJeuActuelle != null) this.frameJeuActuelle.dispose();
 		 this.frameJeuActuelle = frameJeuActuelle;
-		 this.frameJeuActuelle.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-this.frameJeuActuelle.getWidth()/2, 
+		 this.frameJeuActuelle.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width /2-this.frameJeuActuelle.getWidth ()/2, 
 		 								   Toolkit.getDefaultToolkit().getScreenSize().height/2-this.frameJeuActuelle.getHeight()/2);
 	}
 
@@ -139,7 +139,7 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		if(this.frameJeuActuelle == null || this.frameSuiviActuelleD == null || this.frameSuiviActuelleG == null ) return;
 
 		this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - 5 - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
-		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + 5 + this.frameJeuActuelle.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + 5 + this.frameJeuActuelle   .getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
 	}
 
 	public void windowIconified(WindowEvent e) 
@@ -166,3 +166,4 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		new Controleur();
 	}
 }
+
