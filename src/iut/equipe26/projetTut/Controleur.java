@@ -2,7 +2,6 @@ package iut.equipe26.projetTut;
 
 import iut.equipe26.projetTut.IHM.FrameJoueur;
 import iut.equipe26.projetTut.IHM.FrameMenu;
-import iut.equipe26.projetTut.IHM.PanelChoix;
 import iut.equipe26.projetTut.metier.Joueur;
 import iut.equipe26.projetTut.metier.Plateau;
 
