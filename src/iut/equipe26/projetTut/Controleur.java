@@ -2,6 +2,7 @@ package iut.equipe26.projetTut;
 
 import iut.equipe26.projetTut.IHM.FrameJoueur;
 import iut.equipe26.projetTut.IHM.FrameMenu;
+import iut.equipe26.projetTut.IHM.PanelChoix;
 import iut.equipe26.projetTut.metier.Joueur;
 import iut.equipe26.projetTut.metier.Plateau;
 
@@ -10,6 +11,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 import java.awt.Toolkit;
@@ -31,6 +33,9 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 	private JFrame      frameSuiviActuelleG;
 	private JFrame      frameSuiviActuelleD;
 
+	private Joueur joueur1;
+	private Joueur joueur2;
+
 	private static Controleur instance;
 
 	public Controleur() 
@@ -38,18 +43,23 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		Controleur.instance = this;
 		
 		this.plateau   = new Plateau();
+
+		this.joueur1 = new Joueur();
+		this.joueur2 = new Joueur();
 		
 		this.setFrameJeuActuelle(new FrameMenu());
-		this.setframeSuiviActuelle(new FrameJoueur(new Joueur()), new FrameJoueur(new Joueur()));
+		this.setframeSuiviActuelle(new FrameJoueur(this.joueur1), new FrameJoueur(this.joueur2));
 
 
 		this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
-		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + this.frameJeuActuelle.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + this.frameJeuActuelle   .getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
 	}
 
 
 	public static Controleur getInstance() { return instance; }	
-	public        Plateau    getPlateau()  { return plateau;  }
+	public        Plateau    getPlateau () { return plateau;  }
+	public        Joueur     getJoueur1 () { return joueur1;  }
+	public        Joueur     getJoueur2 () { return joueur2;  }
 
 
 	public void setFrameJeuActuelle(JFrame frameJeuActuelle) 
@@ -57,7 +67,7 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		if(this.frameJeuActuelle != null) this.frameJeuActuelle.dispose();
 		 this.frameJeuActuelle = frameJeuActuelle;
 		 this.frameJeuActuelle.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-this.frameJeuActuelle.getWidth()/2, 
-		 								Toolkit.getDefaultToolkit().getScreenSize().height/2-this.frameJeuActuelle.getHeight()/2);
+		 								   Toolkit.getDefaultToolkit().getScreenSize().height/2-this.frameJeuActuelle.getHeight()/2);
 	}
 
 	public void setframeSuiviActuelle(JFrame frameSuiviActuelleG, JFrame frameSuiviActuelleD) 
@@ -72,8 +82,56 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		this.frameSuiviActuelleD = frameSuiviActuelleD;
 
 		this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
-		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + this.frameJeuActuelle.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + this.frameJeuActuelle   .getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
 	}
+
+
+	public void ActivationButton() 
+	{
+		FrameJoueur frameJoueurD = (FrameJoueur) this.frameSuiviActuelleD;
+		FrameJoueur frameJoueurG = (FrameJoueur) this.frameSuiviActuelleG;
+
+		boolean droit, gauche;
+
+		if(frameJoueurD.getChoix() == true && frameJoueurG.getChoix() == false)
+		{
+			droit  = true;
+			gauche = false;
+		}
+		else
+		{
+			if(frameJoueurD.getChoix() == false && frameJoueurG.getChoix() == true)
+			{
+				droit  = false;
+				gauche = true;
+			}
+			else
+			{
+				droit = gauche = true;
+			}
+		}
+
+		if(droit)
+			for (JButton Button : frameJoueurD.getButtons())
+				Button.setEnabled(true);
+
+		if(gauche)
+			for (JButton Button : frameJoueurG.getButtons())
+				Button.setEnabled(true);
+	}
+
+	public void desactivationButton ()
+	{
+		FrameJoueur frameJoueurD = (FrameJoueur) this.frameSuiviActuelleD;
+		FrameJoueur frameJoueurG = (FrameJoueur) this.frameSuiviActuelleG;
+		
+		this.ActivationButton();
+
+		if(!frameJoueurD.getChoix()) frameJoueurD.getButtons()[frameJoueurG.getButtonBloquer()].setEnabled(false);
+		if(!frameJoueurG.getChoix()) frameJoueurG.getButtons()[frameJoueurD.getButtonBloquer()].setEnabled(false);
+
+	}
+
 
 
 	public void componentMoved(ComponentEvent e)
@@ -93,7 +151,7 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 
 	public void windowDeiconified(WindowEvent e) 
 	{
-		this.frameJeuActuelle.setState(JFrame.NORMAL);
+		this.frameJeuActuelle   .setState (JFrame.NORMAL);
 		this.frameSuiviActuelleD.setState (JFrame.NORMAL);
 		this.frameSuiviActuelleG.setState (JFrame.NORMAL);
 	}
@@ -109,3 +167,33 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		new Controleur();
 	}
 }
+
+
+/*
+
+intro et conclusion non numeroté
+2 à 4 parti
+20 25 min
+presentztion de l'équipe
+
+présenter le sujet et le reformuler
+analise du sujet , developper les enjeu , ...
+evité les listes a puces
+evaluer le niveau de difficulter
+presenter le jeu 
+regle , objectif , etc
+
+presenter la demarche
+question de gestion : repartition , planing , etc
+outils,
+les test,
+retour d'experience,
+comparer avec le premier projet
+
+conclusion personelle
+
+vulgarisé le plus possible,
+
+
+
+*/

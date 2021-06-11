@@ -49,9 +49,10 @@ public class FrameJoueur extends JFrame
 	}
 
 
-	public boolean getChoix(){return this.panelChoix.getChoix();}
-	
-	public void changerAvatar (){this.panelChoix.changerAvatar ();}
-	public void changerCouleur(){this.panelChoix.changerCouleur();}
+	public boolean   getChoix         () { return this.panelChoix.getChoix         (); }
+	public JButton[] getButtons       () { return this.panelChoix.getBoutons       (); }
+	public void      changerAvatar    () {        this.panelChoix.changerAvatar    (); }
+	public void      changerCouleur   () {        this.panelChoix.changerCouleur   (); }
+	public int       getButtonBloquer () { return this.panelChoix.getButtonBloquer (); }
 	
 }
