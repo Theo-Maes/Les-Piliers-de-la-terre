@@ -32,6 +32,7 @@ public class FrameJoueur extends JFrame
 		this.addWindowListener(Controleur.getInstance());
 
 		//autres
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 		this.setResizable(false);
 		this.setVisible(true);

@@ -90,7 +90,8 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 		if(e.getSource() == this.btnPlateauAuto) {
 			Controleur.getInstance().getPlateau().plateauAuto();
 		}
-
+		
+		Controleur.getInstance().setframeSuiviActuelle(new FrameStat(j1), new FrameStat(j2));
 		Controleur.getInstance().setFrameJeuActuelle(new FrameJeu());
 	}
 }
