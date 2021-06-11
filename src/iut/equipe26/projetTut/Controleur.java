@@ -2,7 +2,6 @@ package iut.equipe26.projetTut;
 
 import iut.equipe26.projetTut.IHM.FrameJoueur;
 import iut.equipe26.projetTut.IHM.FrameMenu;
-import iut.equipe26.projetTut.IHM.PanelChoix;
 import iut.equipe26.projetTut.metier.Joueur;
 import iut.equipe26.projetTut.metier.Plateau;
 
@@ -66,7 +65,7 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 	{
 		if(this.frameJeuActuelle != null) this.frameJeuActuelle.dispose();
 		 this.frameJeuActuelle = frameJeuActuelle;
-		 this.frameJeuActuelle.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width/2-this.frameJeuActuelle.getWidth()/2, 
+		 this.frameJeuActuelle.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width /2-this.frameJeuActuelle.getWidth ()/2, 
 		 								   Toolkit.getDefaultToolkit().getScreenSize().height/2-this.frameJeuActuelle.getHeight()/2);
 	}
 
@@ -140,7 +139,7 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		if(this.frameJeuActuelle == null || this.frameSuiviActuelleD == null || this.frameSuiviActuelleG == null ) return;
 
 		this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - 5 - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
-		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + 5 + this.frameJeuActuelle.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + 5 + this.frameJeuActuelle   .getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
 	}
 
 	public void windowIconified(WindowEvent e) 
@@ -167,33 +166,3 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		new Controleur();
 	}
 }
-
-
-/*
-
-intro et conclusion non numeroté
-2 à 4 parti
-20 25 min
-presentztion de l'équipe
-
-présenter le sujet et le reformuler
-analise du sujet , developper les enjeu , ...
-evité les listes a puces
-evaluer le niveau de difficulter
-presenter le jeu 
-regle , objectif , etc
-
-presenter la demarche
-question de gestion : repartition , planing , etc
-outils,
-les test,
-retour d'experience,
-comparer avec le premier projet
-
-conclusion personelle
-
-vulgarisé le plus possible,
-
-
-
-*/

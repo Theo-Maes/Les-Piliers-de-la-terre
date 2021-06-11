@@ -15,8 +15,8 @@ public class PanelChoix extends JPanel implements ActionListener
 	private boolean     bAvatar  = true;
 	private JButton[]   boutons;
 
-	private String []   avatars  = new String[] {"Lardon", "1664"  , "lutin" , "Cookie", "fine", "iut" , "pachimari", "krokmou", "peppe"  };
-	private String []   couleurs = new String[] {"gris"  , "marron", "violet", "rouge" , "vert", "cyan", "bleu"     , "jaune"  , "orange" };
+	private String []   avatars  = new String[] {"Lardon", "1664"  , "lutin" , "Cookie", "fine", "equipe" , "pachimari", "krokmou", "Kookee"  };
+	private String []   couleurs = new String[] {"gris"  , "marron", "violet", "rouge" , "vert", "cyan"   , "bleu"     , "jaune"  , "orange"  };
 	
 	private int buttonBloquer;
 

@@ -8,7 +8,6 @@ import javax.swing.event.DocumentListener;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import java.awt.event.*;
 import java.awt.Image;
 import java.awt.Dimension;
 
@@ -34,9 +33,9 @@ public class PanelJoueur extends JPanel implements DocumentListener
 		this.lblAvatar  = new JLabel();
 		this.lblCouleur = new JLabel();
 
-		this.txtPseudo.setText( this.joueur.getNom() == null ? ""  : this.joueur.getNom());
-		this.setAvatar  ( this.joueur.getAvatar() == null ? "iut"  : this.joueur.getAvatar() );
-		this.setCouleur ( this.joueur.getCoul  () == null ? "gris" : this.joueur.getCoul  () );
+		this.txtPseudo.setText ( this.joueur.getNom   () == null ? ""        : this.joueur.getNom   () );
+		this.setAvatar         ( this.joueur.getAvatar() == null ? "equipe"  : this.joueur.getAvatar() );
+		this.setCouleur        ( this.joueur.getCoul  () == null ? "gris"    : this.joueur.getCoul  () );
 
 		this.panelPseudo = new JPanel();
 
@@ -86,7 +85,7 @@ public class PanelJoueur extends JPanel implements DocumentListener
 
 	public void changedUpdate(DocumentEvent e) 
 	{
-		this.joueur.setNom(this.txtPseudo.getText());
+		this.joueur.setNom(String.format("%-14.14s", this.txtPseudo.getText().replace(" ", "_")));
 	}
 }
 
