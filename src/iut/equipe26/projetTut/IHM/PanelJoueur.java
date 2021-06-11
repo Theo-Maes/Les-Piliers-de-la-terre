@@ -2,70 +2,89 @@ package iut.equipe26.projetTut.IHM;
 
 import iut.equipe26.projetTut.metier.Joueur;
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 import java.awt.BorderLayout;
-import java.awt.event.*;
+import java.awt.GridLayout;
+
 import java.awt.Image;
 import java.awt.Dimension;
 
-public class PanelJoueur extends JPanel implements ActionListener,FocusListener
+public class PanelJoueur extends JPanel implements DocumentListener
 {
-	private Joueur j;
+	private Joueur     joueur;
 	private JTextField txtPseudo;
 	private JLabel     lblAvatar;
-	private JLabel    lblCouleur;
+	private JLabel     lblCouleur;
+
+	private JPanel    panelPseudo;
 	
-	public PanelJoueur(Joueur j)
+	public PanelJoueur(Joueur joueur)
 	{
-		this.j = j;
+		this.joueur = joueur;
 		this.setPreferredSize(new Dimension (200,200));
+
+		this.setLayout ( new BorderLayout() );
+
 		//creation
-		this.txtPseudo  = new JTextField("<Pseudo>");
+
+		this.txtPseudo  = new JTextField();
 		this.lblAvatar  = new JLabel();
-		this.setAvatar("iut");
 		this.lblCouleur = new JLabel();
-		this.setCouleur("gris");
+
+		this.txtPseudo.setText( this.joueur.getNom() == null ? ""  : this.joueur.getNom());
+		this.setAvatar  ( this.joueur.getAvatar() == null ? "iut"  : this.joueur.getAvatar() );
+		this.setCouleur ( this.joueur.getCoul  () == null ? "gris" : this.joueur.getCoul  () );
+
+		this.panelPseudo = new JPanel();
+
+		this.panelPseudo.setLayout ( new GridLayout ( 2, 1) );
+
 		//positionnement
-		this.add(this.txtPseudo, BorderLayout.NORTH);
-		this.add(this.lblAvatar,  BorderLayout.WEST);
-		this.add(this.lblCouleur, BorderLayout.EAST);
+
+		this.panelPseudo.add ( new JLabel( "Pseudo", JLabel.CENTER ) );
+		this.panelPseudo.add ( this.txtPseudo );
+
+		this.add ( this.panelPseudo, BorderLayout.NORTH  );
+		this.add ( this.lblAvatar  , BorderLayout.WEST   );
+		this.add ( this.lblCouleur , BorderLayout.EAST   );
 		
 		//activation
 		
-		this.txtPseudo.addActionListener(this);
-		txtPseudo.addFocusListener(this); 
-
+		this.txtPseudo.getDocument().addDocumentListener(this);
 	}
-	
-	
-	public void actionPerformed(ActionEvent e)
-	{
-		this.j.setNom(this.txtPseudo.getText());
-	}
-	
-	public void setAvatar(String avat)
+		
+	public void setAvatar(String nomAvatar)
 	{
 		
-		ImageIcon avatar = new ImageIcon("./src/ressource/avatar/" + avat + ".png");
-		Image image = avatar.getImage();
-		Image newimg = image.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH); 
+		ImageIcon avatar = new ImageIcon("./src/ressource/avatar/" + nomAvatar + ".png");
+		Image image      = avatar.getImage();
+		Image newimg     = image.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH);
+
 		avatar = new ImageIcon(newimg);
-		this.lblAvatar.setIcon(avatar);
+
+		this.lblAvatar.setIcon  (avatar   );
+		this.joueur   .setAvatar(nomAvatar);
 	}
 	
-	public void setCouleur(String coul)
+	public void setCouleur(String nomCouleur)
 	{
-		ImageIcon couleur = new ImageIcon("./src/ressource/couleur/" + coul + ".png");
-		Image image = couleur.getImage();
-		Image newimg = image.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH); 
+		ImageIcon couleur = new ImageIcon("./src/ressource/couleur/" + nomCouleur + ".png");
+		Image image       = couleur.getImage();
+		Image newimg      = image.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH); 
+
 		couleur = new ImageIcon(newimg);
-		this.lblCouleur.setIcon(couleur);
+
+		this.lblCouleur.setIcon (couleur   );
+		this.joueur    .setCoul (nomCouleur);
 	}
-	@Override
-	public void focusLost(FocusEvent e){}
-	@Override
-	public void focusGained(FocusEvent e) 
+
+	public void insertUpdate(DocumentEvent e) { this.changedUpdate(e); }
+	public void removeUpdate(DocumentEvent e) { this.changedUpdate(e); }
+
+	public void changedUpdate(DocumentEvent e) 
 	{
-		txtPseudo.setText("");
+		this.joueur.setNom(this.txtPseudo.getText());
 	}
 }
-

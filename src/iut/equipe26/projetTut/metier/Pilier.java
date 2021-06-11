@@ -24,10 +24,12 @@ public class Pilier
 		this.x = x;
 		this.y = y;
 		
-		if( ++Pilier.nbPilier%2 == 0)this.coul = 'G';
+		if( Pilier.nbPilier++%2 == 0)this.coul = 'G';
 		else this.coul = 'M';
 	}
 	
+	public int getX () {return this.x;}
+	public int getY () {return this.y;}
 	public char getCoul(){return this.coul;}
 	public int getNbPilier(){return Pilier.nbPilier;}
 	

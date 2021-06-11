@@ -1,44 +1,57 @@
 package iut.equipe26.projetTut.IHM;
 
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.awt.Dimension;
 
-public class PanelAction extends JPanel implements ActionListener
+public class PanelAction extends JPanel implements ItemListener
 {
 	private FrameJoueur frmJ;
 	
+	private ButtonGroup cbChoix;
+
 	private JRadioButton  rbAvatar;
 	private JRadioButton rbCouleur;
-	private JButton      btnSelect;
 	
 	public PanelAction(FrameJoueur frmJ)
 	{
 		this.frmJ = frmJ;
 		this.setPreferredSize(new Dimension (200,50));
+
+
 		//creation
-		this.rbAvatar  = new JRadioButton("Avatar" , true );
-		this.rbCouleur = new JRadioButton("Couleur", false);
-		this.btnSelect = new JButton     ( "Selectionner" );
+		this.cbChoix   = new ButtonGroup();
+
+		this.rbAvatar  = new JRadioButton("Avatar", true );
+		this.rbCouleur = new JRadioButton("Couleur",false );
+		
 		
 		//positionnement
 		ButtonGroup btgChoix = new ButtonGroup();
+
 		btgChoix.add(this.rbAvatar );
 		btgChoix.add(this.rbCouleur);
+
 		this.add(this.rbAvatar );
 		this.add(this.rbCouleur);
-		this.add(this.btnSelect);
 		
+
 		//Activation
-		this.btnSelect.addActionListener(this);
+		this.rbAvatar .addItemListener(this);
+		this.rbCouleur.addItemListener(this);
 	}
 	
-	public void actionPerformed(ActionEvent e)
+	
+	public void itemStateChanged(ItemEvent e)
 	{
-		if(this.rbAvatar.isSelected() && !this.frmJ.getChoix())
+		if ( e.getSource() == this.rbAvatar )
+		{
 			frmJ.changerAvatar();
+		}
 		else
-			if(this.rbCouleur.isSelected() && this.frmJ.getChoix())
-				frmJ.changerCouleur();
+		{
+			frmJ.changerCouleur();
+		}		
 	}
 }

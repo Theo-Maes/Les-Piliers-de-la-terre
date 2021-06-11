@@ -1,4 +1,4 @@
-//package iut.equipe26.projetTut.IHM;
+package iut.equipe26.projetTut.IHM;
 
 import javax.swing.*;
 import java.awt.*;

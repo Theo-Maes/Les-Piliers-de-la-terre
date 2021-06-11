@@ -2,40 +2,50 @@ package iut.equipe26.projetTut.IHM;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+
 
 import iut.equipe26.projetTut.Controleur;
+import iut.equipe26.projetTut.metier.Joueur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Toolkit;
+
 
 public class PanelChoixMenu extends JPanel implements ActionListener
 {
-	private FrameMenu frameMenu;
 	private JButton btnPlateauAuto;
 	private JButton btnPlateauCustom;
+	private JButton btnQuitter;
 
-	public PanelChoixMenu(FrameMenu frameMenu) 
+	public PanelChoixMenu() 
 	{
-		this.frameMenu = frameMenu;
 
 		this.setLayout(null);
 
 
 		this.btnPlateauAuto   = new JButton("Plateau Automatique");
 		this.btnPlateauCustom = new JButton("Plateau Custom"     );
+		this.btnQuitter       = new JButton("Quitter"            );
 
 
-		this.btnPlateauAuto   .setBounds(200, 265, 260, 76);
-		this.btnPlateauCustom .setBounds(200, 370, 260, 76);
+		this.btnPlateauAuto   .setBounds(700/2-260/2, 265   , 260, 76);
+		this.btnPlateauCustom .setBounds(700/2-260/2, 370   , 260, 76);
+		this.btnQuitter       .setBounds(700-100    , 600-75, 100, 50);
 
 
 		this.add(this.btnPlateauAuto   );
 		this.add(this.btnPlateauCustom );	
+		this.add(this.btnQuitter       );
 
 	
 		this.btnPlateauAuto   .addActionListener(this);
 		this.btnPlateauCustom .addActionListener(this);
+		this.btnQuitter       .addActionListener(this);
+
 	}
 
 
@@ -49,11 +59,38 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 	
 	public void actionPerformed(ActionEvent e) 
 	{
+		if (e.getSource() == this.btnQuitter) System.exit(0);
+		
+		Joueur j1 = Controleur.getInstance().getJoueur1();
+		Joueur j2 = Controleur.getInstance().getJoueur2();
+
+		if( j1.getNom() == null || j2.getNom() == null )
+		{
+			JOptionPane.showMessageDialog(this, "Pseudo(s) manquant(s), veuillez renseigner vos pseudos", "Pseudo manquant", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		else
+		{
+			if(j1.getNom().equals(j2.getNom()))
+			{
+				JOptionPane.showMessageDialog(this, "Pseudos invalides, il ne peut y avoir deux fois le même nom", "Pseudos identiques", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			else
+			{
+				if(j1.getCoul().equals(j2.getCoul()))
+				{
+					JOptionPane.showMessageDialog(this, "Couleurs invalides, il ne peut y avoir deux fois la même couleur", "Couleurs identiques", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+			}
+		}
+
+
 		if(e.getSource() == this.btnPlateauAuto) {
 			Controleur.getInstance().getPlateau().plateauAuto();
 		}
 
-		this.frameMenu.setVisible(false);
-		new FrameJeu();
+		Controleur.getInstance().setFrameJeuActuelle(new FrameJeu());
 	}
 }

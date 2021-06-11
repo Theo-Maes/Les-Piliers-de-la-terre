@@ -1,5 +1,7 @@
 package iut.equipe26.projetTut.metier;
 
+import java.util.ArrayList;
+
 /** Les Piliers de la terres
  * @author Paul
  * @author Alan
@@ -11,10 +13,14 @@ package iut.equipe26.projetTut.metier;
 
 public class Plateau
 {
-	private Dalle[] ensDalles;
+	private final int MAX_DALLE = 16;
+	
+	private ArrayList<Dalle> ensDalles;
 	
 	private Boolean bMVictoire = false;
 	private Boolean bGVictoire = false;
+  
+	private Boolean bEgalite   = false;
 	
 	private static int compteur = 0;
 	
@@ -23,119 +29,107 @@ public class Plateau
 	
 	public Plateau()
 	{
-		this.ensDalles = new Dalle[16];
+		this.ensDalles = new ArrayList<>();
 		this.j1 = new Joueur();
 		this.j2 = new Joueur();
-	}
-	
-	public void dalleCustom(/*int  ,*/ int numVoisine )
-	{
-
 	}
 
 	public void plateauAuto() 
 	{
+		for(int i=0; i< this.MAX_DALLE; i++)
+			this.ensDalles.add(new Dalle());
 
-		for(int i=0; i<this.ensDalles.length; i++)
-			this.ensDalles[i] = new Dalle();
-
-		//this.ensDalles[0] == dalle A					this.ensDalles[8]  == dalle I
-		//this.ensDalles[1] == dalle B					this.ensDalles[9]  == dalle J
-		//this.ensDalles[2] == dalle C					this.ensDalles[10] == dalle K
-		//this.ensDalles[3] == dalle D					this.ensDalles[11] == dalle L
-		//this.ensDalles[4] == dalle E					this.ensDalles[12] == dalle M
-		//this.ensDalles[5] == dalle F					this.ensDalles[13] == dalle N
-		//this.ensDalles[6] == dalle G					this.ensDalles[14] == dalle O
-		//this.ensDalles[7] == dalle H					this.ensDalles[15] == dalle P
+		//this.ensDalles.get(0] == dalle A					this.ensDalles.get(8]  == dalle I
+		//this.ensDalles.get(1] == dalle B					this.ensDalles.get(9]  == dalle J
+		//this.ensDalles.get(2] == dalle C					this.ensDalles.get(10] == dalle K
+		//this.ensDalles.get(3] == dalle D					this.ensDalles.get(11] == dalle L
+		//this.ensDalles.get(4] == dalle E					this.ensDalles.get(12] == dalle M
+		//this.ensDalles.get(5] == dalle F					this.ensDalles.get(13] == dalle N
+		//this.ensDalles.get(6] == dalle G					this.ensDalles.get(14] == dalle O
+		//this.ensDalles.get(7] == dalle H					this.ensDalles.get(15] == dalle P
 		
-		//this.ensDalles[0] == dalle A
-		this.ensDalles[0].ajouterVoisine(4, this.ensDalles[1]);	//Dalle B	
-		this.ensDalles[0].ajouterVoisine(3, this.ensDalles[4]);	//Dalle E	
-		this.ensDalles[0].ajouterVoisine(2, this.ensDalles[2]);	//Dalle C	
+		//this.ensDalles.get(0] == dalle A
+		this.ensDalles.get(0).ajouterVoisine(4, this.ensDalles.get(1));		//Dalle B	
+		this.ensDalles.get(0).ajouterVoisine(3, this.ensDalles.get(4));		//Dalle E	
+		this.ensDalles.get(0).ajouterVoisine(2, this.ensDalles.get(2));		//Dalle C	
 		
-		//this.ensDalles[1] == dalle B
-		this.ensDalles[1].ajouterVoisine(4, this.ensDalles[3]);	//Dalle D
-		this.ensDalles[1].ajouterVoisine(3, this.ensDalles[7]);	//Dalle H
-		this.ensDalles[1].ajouterVoisine(2, this.ensDalles[4]);	//Dalle E
+		//this.ensDalles.get(1] == dalle B
+		this.ensDalles.get(1).ajouterVoisine(4, this.ensDalles.get(3));		//Dalle D
+		this.ensDalles.get(1).ajouterVoisine(3, this.ensDalles.get(7));		//Dalle H
+		this.ensDalles.get(1).ajouterVoisine(2, this.ensDalles.get(4));		//Dalle E
 		
-		//this.ensDalles[2] == dalle C
-		this.ensDalles[2].ajouterVoisine(4, this.ensDalles[4]);		//Dalle E
-		this.ensDalles[2].ajouterVoisine(3, this.ensDalles[8]);		//Dalle I
-		this.ensDalles[2].ajouterVoisine(2, this.ensDalles[5]);		//Dalle F
+		//this.ensDalles.get(2] == dalle C
+		this.ensDalles.get(2).ajouterVoisine(4, this.ensDalles.get(4));		//Dalle E
+		this.ensDalles.get(2).ajouterVoisine(3, this.ensDalles.get(8));		//Dalle I
+		this.ensDalles.get(2).ajouterVoisine(2, this.ensDalles.get(5));		//Dalle F
 		
-		//this.ensDalles[3] == dalle D
-		this.ensDalles[3].ajouterVoisine(4, this.ensDalles[6]);		//Dalle G
-		this.ensDalles[3].ajouterVoisine(3, this.ensDalles[10]);	//Dalle K
-		this.ensDalles[3].ajouterVoisine(2, this.ensDalles[7]);		//Dalle H
+		//this.ensDalles.get(3] == dalle D
+		this.ensDalles.get(3).ajouterVoisine(4, this.ensDalles.get(6));		//Dalle G
+		this.ensDalles.get(3).ajouterVoisine(3, this.ensDalles.get(10));	//Dalle K
+		this.ensDalles.get(3).ajouterVoisine(2, this.ensDalles.get(7));		//Dalle H
 		
-		//this.ensDalles[4] == dalle E
-		this.ensDalles[4].ajouterVoisine(4, this.ensDalles[7]);		//Dalle H
-		this.ensDalles[4].ajouterVoisine(3, this.ensDalles[11]);	//Dalle L
-		this.ensDalles[4].ajouterVoisine(2, this.ensDalles[8]);		//Dalle I
+		//this.ensDalles.get(4] == dalle E
+		this.ensDalles.get(4).ajouterVoisine(4, this.ensDalles.get(7));		//Dalle H
+		this.ensDalles.get(4).ajouterVoisine(3, this.ensDalles.get(11));	//Dalle L
+		this.ensDalles.get(4).ajouterVoisine(2, this.ensDalles.get(8));		//Dalle I
 		
-		//this.ensDalles[5] == dalle F
-		this.ensDalles[5].ajouterVoisine(4, this.ensDalles[8]);		//Dalle I
-		this.ensDalles[5].ajouterVoisine(3, this.ensDalles[12]);	//Dalle M
-		this.ensDalles[5].ajouterVoisine(2, this.ensDalles[9]);		//Dalle J
+		//this.ensDalles.get(5] == dalle F
+		this.ensDalles.get(5).ajouterVoisine(4, this.ensDalles.get(8));		//Dalle I
+		this.ensDalles.get(5).ajouterVoisine(3, this.ensDalles.get(12));	//Dalle M
+		this.ensDalles.get(5).ajouterVoisine(2, this.ensDalles.get(9));		//Dalle J
 		
-		//this.ensDalles[6] == dalle G
-		this.ensDalles[6].ajouterVoisine(2, this.ensDalles[10]);	//Dalle K
+		//this.ensDalles.get(6] == dalle G
+		this.ensDalles.get(6).ajouterVoisine(2, this.ensDalles.get(10));	//Dalle K
 		
-		//this.ensDalles[7] == dalle H
-		this.ensDalles[7].ajouterVoisine(4, this.ensDalles[10]);	//Dalle K
-		this.ensDalles[7].ajouterVoisine(3, this.ensDalles[13]);	//Dalle N
-		this.ensDalles[7].ajouterVoisine(2, this.ensDalles[11]);	//Dalle L
+		//this.ensDalles.get(7] == dalle H
+		this.ensDalles.get(7).ajouterVoisine(4, this.ensDalles.get(10));	//Dalle K
+		this.ensDalles.get(7).ajouterVoisine(3, this.ensDalles.get(13));	//Dalle N
+		this.ensDalles.get(7).ajouterVoisine(2, this.ensDalles.get(11));	//Dalle L
 		
-		//this.ensDalles[8] == dalle I
-		this.ensDalles[8].ajouterVoisine(4, this.ensDalles[11]);	//Dalle L
-		this.ensDalles[8].ajouterVoisine(3, this.ensDalles[14]);	//Dalle O
-		this.ensDalles[8].ajouterVoisine(2, this.ensDalles[12]);	//Dalle M
+		//this.ensDalles.get(8] == dalle I
+		this.ensDalles.get(8).ajouterVoisine(4, this.ensDalles.get(11));	//Dalle L
+		this.ensDalles.get(8).ajouterVoisine(3, this.ensDalles.get(14));	//Dalle O
+		this.ensDalles.get(8).ajouterVoisine(2, this.ensDalles.get(12));	//Dalle M
 		
-		//this.ensDalles[9] == dalle J
-		this.ensDalles[9].ajouterVoisine(4, this.ensDalles[12]);	//Dalle M
+		//this.ensDalles.get(9] == dalle J
+		this.ensDalles.get(9).ajouterVoisine(4, this.ensDalles.get(12));	//Dalle M
 		
-		//this.ensDalles[10] == dalle K
-		this.ensDalles[10].ajouterVoisine(2, this.ensDalles[13]);	//Dalle N
+		//this.ensDalles.get(10] == dalle K
+		this.ensDalles.get(10).ajouterVoisine(2, this.ensDalles.get(13));	//Dalle N
 		
-		//this.ensDalles[11] == dalle L
-		this.ensDalles[11].ajouterVoisine(4, this.ensDalles[13]);	//Dalle N
-		this.ensDalles[11].ajouterVoisine(3, this.ensDalles[15]);	//Dalle P
-		this.ensDalles[11].ajouterVoisine(2, this.ensDalles[14]);	//Dalle O
+		//this.ensDalles.get(11] == dalle L
+		this.ensDalles.get(11).ajouterVoisine(4, this.ensDalles.get(13));	//Dalle N
+		this.ensDalles.get(11).ajouterVoisine(3, this.ensDalles.get(15));	//Dalle P
+		this.ensDalles.get(11).ajouterVoisine(2, this.ensDalles.get(14));	//Dalle O
 		
-		//this.ensDalles[12] == dalle M
-		this.ensDalles[12].ajouterVoisine(4, this.ensDalles[14]);	//Dalle O
+		//this.ensDalles.get(12] == dalle M
+		this.ensDalles.get(12).ajouterVoisine(4, this.ensDalles.get(14));	//Dalle O
 		
-		//this.ensDalles[13] == dalle N
-		this.ensDalles[13].ajouterVoisine(2, this.ensDalles[15]);	//Dalle P
+		//this.ensDalles.get(13] == dalle N
+		this.ensDalles.get(13).ajouterVoisine(2, this.ensDalles.get(15));	//Dalle P
 		
-		//this.ensDalles[14] == dalle O
-		this.ensDalles[14].ajouterVoisine(4, this.ensDalles[15]);	//Dalle P
+		//this.ensDalles.get(14] == dalle O
+		this.ensDalles.get(14).ajouterVoisine(4, this.ensDalles.get(15));	//Dalle P
 		
-		//this.ensDalles[15] == dalle P
+		//this.ensDalles.get(15] == dalle P
 		// Rien
 		
-		for (Dalle d : this.ensDalles)
-			System.out.println(d);
+		// for (Dalle d : this.ensDalles)
+		// 	System.out.println(d);
 		
-		System.out.println();
+		// System.out.println();
 		
 		
-		for (Dalle d : this.ensDalles)
-			System.out.println(d.toStringXY());
+		// for (Dalle d : this.ensDalles)
+		// 	System.out.println(d.toStringXY());
 		
-		ajoutPilier(this.ensDalles[0], 2);
-		ajoutPilier(this.ensDalles[0], 4);
-		ajoutPilier(this.ensDalles[1], 2);
-		ajoutPilier(this.ensDalles[2], 0);
-		ajoutPilier(this.ensDalles[4], 0);
-		
-		for (Dalle d : this.ensDalles)
-			System.out.println(d);
+		// System.out.println(" |0|1|2|3|4|5|");
+		// for (Dalle d : this.ensDalles)
+		// 	System.out.println(d.toStringVoisin());
 	}
 	
 	public void verification()
 	{
-		
 		//Si un Architecte possède 9 Dalles
 		int g = j1.getNbDalle();
 		int m = j2.getNbDalle();
@@ -149,37 +143,29 @@ public class Plateau
 		{
 			if ( m == g )
 			{
-				this.bMVictoire = verifEgalite();
-				this.bGVictoire = !this.bMVictoire;
+				verifEgalite();
 			}
-				
 			else
 			{
 				this.bMVictoire = m>g;
 				this.bGVictoire = !this.bMVictoire;
 			}
-			
 		}
-		
 	}
   
-	public boolean verifEgalite()
+	public void verifEgalite()
 	{
-		if ( this.j1.getPilierDetruit() == this.j2.getPilierDetruit() )
-		{
-			return true;
-			//Afficher ecran egalité
-		}
-		else
-			return this.j2.getPilierDetruit() > this.j1.getPilierDetruit();
-		
+		if( this.j1.getPilierDetruit() == this.j2.getPilierDetruit() )  this.bEgalite   = true;
+		if( this.j1.getPilierDetruit() > this.j2.getPilierDetruit () )  this.bGVictoire = true;
+		if( this.j2.getPilierDetruit() > this.j1.getPilierDetruit () )  this.bMVictoire = true;
 	}
 	
 	public void ajoutPilier(Dalle d, int coin)	//Ajout d'un pilier
 	{
 		if(d.ajouterPilier(coin))
 		{
-			for(Dalle dalle : this.ensDalles)dalle.RAZConstruire();
+			for(Dalle dalle : this.ensDalles)
+				dalle.RAZConstruire();
 			
 			if( getNbTour()%2 == 0)		//Si c'est pair, c'est le premier joueur qui joue
 				this.j1.decrementer();	//Nombre de pilier du joueur qui baisse
@@ -189,6 +175,8 @@ public class Plateau
 			Plateau.ajoutTour();
 		}
 	}
+
+	public ArrayList<Dalle> getEnsDalles() {return this.ensDalles;}
 	
 	public int getNbTour()	{return Plateau.compteur;}
 	private static void ajoutTour(){Plateau.compteur++;}
