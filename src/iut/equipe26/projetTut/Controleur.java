@@ -167,33 +167,3 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		new Controleur();
 	}
 }
-
-
-/*
-
-intro et conclusion non numeroté
-2 à 4 parti
-20 25 min
-presentztion de l'équipe
-
-présenter le sujet et le reformuler
-analise du sujet , developper les enjeu , ...
-evité les listes a puces
-evaluer le niveau de difficulter
-presenter le jeu 
-regle , objectif , etc
-
-presenter la demarche
-question de gestion : repartition , planing , etc
-outils,
-les test,
-retour d'experience,
-comparer avec le premier projet
-
-conclusion personelle
-
-vulgarisé le plus possible,
-
-
-
-*/
