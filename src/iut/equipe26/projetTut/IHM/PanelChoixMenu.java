@@ -2,12 +2,18 @@ package iut.equipe26.projetTut.IHM;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
+
 
 import iut.equipe26.projetTut.Controleur;
+import iut.equipe26.projetTut.metier.Joueur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.*;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Toolkit;
+
 
 public class PanelChoixMenu extends JPanel implements ActionListener
 {
@@ -54,6 +60,33 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		if (e.getSource() == this.btnQuitter) System.exit(0);
+		
+		Joueur j1 = Controleur.getInstance().getJoueur1();
+		Joueur j2 = Controleur.getInstance().getJoueur2();
+
+		if( j1.getNom() == null || j2.getNom() == null )
+		{
+			JOptionPane.showMessageDialog(this, "Pseudo(s) manquant(s), veuillez renseigner vos pseudos", "Pseudo manquant", JOptionPane.ERROR_MESSAGE);
+			return;
+		}
+		else
+		{
+			if(j1.getNom().equals(j2.getNom()))
+			{
+				JOptionPane.showMessageDialog(this, "Pseudos invalides, il ne peut y avoir deux fois le même nom", "Pseudos identiques", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+			else
+			{
+				if(j1.getCoul().equals(j2.getCoul()))
+				{
+					JOptionPane.showMessageDialog(this, "Couleurs invalides, il ne peut y avoir deux fois la même couleur", "Couleurs identiques", JOptionPane.ERROR_MESSAGE);
+					return;
+				}
+			}
+		}
+
+
 		if(e.getSource() == this.btnPlateauAuto) {
 			Controleur.getInstance().getPlateau().plateauAuto();
 		}

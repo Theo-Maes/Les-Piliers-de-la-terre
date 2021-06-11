@@ -21,7 +21,7 @@ public class PanelAction extends JPanel implements ItemListener
 
 
 		//creation
-		this.cbChoix = new ButtonGroup();
+		this.cbChoix   = new ButtonGroup();
 
 		this.rbAvatar  = new JRadioButton("Avatar", true );
 		this.rbCouleur = new JRadioButton("Couleur",false );
