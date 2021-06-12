@@ -1,6 +1,10 @@
 package iut.equipe26.projetTut.IHM;
 
 import javax.swing.*;
+
+import iut.equipe26.projetTut.Controleur;
+import iut.equipe26.projetTut.metier.Joueur;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -97,12 +101,11 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		
 		this.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
 		this.setVisible(true);
-		
 	}
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		if (e.getSource() == this.btnQuitter)
-			 System.exit(0);
+		Controleur.getInstance().setframeSuiviActuelle(new FrameJoueur(new Joueur()), new FrameJoueur(new Joueur() ) );
+		Controleur.getInstance().setFrameJeuActuelle(new FrameMenu());
 	}
 }

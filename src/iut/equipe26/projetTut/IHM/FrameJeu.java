@@ -1,6 +1,7 @@
 package iut.equipe26.projetTut.IHM;
 
 import javax.swing.JFrame;
+import iut.equipe26.projetTut.Controleur;
 
 public class FrameJeu extends JFrame 
 {
@@ -15,6 +16,11 @@ public class FrameJeu extends JFrame
 
 		this.add(this.panelPlateau);
 		this.majIHM();
+
+		
+		this.addComponentListener (Controleur.getInstance());
+		this.addWindowListener    (Controleur.getInstance());
+
 
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setResizable(false);

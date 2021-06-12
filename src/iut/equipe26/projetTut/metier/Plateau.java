@@ -5,10 +5,10 @@ import java.util.ArrayList;
 /** Les Piliers de la terres
  * @author Paul
  * @author Alan
+ * @author Pierre
  * @author Théo
  * @author Thomas
  * @author Jason
- * @author Pierre
  */
 
 public class Plateau
@@ -172,11 +172,130 @@ public class Plateau
 			else
 				this.j2.decrementer();
 			
+			
+			//oui ok alan, enfermement();
+			
+			
+			
+
 			Plateau.ajoutTour();
 		}
 	}
 
 	public ArrayList<Dalle> getEnsDalles() {return this.ensDalles;}
+	
+	public boolean enfermement(Dalle d, int coin)//int coin = indice du pilier posé
+	{
+		Pilier[] tabPilier = d.getPiliers();	//Les piliers de la dalle où ont ajoute le pilier
+		
+		if (d.getPrc(coin).getCoul() == tabPilier[coin].getCoul())	return false;	//Si l'un des deux est de la meme couleur
+		if (d.getSvt(coin).getCoul() == tabPilier[coin].getCoul())	return false;
+		
+		
+		//Pour les précedents
+		if (d.getPrc(coin).getCoul() != tabPilier[coin].getCoul())
+		{
+			Pilier p = d.getPrc(coin);
+			
+			int coinPrc = coin-1;
+			if (coinPrc<0)coinPrc = 5;
+			
+			if (d.getPrc(coinPrc) != null && d.getPrc(coinPrc).getCoul() != p.getCoul())
+			{
+				int coin0 = coinPrc-1;
+				if (coin0<0)coin0 = 5;
+				
+				if(d.getDalleV(coinPrc) == null)
+				{
+					if(d.getDalleV(coin0) == null)
+					{
+						d.detruire(coinPrc);
+						return true;
+					}
+						
+				}
+				else
+				{
+					Dalle dalle = d.getDalleV(coin0);
+					int coin1 = coinPrc + 2;
+					if (coin1>5)coin1 = coin1-6;
+					if(dalle.getPrc(coin1) == null || dalle.getPrc(coin1).getCoul() == p.getCoul())
+						return false; //ça detruit pas
+					else
+					{
+						d.detruire(coinPrc);
+						return true;
+					}
+				}
+			}
+			else
+			{
+				Dalle dalle = d.getDalleV(coinPrc);
+				int coin1 = coinPrc - 2;
+					if (coin1<0)coin1 = coin1+6;
+				if(dalle.getSvt(coin1) == null || dalle.getSvt(coin1).getCoul() == p.getCoul())
+					return false; //ça detruit pas
+				else
+				{
+					d.detruire(coinPrc);
+					return true;
+				}
+			}
+		}
+		
+		//Pour les suivants
+		if (d.getSvt(coin).getCoul() != tabPilier[coin].getCoul())
+		{
+			Pilier p = d.getSvt(coin);
+			
+			int getSvt = coin-1;
+			if (getSvt<0)getSvt = 5;
+			
+			if (d.getSvt(getSvt) != null && d.getSvt(getSvt).getCoul() != p.getCoul())
+			{
+				int coin0 = getSvt-1;
+				if (coin0<0)coin0 = 5;
+
+				if(d.getDalleV(getSvt) == null)
+				{
+					if(d.getDalleV(coin0) == null)
+					{
+						d.detruire(getSvt);
+						return true;
+					}
+						
+				}
+				else
+				{
+					Dalle dalle = d.getDalleV(coin0);
+					int coin1 = getSvt + 2;
+					if (coin1>5)coin1 = coin1-6;
+					if(dalle.getSvt(coin1) == null || dalle.getSvt(coin1).getCoul() == p.getCoul())
+						return false; //ça detruit pas
+					else
+					{
+						d.detruire(getSvt);
+						return true;
+					}
+				}
+			}
+			else
+			{
+				Dalle dalle = d.getDalleV(getSvt);
+				int coin1 = getSvt - 2;
+					if (coin1<0)coin1 = coin1+6;
+				if(dalle.getPrc(coin1) == null || dalle.getPrc(coin1).getCoul() == p.getCoul())
+					return false; //ça detruit pas
+				else
+				{
+					d.detruire(getSvt);
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
 	
 	public int getNbTour()	{return Plateau.compteur;}
 	private static void ajoutTour(){Plateau.compteur++;}
