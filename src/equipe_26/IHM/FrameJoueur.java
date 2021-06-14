@@ -1,7 +1,8 @@
-package iut.equipe26.projetTut.IHM;
+package equipe_26.IHM;
 
-import iut.equipe26.projetTut.Controleur;
-import iut.equipe26.projetTut.metier.Joueur;
+import equipe_26.Controleur;
+import equipe_26.metier.Joueur;
+
 import javax.swing.*;
 import java.awt.BorderLayout;
 
@@ -32,6 +33,7 @@ public class FrameJoueur extends JFrame
 		this.addWindowListener(Controleur.getInstance());
 
 		//autres
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 		this.setResizable(false);
 		this.setVisible(true);
@@ -49,9 +51,10 @@ public class FrameJoueur extends JFrame
 	}
 
 
-	public boolean getChoix(){return this.panelChoix.getChoix();}
-	
-	public void changerAvatar (){this.panelChoix.changerAvatar ();}
-	public void changerCouleur(){this.panelChoix.changerCouleur();}
+	public boolean   getChoix         () { return this.panelChoix.getChoix         (); }
+	public JButton[] getButtons       () { return this.panelChoix.getBoutons       (); }
+	public void      changerAvatar    () {        this.panelChoix.changerAvatar    (); }
+	public void      changerCouleur   () {        this.panelChoix.changerCouleur   (); }
+	public int       getButtonBloquer () { return this.panelChoix.getButtonBloquer (); }
 	
 }

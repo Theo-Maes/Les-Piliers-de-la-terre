@@ -1,25 +1,24 @@
-package iut.equipe26.projetTut.IHM;
+package equipe_26.IHM;
 
-import iut.equipe26.projetTut.Controleur;
-import iut.equipe26.projetTut.metier.Joueur;
+import equipe_26.Controleur;
+import equipe_26.metier.Joueur;
 
 import javax.swing.*;
-import java.awt.BorderLayout;
 
 public class FrameStat extends JFrame
 {
-	private Joueur j;
+	private Joueur joueur;
 	private PanelStat panelStat;
 	
-	public FrameStat(Joueur j)
+	public FrameStat(Joueur joueur)
 	{
-		this.j = j;
-		this.setTitle("Statistique de " + this.j.getNom() );
+		this.joueur = joueur;
+		this.setTitle("Statistique de " + this.joueur.getNom() );
 		this.setLocation(50,50);
 		this.setSize(300, 600);
 		
 		
-		this.panelStat = new PanelStat(j);
+		this.panelStat = new PanelStat(joueur);
 		
 		this.add(this.panelStat);
 		
@@ -27,6 +26,7 @@ public class FrameStat extends JFrame
 		this.addWindowListener(Controleur.getInstance());
 
 		//autres
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 		this.setResizable(false);
 		this.setVisible(true);

@@ -1,12 +1,12 @@
-package iut.equipe26.projetTut.metier;
+package equipe_26.metier;
 
 import java.awt.Color;
 
 public class Joueur
 {
-	private String    nom;
-	private String   coul;
-	private String avatar;
+	private String nom;
+	private String nomCouleur;
+	private String nomAvatar;
 	
 	private Color couleur;
 	
@@ -18,10 +18,11 @@ public class Joueur
 	
 	public Joueur(String nom, String coul, String avatar)
 	{
-		this.nom     = nom   ;
-		this.coul    = coul  ;
-		this.avatar  = avatar;
-		
+		this.nomCouleur = coul;
+		this.nomAvatar  = avatar;
+		this.nom = nom;
+
+		if(coul != null)
 		this.couleur = this.setCouleur();
 		
 		this.nbPilier         = 24;
@@ -31,25 +32,29 @@ public class Joueur
 		this.nbDalleTourAvant =  0;
 	}
 	
-	public Joueur(){this("","","");}
+	public Joueur() { this(null,null,null); }
 	
-	public String getNom       (){return this.nom          ;}
-	public String getCoul      (){return this.coul         ;}
-	public String getAvatar    (){return this.avatar       ;}
-	public Color getCouleur    (){return this.couleur      ;}
-	public int getNbPilier     (){return this.nbPilier     ;}
-	public int getNbDalle      (){return this.nbDalle      ;}
-	public int getPilierDetruit(){return this.pilierDetruit;}
-	public int getDallePerdue  (){return this.nbDallePerdue;}
+	public String getNom           () {return this.nom          ;}
+	public String getCoul          () {return this.nomCouleur   ;}
+	public String getAvatar        () {return this.nomAvatar    ;}
+	public Color  getCouleur       () {return this.couleur      ;}
+	public int    getNbPilier      () {return this.nbPilier     ;}
+	public int    getNbDalle       () {return this.nbDalle      ;}
+	public int    getPilierDetruit () {return this.pilierDetruit;}
+	public int    getDallePerdue   () {return this.nbDallePerdue;}
 	
 	
-	public void setNom   (String nom)   {this.nom = nom      ;}
-	public void setCoul  (String coul)  {this.coul = coul    ;}
-	public void setAvatar(String avatar){this.avatar = avatar;}
-	
-	public Color setCouleur()
+	public void setNom   (String nom)    {this.nom = nom;           }
+	public void setAvatar(String avatar) {this.nomAvatar  = avatar; }
+	public void setCoul  (String coul)   
 	{
-		switch(this.coul)
+		this.nomCouleur = coul;
+		this.couleur = this.setCouleur();
+	}
+	
+	private Color setCouleur()
+	{
+		switch(this.nomCouleur)
 		{
 			case "rouge"  -> {return new Color( 255,   0,   0  );}
 			case "marron" -> {return new Color(  96,  64,  44  );}
@@ -99,6 +104,6 @@ public class Joueur
 	}
 	public String toString()
 	{
-		return this.nom + " [ " + this.coul + " ] ";
+		return this.nom + " [ " + this.nomCouleur + " ] ";
 	}
 }

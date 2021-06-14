@@ -1,16 +1,18 @@
-./src/iut/equipe26/projetTut/IHM/BGPanel.java
-./src/iut/equipe26/projetTut/IHM/FrameFinPartie.java
-./src/iut/equipe26/projetTut/IHM/FrameJeu.java
-./src/iut/equipe26/projetTut/IHM/FrameJoueur.java
-./src/iut/equipe26/projetTut/IHM/FrameMenu.java
-./src/iut/equipe26/projetTut/IHM/PanelAction.java
-./src/iut/equipe26/projetTut/IHM/PanelChoix.java
-./src/iut/equipe26/projetTut/IHM/PanelChoixMenu.java
-./src/iut/equipe26/projetTut/IHM/PanelJoueur.java
+./src/equipe_26/Controleur.java
 
-./src/iut/equipe26/projetTut/metier/Dalle.java
-./src/iut/equipe26/projetTut/metier/Joueur.java
-./src/iut/equipe26/projetTut/metier/Pilier.java
-./src/iut/equipe26/projetTut/metier/Plateau.java
+./src/equipe_26/metier/Dalle.java
+./src/equipe_26/metier/Joueur.java
+./src/equipe_26/metier/Pilier.java
+./src/equipe_26/metier/Plateau.java
 
-./src/iut/equipe26/projetTut/Controleur.java
+./src/equipe_26/IHM/FrameFinPartie.java
+./src/equipe_26/IHM/FrameJeu.java
+./src/equipe_26/IHM/FrameJoueur.java
+./src/equipe_26/IHM/FrameMenu.java
+./src/equipe_26/IHM/FrameStat.java
+./src/equipe_26/IHM/PanelAction.java
+./src/equipe_26/IHM/PanelChoix.java
+./src/equipe_26/IHM/PanelChoixMenu.java
+./src/equipe_26/IHM/PanelJoueur.java
+./src/equipe_26/IHM/PanelPlateau.java
+./src/equipe_26/IHM/PanelStat.java

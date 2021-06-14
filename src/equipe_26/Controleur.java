@@ -1,0 +1,173 @@
+package equipe_26;
+
+import equipe_26.IHM.FrameJoueur;
+import equipe_26.IHM.FrameMenu;
+import equipe_26.metier.Joueur;
+import equipe_26.metier.Plateau;
+
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+
+import java.awt.Toolkit;
+
+/** Les Piliers de la terres
+ * @author Paul
+ * @author Alan
+ * @author Théo
+ * @author Thomas
+ * @author Jason
+ * @author Pierre
+ */
+
+public class Controleur extends ComponentAdapter implements	WindowListener 
+{
+	
+	private Plateau     plateau;
+	private JFrame      frameJeuActuelle;
+	private JFrame      frameSuiviActuelleG;
+	private JFrame      frameSuiviActuelleD;
+
+	private Joueur joueur1;
+	private Joueur joueur2;
+
+	private static Controleur instance;
+
+	public Controleur(String s) 
+	{
+		Controleur.instance = this;
+		
+		if(s.equals("GUI"))
+		{
+			this.plateau   = new Plateau(0);
+			this.joueur1 = new Joueur();
+			this.joueur2 = new Joueur();
+			
+			this.setFrameJeuActuelle(new FrameMenu());
+			this.setframeSuiviActuelle(new FrameJoueur(this.joueur1), new FrameJoueur(this.joueur2));
+
+
+			this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+			this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + this.frameJeuActuelle   .getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+		}
+		else
+			this.plateau   = new Plateau(1);
+		
+	}
+
+
+	public static Controleur getInstance() { return instance; }	
+	public        Plateau    getPlateau () { return plateau;  }
+	public        Joueur     getJoueur1 () { return joueur1;  }
+	public        Joueur     getJoueur2 () { return joueur2;  }
+
+
+	public void setFrameJeuActuelle(JFrame frameJeuActuelle) 
+	{
+		if(this.frameJeuActuelle != null) this.frameJeuActuelle.dispose();
+		 this.frameJeuActuelle = frameJeuActuelle;
+		 this.frameJeuActuelle.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width /2-this.frameJeuActuelle.getWidth ()/2, 
+		 								   Toolkit.getDefaultToolkit().getScreenSize().height/2-this.frameJeuActuelle.getHeight()/2);
+	}
+
+	public void setframeSuiviActuelle(JFrame frameSuiviActuelleG, JFrame frameSuiviActuelleD) 
+	{
+		if(this.frameSuiviActuelleG != null && this.frameSuiviActuelleD != null)
+		{
+			this.frameSuiviActuelleD.dispose();
+			this.frameSuiviActuelleG.dispose();
+		}
+		
+		this.frameSuiviActuelleG = frameSuiviActuelleG;
+		this.frameSuiviActuelleD = frameSuiviActuelleD;
+
+		this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + this.frameJeuActuelle   .getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+	}
+
+
+	public void ActivationButton() 
+	{
+		FrameJoueur frameJoueurD = (FrameJoueur) this.frameSuiviActuelleD;
+		FrameJoueur frameJoueurG = (FrameJoueur) this.frameSuiviActuelleG;
+
+		boolean droit, gauche;
+
+		if(frameJoueurD.getChoix() == true && frameJoueurG.getChoix() == false)
+		{
+			droit  = true;
+			gauche = false;
+		}
+		else
+		{
+			if(frameJoueurD.getChoix() == false && frameJoueurG.getChoix() == true)
+			{
+				droit  = false;
+				gauche = true;
+			}
+			else
+			{
+				droit = gauche = true;
+			}
+		}
+
+		if(droit)
+			for (JButton Button : frameJoueurD.getButtons())
+				Button.setEnabled(true);
+
+		if(gauche)
+			for (JButton Button : frameJoueurG.getButtons())
+				Button.setEnabled(true);
+	}
+
+	public void desactivationButton ()
+	{
+		FrameJoueur frameJoueurD = (FrameJoueur) this.frameSuiviActuelleD;
+		FrameJoueur frameJoueurG = (FrameJoueur) this.frameSuiviActuelleG;
+		
+		this.ActivationButton();
+
+		if(!frameJoueurD.getChoix()) frameJoueurD.getButtons()[frameJoueurG.getButtonBloquer()].setEnabled(false);
+		if(!frameJoueurG.getChoix()) frameJoueurG.getButtons()[frameJoueurD.getButtonBloquer()].setEnabled(false);
+
+	}
+
+
+
+	public void componentMoved(ComponentEvent e)
+	{
+		
+		if(this.frameJeuActuelle == null || this.frameSuiviActuelleD == null || this.frameSuiviActuelleG == null ) return;
+
+		this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - 5 - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + 5 + this.frameJeuActuelle   .getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+	}
+
+	public void windowIconified(WindowEvent e) 
+	{
+		this.frameSuiviActuelleD.setState(JFrame.ICONIFIED);
+		this.frameSuiviActuelleG.setState(JFrame.ICONIFIED);
+	}
+
+	public void windowDeiconified(WindowEvent e) 
+	{
+		this.frameJeuActuelle   .setState (JFrame.NORMAL);
+		this.frameSuiviActuelleD.setState (JFrame.NORMAL);
+		this.frameSuiviActuelleG.setState (JFrame.NORMAL);
+	}
+
+	public void windowOpened     (WindowEvent e) {}
+	public void windowClosing    (WindowEvent e) {}
+	public void windowClosed     (WindowEvent e) {}
+	public void windowActivated  (WindowEvent e) {}
+	public void windowDeactivated(WindowEvent e) {}
+
+	public static void main(String[] args) 
+	{
+		new Controleur(args[0]);
+	}
+}

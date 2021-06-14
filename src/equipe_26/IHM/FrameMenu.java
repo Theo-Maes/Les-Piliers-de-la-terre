@@ -1,8 +1,8 @@
-package iut.equipe26.projetTut.IHM;
+package equipe_26.IHM;
 
 import javax.swing.JFrame;
 
-import iut.equipe26.projetTut.Controleur;
+import equipe_26.Controleur;
 
 public class FrameMenu extends JFrame 
 {
@@ -12,11 +12,11 @@ public class FrameMenu extends JFrame
 		this.setSize(700, 600);
 
 		
-		this.add(new PanelChoixMenu(this) );
+		this.add(new PanelChoixMenu() );
 
 
 		this.addComponentListener(Controleur.getInstance());
-		this.addWindowListener(Controleur.getInstance());
+		this.addWindowListener   (Controleur.getInstance());
 
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);

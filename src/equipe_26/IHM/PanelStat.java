@@ -1,6 +1,6 @@
-package iut.equipe26.projetTut.IHM;
+package equipe_26.IHM;
 
-import iut.equipe26.projetTut.metier.Joueur;
+import equipe_26.metier.Joueur;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +22,7 @@ public class PanelStat extends JPanel
 		lblNomJoueur.setForeground(this.joueur.getCouleur());
 		lblNomJoueur.setFont(fontNomJoueur);
 		
-		ImageIcon imgAvatar = new ImageIcon("src/ressource/avatar/" + this.joueur.getAvatar() + ".png");
+		ImageIcon imgAvatar = new ImageIcon("./ressource/avatar/" + this.joueur.getAvatar() + ".png");
 		Image imageAvt = imgAvatar.getImage();
 		Image newAvt = imageAvt.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH); 
 		imgAvatar = new ImageIcon(newAvt);
@@ -38,7 +38,7 @@ public class PanelStat extends JPanel
 		
 		JLabel lblPilierRestant = new JLabel("Nombre de pilier restant : " + this.joueur.getNbPilier() + "/24");
 		
-		ImageIcon imgPilier = new ImageIcon("src/ressource/images/pilier.png");
+		ImageIcon imgPilier = new ImageIcon("./ressource/images/pilier.png");
 		Image image = imgPilier.getImage();
 		Image newimg = image.getScaledInstance(25, 25,  java.awt.Image.SCALE_SMOOTH); 
 		imgPilier = new ImageIcon(newimg);
@@ -62,13 +62,13 @@ public class PanelStat extends JPanel
 		JPanel panelInfo = new JPanel(new FlowLayout(FlowLayout.LEFT));
 		JLabel lblNbPilierDetruit = new JLabel("Nombre de pilier detruit : " + this.joueur.getPilierDetruit());
 		JLabel lblNbDalle         = new JLabel("Nombre de dalle(s) possédé(s) : " + this.joueur.getNbDalle() + "/9");
-		// JLabel lblDallePerdue     = new JLabel("Nombre de dalle(s) perdue(s) : " + this.joueur.getDallePerdue());
+		JLabel lblDallePerdue     = new JLabel("Nombre de dalle(s) perdue(s) : " + this.joueur.getDallePerdue());
 		JLabel lblDalleTotal      = new JLabel("Nombre de dalle(s) gagnée(s) en tout : " + ( this.joueur.getNbDalle() + this.joueur.getDallePerdue() ) );
 		
 		
 		panelInfo.add(lblNbPilierDetruit);
 		panelInfo.add(lblNbDalle);
-		//panelInfo.add(lblDallePerdue);
+		panelInfo.add(lblDallePerdue);
 		
 		panelInfoMilieu.add(panelPilierRestant);
 		panelInfoMilieu.add(panelInfo);

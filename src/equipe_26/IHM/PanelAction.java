@@ -1,4 +1,4 @@
-package iut.equipe26.projetTut.IHM;
+package equipe_26.IHM;
 
 import javax.swing.*;
 
@@ -21,7 +21,7 @@ public class PanelAction extends JPanel implements ItemListener
 
 
 		//creation
-		this.cbChoix = new ButtonGroup();
+		this.cbChoix   = new ButtonGroup();
 
 		this.rbAvatar  = new JRadioButton("Avatar", true );
 		this.rbCouleur = new JRadioButton("Couleur",false );

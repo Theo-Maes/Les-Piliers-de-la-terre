@@ -1,6 +1,10 @@
-package iut.equipe26.projetTut.IHM;
+package equipe_26.IHM;
 
 import javax.swing.*;
+
+import equipe_26.Controleur;
+import equipe_26.metier.Joueur;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -46,7 +50,7 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		lblJoueur.setFont(font2);
 		
 		//Label avatar
-		ImageIcon avatar = new ImageIcon("./src/ressource/images/lardon.jpg"/*+ this.ctrl.getVainqueur().getAvatar()*/);		
+		ImageIcon avatar = new ImageIcon("./ressource/images/lardon.jpg"/*+ this.ctrl.getVainqueur().getAvatar()*/);		
 		Image image = avatar.getImage();
 		Image newimg = image.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH); 
 		avatar = new ImageIcon(newimg);
@@ -101,7 +105,7 @@ public class FrameFinPartie extends JFrame implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		if (e.getSource() == this.btnQuitter)
-			 System.exit(0);
+		Controleur.getInstance().setframeSuiviActuelle(new FrameJoueur(new Joueur()), new FrameJoueur(new Joueur() ) );
+		Controleur.getInstance().setFrameJeuActuelle(new FrameMenu());
 	}
 }
