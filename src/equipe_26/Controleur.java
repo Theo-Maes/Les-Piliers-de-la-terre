@@ -2,6 +2,7 @@ package equipe_26;
 
 import equipe_26.IHM.FrameJoueur;
 import equipe_26.IHM.FrameMenu;
+import equipe_26.IHM.FrameStat;
 import equipe_26.metier.Joueur;
 import equipe_26.metier.Plateau;
 
@@ -43,22 +44,23 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		
 		if(s.equals("GUI"))
 		{
-			this.plateau   = new Plateau(0);
 			this.joueur1 = new Joueur();
 			this.joueur2 = new Joueur();
 			
+			this.plateau   = new Plateau(0);
+
 			this.setFrameJeuActuelle(new FrameMenu());
 			this.setframeSuiviActuelle(new FrameJoueur(this.joueur1), new FrameJoueur(this.joueur2));
 
 
-			this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
-			this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + this.frameJeuActuelle   .getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+			this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - 5 - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
+			this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + 5 + this.frameJeuActuelle   .getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
 		}
 		else
 			this.plateau   = new Plateau(1);
 		
 	}
-
+		
 
 	public static Controleur getInstance() { return instance; }	
 	public        Plateau    getPlateau () { return plateau;  }
@@ -69,10 +71,11 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 	public void setFrameJeuActuelle(JFrame frameJeuActuelle) 
 	{
 		if(this.frameJeuActuelle != null) this.frameJeuActuelle.dispose();
-		 this.frameJeuActuelle = frameJeuActuelle;
-		 this.frameJeuActuelle.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width /2-this.frameJeuActuelle.getWidth ()/2, 
-		 								   Toolkit.getDefaultToolkit().getScreenSize().height/2-this.frameJeuActuelle.getHeight()/2);
+		this.frameJeuActuelle = frameJeuActuelle;
+		this.frameJeuActuelle.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width /2-this.frameJeuActuelle.getWidth ()/2, 
+										Toolkit.getDefaultToolkit().getScreenSize().height/2-this.frameJeuActuelle.getHeight()/2);
 	}
+
 
 	public void setframeSuiviActuelle(JFrame frameSuiviActuelleG, JFrame frameSuiviActuelleD) 
 	{
@@ -95,34 +98,24 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		FrameJoueur frameJoueurD = (FrameJoueur) this.frameSuiviActuelleD;
 		FrameJoueur frameJoueurG = (FrameJoueur) this.frameSuiviActuelleG;
 
-		boolean droit, gauche;
-
-		if(frameJoueurD.getChoix() == true && frameJoueurG.getChoix() == false)
-		{
-			droit  = true;
-			gauche = false;
-		}
-		else
-		{
-			if(frameJoueurD.getChoix() == false && frameJoueurG.getChoix() == true)
-			{
-				droit  = false;
-				gauche = true;
-			}
-			else
-			{
-				droit = gauche = true;
-			}
-		}
-
-		if(droit)
+		if(frameJoueurD.getChoix())
 			for (JButton Button : frameJoueurD.getButtons())
 				Button.setEnabled(true);
 
-		if(gauche)
+		if(frameJoueurG.getChoix())
 			for (JButton Button : frameJoueurG.getButtons())
 				Button.setEnabled(true);
+
+		if(!frameJoueurD.getChoix() && !frameJoueurG.getChoix())
+		{
+			for (JButton Button : frameJoueurG.getButtons())
+				Button.setEnabled(true);
+			for (JButton Button : frameJoueurD.getButtons())
+				Button.setEnabled(true);
+		}
+			
 	}
+
 
 	public void desactivationButton ()
 	{
@@ -135,7 +128,6 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		if(!frameJoueurG.getChoix()) frameJoueurG.getButtons()[frameJoueurD.getButtonBloquer()].setEnabled(false);
 
 	}
-
 
 
 	public void componentMoved(ComponentEvent e)
@@ -166,8 +158,20 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 	public void windowActivated  (WindowEvent e) {}
 	public void windowDeactivated(WindowEvent e) {}
 
+	public void majFrameSuivi()
+	{
+		if(frameSuiviActuelleD instanceof FrameStat && frameSuiviActuelleG instanceof FrameStat)
+		{
+			FrameStat frameStatD = (FrameStat) this.frameSuiviActuelleD;
+			FrameStat frameStatG = (FrameStat) this.frameSuiviActuelleG;
+
+			frameStatD.majIHM();
+			frameStatG.majIHM();
+		}
+	}
+
 	public static void main(String[] args) 
 	{
-		new Controleur(args[0]);
+		new Controleur(args.length == 0 ? "GUI" : args[0]);
 	}
 }

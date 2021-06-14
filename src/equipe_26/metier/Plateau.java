@@ -3,6 +3,9 @@ package equipe_26.metier;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import equipe_26.Controleur;
+
 import java.io.FileInputStream;
 
 /** Les Piliers de la terres
@@ -33,8 +36,8 @@ public class Plateau
 	public Plateau(int num)
 	{
 		this.ensDalles = new ArrayList<>();
-		this.j1 = new Joueur();
-		this.j2 = new Joueur();
+		this.j1 = Controleur.getInstance().getJoueur1();
+		this.j2 = Controleur.getInstance().getJoueur2();
 		
 		if (num == 1)
 		{
