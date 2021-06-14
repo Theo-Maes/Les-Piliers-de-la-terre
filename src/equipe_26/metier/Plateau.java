@@ -42,12 +42,13 @@ public class Plateau
 						 "\n(2) -> Plateau personnalisé"+
 						 "\n(3) -> Scénarios");
 			Scanner chx = new Scanner (System.in);
-			String choix = chx.nextLine();
-			
+			int choix = chx.nextInt();
+			chx.close();
+
 			switch(choix)
 			{
-				case "2" -> System.out.println("choix 2");
-				case "3" -> scenario();
+				case 2 -> System.out.println("choix 2");
+				case 3 -> scenario();
 				default  -> plateauAutoCUI();
 				
 			}
@@ -68,16 +69,14 @@ public class Plateau
 		
 		int numDalle1;
 		int numDalle2;
-		int numDalle3;
 		int iCote;
-		int iCoin;
 		
 		try
 		{
 			Scanner sc = new Scanner ( new FileInputStream ("plateau.txt") );
 			
 			//Lecture de la position des dalles
-			while(sc.hasNext​())
+			while(sc.hasNext())
 			{
 				String s = sc.nextLine();
 				numDalle1 = (int)(s.charAt(0) - 'A');
@@ -129,6 +128,8 @@ public class Plateau
 		
 		this.j1 = new Joueur(sNom1, sCoul1, sAvatar1);
 		this.j2 = new Joueur(sNom2, sCoul2, sAvatar2);
+
+		sc.close();
 	}
 	
 	public void jeuCUI()
@@ -166,6 +167,7 @@ public class Plateau
 			
 			System.out.println("Fin du tour n°" + (getNbTour()));
 		}
+		sc.close();
 	}
 	public void jeu()
 	{
@@ -415,6 +417,7 @@ public class Plateau
 		if( Integer.parseInt(sChoix) > 0 && Integer.parseInt(sChoix) < 18)
 			chargerScenario(Integer.parseInt(sChoix));
 		
+		sc.close();
 	}
 	
 	public void chargerScenario(int num)
@@ -432,7 +435,7 @@ public class Plateau
 			Scanner sc = new Scanner ( new FileInputStream ("scenario" + num + ".txt") );
 			
 			//Lecture de la position des dalles
-			while(!sc.hasNext​("Pilier"))
+			while(!sc.hasNext("Pilier"))
 			{
 				String s = sc.nextLine();
 				numDalle1 = (int)(s.charAt(0) - 'A');
@@ -444,7 +447,7 @@ public class Plateau
 			sc.nextLine();
 			
 			//Lecture de la position des piliers
-			while(sc.hasNext​())
+			while(sc.hasNext())
 			{
 				String sPilier = sc.nextLine();
 				numDalle3 = (int)(sPilier.charAt(0) - 'A');

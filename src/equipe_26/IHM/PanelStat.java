@@ -44,7 +44,7 @@ public class PanelStat extends JPanel
 		imgPilier = new ImageIcon(newimg);
 		
 		
-		JLabel[] ensLabelPilierRestant = new JLabel[24];
+		this.ensLabelPilierRestant = new JLabel[24];
 		
 		for(int i=0; i<ensLabelPilierRestant.length; i++)
 			ensLabelPilierRestant[i] = new JLabel(imgPilier);
@@ -69,6 +69,7 @@ public class PanelStat extends JPanel
 		panelInfo.add(lblNbPilierDetruit);
 		panelInfo.add(lblNbDalle);
 		panelInfo.add(lblDallePerdue);
+		panelInfo.add(lblDalleTotal);
 		
 		panelInfoMilieu.add(panelPilierRestant);
 		panelInfoMilieu.add(panelInfo);
