@@ -13,9 +13,8 @@ public class Pilier
 {
 	private int x;
 	private int y;
-	private char coul;
-	private static int nbPilier = 0;
-	 
+	private char cCoul;
+	private static int iNbPilier = 0;
 	
 	public Pilier(){this(0,0);}
 	
@@ -24,17 +23,17 @@ public class Pilier
 		this.x = x;
 		this.y = y;
 		
-		if( Pilier.nbPilier++%2 == 0)this.coul = 'G';
-		else this.coul = 'M';
+		if( Pilier.iNbPilier++%2 == 0)this.cCoul = 'G';
+		else this.cCoul = 'M';
 	}
 	
-	public int getX () {return this.x;}
-	public int getY () {return this.y;}
-	public char getCoul(){return this.coul;}
-	public int getNbPilier(){return Pilier.nbPilier;}
+	public int  getX       (){return this.x;}
+	public int  getY       (){return this.y;}
+	public char getCoul    (){return this.cCoul;}
+	public int  getNbPilier(){return Pilier.iNbPilier;}
 	
 	public String toString()
 	{
-		return this.coul + "(" + this.x + "," + this.y + ")";
+		return this.cCoul + "(" + this.x + "," + this.y + ")";
 	}
 }
