@@ -132,10 +132,12 @@ public class Dalle
 	{
 		this.cControle = tmp.getCoul();
 		int cpt=0;
-		for(Pilier p : this.pPiliers) {
-			if(p != null && p.getCoul() != tmp.getCoul()){this.detruire(cpt);}
+
+		for(Pilier p : this.piliers) {
+			if(p != null && p.getCoul() != tmp.getCoul()) {this.detruire(cpt);}
 			cpt++;
 		}
+
 		if(Controleur.getInstance().getPlateau().getNbTour()%2 == 0) Controleur.getInstance().getJoueur1().priseDalle(1);
 		else                                                         Controleur.getInstance().getJoueur2().priseDalle(1);
 	}
@@ -169,10 +171,11 @@ public class Dalle
 		{
 			int v = voisine - 3;
 			if(v < 0){v += 6;}
-			this.dDallesVoisines[voisine].pPiliers[v] = null;
-			this.dDallesVoisines[voisine].bConstruire[v] = false;
-			this.dDallesVoisines[voisine].bBlocageTour[v] = false;
-			this.dDallesVoisines[voisine].perteControle();
+
+			this.dallesVoisines[voisine].piliers    [v] = null;
+			this.dallesVoisines[voisine].construire [v] = false;
+			this.dallesVoisines[voisine].blocageTour[v] = false;
+			this.dallesVoisines[voisine].perteControle();
 		}
 		
 		this.perteControle();
@@ -183,10 +186,14 @@ public class Dalle
 		int pilier=0;
 		for(Pilier p : this.pPiliers)
 			if(p != null && p.getCoul() == this.getControle()){pilier ++;}
-		if(pilier < 4){this.setControle('p');}
+		if(pilier < 4)
+		{
+			this.setControle('p');
+			if(Controleur.getInstance().getPlateau().getNbTour()%2 == 0) Controleur.getInstance().getJoueur2().perteDalle(1);
+			else                                                         Controleur.getInstance().getJoueur1().perteDalle(1);
+		}
 
-		if(Controleur.getInstance().getPlateau().getNbTour()%2 == 0) Controleur.getInstance().getJoueur2().perteDalle(1);
-		else                                                         Controleur.getInstance().getJoueur1().perteDalle(1);
+		
 		
 	}
 	

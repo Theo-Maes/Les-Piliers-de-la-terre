@@ -28,6 +28,9 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		this.setLayout(new BorderLayout(5,5));
 		
 
+		// Affectation vainqueur
+
+
 		//Création des differents panel
 		JPanel panelMilieu     = new JPanel( new GridLayout  (2,1,5,5) );
 		JPanel panelMilieuHaut = new JPanel( new BorderLayout(5,5    ) );
@@ -36,7 +39,8 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		
 		
 		JPanel panelAvatar       = new JPanel(new BorderLayout(5,5));
-		JPanel panelTmp          = new JPanel();//Panel en attendant le panel stat
+		JPanel panelStatFin      = new JPanel(new BorderLayout(   ));
+		JPanel panelTmp          = new JPanel(new GridLayout  (5,2));//Panel en attendant le panel stat
 		JPanel panelTypeVictoire = new JPanel(new BorderLayout(5,5));
 		
 		JPanel panelBouton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -48,7 +52,7 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		
 		
 		//Label de victoire
-		JLabel lblVictoire = new JLabel("Bien joué, vous avez gagné la partie !", JLabel.CENTER);	//Victoire de
+		JLabel lblVictoire = new JLabel("Fin de partie", JLabel.CENTER);	//Victoire de
 		lblVictoire.setForeground(new Color( 128, 96, 0));
 		lblVictoire.setFont(font1);
 		
@@ -103,11 +107,31 @@ public class FrameFinPartie extends JFrame implements ActionListener
 			
 		panelAvatar.add(lblAvatar, BorderLayout.CENTER);
 		
-		panelTmp.add(lblTmp);
+		panelStatFin.add(lblTmp, BorderLayout.NORTH);
+
+		panelTmp.add(new JLabel ("Nom du joueur : "            + conclJoueur[0].getNom           ())); 
+		panelTmp.add(new JLabel ("Nom du joueur : "            + conclJoueur[1].getNom           ()));
+
+		panelTmp.add(new JLabel ("Nombre de pilier restant : " + conclJoueur[0].getNbPilier      ()));
+		panelTmp.add(new JLabel ("Nombre de pilier restant : " + conclJoueur[1].getNbPilier      ()));
+
+		panelTmp.add(new JLabel ("Nombre de pilier détruit : " + conclJoueur[0].getPilierDetruit ()));
+		panelTmp.add(new JLabel ("Nombre de pilier détruit : " + conclJoueur[1].getPilierDetruit ()));
+
+		panelTmp.add(new JLabel ("Nombre de dalles totales : " + conclJoueur[0].getNbDalle       ()));
+		panelTmp.add(new JLabel ("Nombre de dalles totales : " + conclJoueur[1].getNbDalle       ()));
+
+		panelTmp.add(new JLabel ("Nombre de dalles perdues : " + conclJoueur[0].getDallePerdue   ()));
+		panelTmp.add(new JLabel ("Nombre de dalles perdues : " + conclJoueur[1].getDallePerdue   ()));
+
 		
-		panelMilieuHaut.add(lblJoueur,   BorderLayout.NORTH);
-		panelMilieuHaut.add(panelAvatar, BorderLayout.WEST);
-		panelMilieuHaut.add(panelTmp,    BorderLayout.CENTER);
+		
+
+		panelStatFin.add(panelTmp, BorderLayout.CENTER);
+		
+		panelMilieuHaut.add(lblJoueur,       BorderLayout.NORTH);
+		panelMilieuHaut.add(panelAvatar,     BorderLayout.WEST);
+		panelMilieuHaut.add(panelStatFin,    BorderLayout.CENTER);
 
 		panelTypeVictoire.add(lblTypeVictoire, BorderLayout.CENTER);
 		
@@ -129,7 +153,8 @@ public class FrameFinPartie extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		Controleur.getInstance().setFrameSuiviVisible(true);
+
 		Controleur.getInstance().setFrameSuiviActuelle(new FrameJoueur(Controleur.getInstance().getJoueur1()), new FrameJoueur(Controleur.getInstance().getJoueur2()) );
-		Controleur.getInstance().setFrameJeuActuelle  (new FrameMenu() );
+		Controleur.getInstance().setFrameJeuActuelle(new FrameMenu() );
 	}
 }
