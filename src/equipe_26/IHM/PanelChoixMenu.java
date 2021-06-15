@@ -124,6 +124,7 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 		//if (e.getSource() == this.btnQuitter) System.exit(0);
 		if (e.getSource() == this.btnScenario)
 		{
+			Controleur.getInstance().getPlateau().setScenario(cbScenario.getSelectedItem().toString());
 			Controleur.getInstance().getPlateau().scenario("GUI");
 		}
 
