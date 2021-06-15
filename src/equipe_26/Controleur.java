@@ -174,4 +174,11 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 	{
 		new Controleur(args.length == 0 ? "GUI" : args[0]);
 	}
+
+
+	public void setFrameSuiviVisible(boolean b) 
+	{
+		this.frameSuiviActuelleD.setVisible(b);
+		this.frameSuiviActuelleG.setVisible(b);
+	}
 }

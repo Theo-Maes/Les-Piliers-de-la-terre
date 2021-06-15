@@ -5,27 +5,37 @@ import javax.swing.*;
 import equipe_26.Controleur;
 import equipe_26.metier.Joueur;
 
-import java.awt.*;
 import java.awt.event.*;
+import java.awt.Color;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.FlowLayout;
+import java.awt.Font;
 
 public class FrameFinPartie extends JFrame implements ActionListener
 {
-	//private PanelStat panelStat;
-	private JButton btnQuitter;
-	private static Color COULEUR_BACKGROUND = new Color (211,209,197);
+	private final static Color   COULEUR_BACKGROUND = new Color (211,209,197);
 	
-	public FrameFinPartie()
+	//private PanelStat panelStat;
+	private        JButton btnQuitter;
+
+	public FrameFinPartie(Joueur[] conclJoueur, String typeVictoire)
 	{
 		this.setTitle("Fin de partie");
 		this.setLocation(50,50);
 		this.setSize(700,600);
 		this.setLayout(new BorderLayout(5,5));
 		
+
+		// Affectation vainqueur
+
+
 		//Création des differents panel
-		JPanel panelMilieu     = new JPanel(new GridLayout(2,1,5,5));
-		
-		JPanel panelMilieuHaut = new JPanel(new BorderLayout(5,5)  );
-		panelMilieuHaut   .setOpaque(false);
+		JPanel panelMilieu     = new JPanel( new GridLayout  (2,1,5,5) );
+		JPanel panelMilieuHaut = new JPanel( new BorderLayout(5,5    ) );
+
+		panelMilieuHaut.setOpaque(false);
 		
 		
 		JPanel panelAvatar       = new JPanel(new BorderLayout(5,5));
@@ -35,22 +45,38 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		JPanel panelBouton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		
 		//Création des polices pour les differents label
-		Font font1 = new Font("Courier", Font.BOLD, 45);
-		Font font2 = new Font("Courier", Font.BOLD, 25);
+		Font font1 = new Font("Courier", Font.BOLD, 25);
+		Font font2 = new Font("Courier", Font.BOLD, 20);
 		Font font3 = new Font("Courier", Font.BOLD, 20);
 		
 		
 		//Label de victoire
-		JLabel lblVictoire = new JLabel("GG EZ", JLabel.CENTER);	//Victoire de
+		JLabel lblVictoire = new JLabel("Bien joué, vous avez gagné la partie !", JLabel.CENTER);	//Victoire de
 		lblVictoire.setForeground(new Color( 128, 96, 0));
 		lblVictoire.setFont(font1);
 		
-		//Label Nom Joueur
-		JLabel lblJoueur = new JLabel("LARDON" /*+ this.ctrl.getVainqueur().getNom()*/, JLabel.CENTER);
+		JLabel lblJoueur = new JLabel();
+		lblJoueur.setHorizontalAlignment(JLabel.CENTER);
+
+		ImageIcon avatar = new ImageIcon();
+
+
+		if ( typeVictoire == "Egalité parfaite")
+		{
+			lblJoueur.setText (conclJoueur[0].getNom() + " et " + conclJoueur[1].getNom());
+			avatar.setImage ( new ImageIcon("ressource/avatar/equipe.png").getImage().getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH));
+		}
+		else
+		{
+			lblJoueur.setText(conclJoueur[0].getNom());
+			avatar.setImage(new ImageIcon("ressource/avatar/" + conclJoueur[0].getAvatar() + ".png").getImage().getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH));	
+		}
+
+
+		
 		lblJoueur.setFont(font2);
 		
-		//Label avatar
-		ImageIcon avatar = new ImageIcon("./ressource/images/lardon.jpg"/*+ this.ctrl.getVainqueur().getAvatar()*/);		
+			
 		Image image = avatar.getImage();
 		Image newimg = image.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH); 
 		avatar = new ImageIcon(newimg);
@@ -58,10 +84,10 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		JLabel lblAvatar = new JLabel( avatar, JLabel.CENTER );
 		
 		//Panel Stats
-		JLabel lblTmp = new JLabel("les stats", JLabel.CENTER);
+		JLabel lblTmp = new JLabel("Statistiques :", JLabel.CENTER);
 		
 		//Label type de victoire
-		JLabel lblTypeVictoire = new JLabel("Victoire par bg attitude"/* this.ctrl.getTypeVictoire() */, JLabel.CENTER);
+		JLabel lblTypeVictoire = new JLabel( typeVictoire, JLabel.CENTER);
 		lblTypeVictoire.setFont(font3);
 		lblTypeVictoire.setForeground(new Color(160,137,66));
 		
@@ -82,9 +108,9 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		
 		panelTmp.add(lblTmp);
 		
-		panelMilieuHaut.add(lblJoueur, BorderLayout.NORTH);
+		panelMilieuHaut.add(lblJoueur,   BorderLayout.NORTH);
 		panelMilieuHaut.add(panelAvatar, BorderLayout.WEST);
-		panelMilieuHaut.add(panelTmp, BorderLayout.CENTER);
+		panelMilieuHaut.add(panelTmp,    BorderLayout.CENTER);
 
 		panelTypeVictoire.add(lblTypeVictoire, BorderLayout.CENTER);
 		
@@ -105,7 +131,8 @@ public class FrameFinPartie extends JFrame implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
+		Controleur.getInstance().setFrameSuiviVisible(true);
 		Controleur.getInstance().setframeSuiviActuelle(new FrameJoueur(new Joueur()), new FrameJoueur(new Joueur() ) );
-		Controleur.getInstance().setFrameJeuActuelle(new FrameMenu());
+		Controleur.getInstance().setFrameJeuActuelle(new FrameMenu() );
 	}
 }

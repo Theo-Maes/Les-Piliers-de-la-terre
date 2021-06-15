@@ -8,8 +8,6 @@ import javax.swing.event.DocumentListener;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-
-import java.awt.Image;
 import java.awt.Dimension;
 
 public class PanelJoueur extends JPanel implements DocumentListener
@@ -24,11 +22,15 @@ public class PanelJoueur extends JPanel implements DocumentListener
 	public PanelJoueur(Joueur joueur)
 	{
 		this.joueur = joueur;
+
 		this.setPreferredSize(new Dimension (200,200));
 
 		this.setLayout ( new BorderLayout() );
 
 		//creation
+		this.panelPseudo = new JPanel();
+
+		this.panelPseudo.setLayout ( new GridLayout ( 2, 1) );
 
 		this.txtPseudo  = new JTextField();
 		this.lblAvatar  = new JLabel();
@@ -38,12 +40,9 @@ public class PanelJoueur extends JPanel implements DocumentListener
 		this.setAvatar         ( this.joueur.getAvatar() == null ? "equipe"  : this.joueur.getAvatar() );
 		this.setCouleur        ( this.joueur.getCoul  () == null ? "gris"    : this.joueur.getCoul  () );
 
-		this.panelPseudo = new JPanel();
 
-		this.panelPseudo.setLayout ( new GridLayout ( 2, 1) );
 
 		//positionnement
-
 		this.panelPseudo.add ( new JLabel( "Pseudo", JLabel.CENTER ) );
 		this.panelPseudo.add ( this.txtPseudo );
 
@@ -52,34 +51,23 @@ public class PanelJoueur extends JPanel implements DocumentListener
 		this.add ( this.lblCouleur , BorderLayout.EAST   );
 		
 		//activation
-		
 		this.txtPseudo.getDocument().addDocumentListener(this);
 	}
 		
+
 	public void setAvatar(String nomAvatar)
 	{
-		
-		ImageIcon avatar = new ImageIcon("./ressource/avatar/" + nomAvatar + ".png");
-		Image image      = avatar.getImage();
-		Image newimg     = image.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH);
-
-		avatar = new ImageIcon(newimg);
-
-		this.lblAvatar.setIcon  (avatar   );
+		this.lblAvatar.setIcon  ( new ImageIcon(new ImageIcon("./ressource/avatar/" + nomAvatar + ".png").getImage().getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH))  );
 		this.joueur   .setAvatar(nomAvatar);
 	}
 	
+
 	public void setCouleur(String nomCouleur)
 	{
-		ImageIcon couleur = new ImageIcon("./ressource/couleur/" + nomCouleur + ".png");
-		Image image       = couleur.getImage();
-		Image newimg      = image.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH); 
-
-		couleur = new ImageIcon(newimg);
-
-		this.lblCouleur.setIcon (couleur   );
+		this.lblCouleur.setIcon (new ImageIcon(new ImageIcon("./ressource/couleur/" + nomCouleur + ".png").getImage().getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH))  );
 		this.joueur    .setCoul (nomCouleur);
 	}
+
 
 	public void insertUpdate(DocumentEvent e) { this.changedUpdate(e); }
 	public void removeUpdate(DocumentEvent e) { this.changedUpdate(e); }

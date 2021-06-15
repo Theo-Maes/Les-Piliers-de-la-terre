@@ -1,8 +1,7 @@
 package equipe_26.metier;
 
-import javax.naming.ldap.Control;
-
 import equipe_26.Controleur;
+
 
 public class Dalle
 {
@@ -179,6 +178,9 @@ public class Dalle
 		for(Pilier p : this.piliers)
 			if(p != null && p.getCoul() == this.getControle()){pilier ++;}
 		if(pilier < 4){this.setControle('p');}
+
+		if(Controleur.getInstance().getPlateau().getNbTour()%2 == 0) Controleur.getInstance().getJoueur2().perteDalle(1);
+		else                                                         Controleur.getInstance().getJoueur1().perteDalle(1);
 		
 	}
 	
