@@ -19,10 +19,8 @@ public class FrameFinPartie extends JFrame implements ActionListener
 	
 	//private PanelStat panelStat;
 	private        JButton btnQuitter;
-	
-	private Joueur vainqueur;
 
-	public FrameFinPartie()
+	public FrameFinPartie(Joueur[] conclJoueur, String typeVictoire)
 	{
 		this.setTitle("Fin de partie");
 		this.setLocation(50,50);
@@ -31,7 +29,6 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		
 
 		// Affectation vainqueur
-		this.vainqueur = Controleur.getInstance().getPlateau().getVainqeur();
 
 
 		//Création des differents panel
@@ -48,8 +45,8 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		JPanel panelBouton = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		
 		//Création des polices pour les differents label
-		Font font1 = new Font("Courier", Font.BOLD, 45);
-		Font font2 = new Font("Courier", Font.BOLD, 25);
+		Font font1 = new Font("Courier", Font.BOLD, 25);
+		Font font2 = new Font("Courier", Font.BOLD, 20);
 		Font font3 = new Font("Courier", Font.BOLD, 20);
 		
 		
@@ -58,12 +55,28 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		lblVictoire.setForeground(new Color( 128, 96, 0));
 		lblVictoire.setFont(font1);
 		
-		//Label Nom Joueur
-		JLabel lblJoueur = new JLabel(this.vainqueur.getNom() /*+ this.ctrl.getVainqueur().getNom()*/, JLabel.CENTER);
+		JLabel lblJoueur = new JLabel();
+		lblJoueur.setHorizontalAlignment(JLabel.CENTER);
+
+		ImageIcon avatar = new ImageIcon();
+
+
+		if ( typeVictoire == "Egalité parfaite")
+		{
+			lblJoueur.setText (conclJoueur[0].getNom() + " et " + conclJoueur[1].getNom());
+			avatar.setImage ( new ImageIcon("ressource/avatar/equipe.png").getImage().getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH));
+		}
+		else
+		{
+			lblJoueur.setText(conclJoueur[0].getNom());
+			avatar.setImage(new ImageIcon("ressource/avatar/" + conclJoueur[0].getAvatar() + ".png").getImage().getScaledInstance(200, 200,  java.awt.Image.SCALE_SMOOTH));	
+		}
+
+
+		
 		lblJoueur.setFont(font2);
 		
-		//Label avatar
-		ImageIcon avatar = new ImageIcon("./ressource/images/" + this.vainqueur.getAvatar() + ".jpg"/*+ this.ctrl.getVainqueur().getAvatar()*/);		
+			
 		Image image = avatar.getImage();
 		Image newimg = image.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH); 
 		avatar = new ImageIcon(newimg);
@@ -71,10 +84,10 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		JLabel lblAvatar = new JLabel( avatar, JLabel.CENTER );
 		
 		//Panel Stats
-		JLabel lblTmp = new JLabel("les stats", JLabel.CENTER);
+		JLabel lblTmp = new JLabel("Statistiques :", JLabel.CENTER);
 		
 		//Label type de victoire
-		JLabel lblTypeVictoire = new JLabel("Victoire par bg attitude"/* this.ctrl.getTypeVictoire() */, JLabel.CENTER);
+		JLabel lblTypeVictoire = new JLabel( typeVictoire, JLabel.CENTER);
 		lblTypeVictoire.setFont(font3);
 		lblTypeVictoire.setForeground(new Color(160,137,66));
 		
@@ -118,7 +131,8 @@ public class FrameFinPartie extends JFrame implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		Controleur.getInstance().setFrameSuiviActuelle(new FrameJoueur(Controleur.getInstance().getJoueur1()), new FrameJoueur(Controleur.getInstance().getJoueur2()) );
+		Controleur.getInstance().setFrameSuiviVisible(true);
+		Controleur.getInstance().setframeSuiviActuelle(new FrameJoueur(new Joueur()), new FrameJoueur(new Joueur() ) );
 		Controleur.getInstance().setFrameJeuActuelle(new FrameMenu() );
 	}
 }

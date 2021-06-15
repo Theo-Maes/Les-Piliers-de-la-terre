@@ -5,7 +5,6 @@ import javax.swing.JPanel;
 
 import equipe_26.Controleur;
 import equipe_26.metier.Joueur;
-import equipe_26.metier.Plateau;
 
 import javax.swing.JOptionPane;
 
@@ -116,12 +115,12 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 			}
 		}
 
-		Controleur.getInstance().setPlateau(new Plateau(0));
+
 		if(e.getSource() == this.btnPlateauAuto) {
 			Controleur.getInstance().getPlateau().plateauAuto();
 		}
-
-		Controleur.getInstance().setFrameSuiviActuelle (new FrameStat(j1), new FrameStat(j2) );
+		
+		Controleur.getInstance().setframeSuiviActuelle (new FrameStat(j1), new FrameStat(j2) );
 		Controleur.getInstance().setFrameJeuActuelle   (new FrameJeu()                       );
 	}
 }

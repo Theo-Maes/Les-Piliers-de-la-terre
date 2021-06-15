@@ -3,6 +3,10 @@ package equipe_26.metier;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import equipe_26.Controleur;
+import equipe_26.IHM.FrameFinPartie;
+
 import java.io.FileInputStream;
 
 /** Les Piliers de la terres
@@ -26,12 +30,19 @@ public class Plateau
 	private Boolean bEgalite   = false;
 	
 	private static int compteur = 0;
+
+	private int num;
 	
 	private Joueur j1;	//G
 	private Joueur j2;	//M
+	private Joueur vainqueur;
+
+	private String typeVictoire;
 	
 	public Plateau(int num)
 	{
+		this.num = num;
+
 		this.ensDalles = new ArrayList<>();
 		this.j1 = new Joueur();
 		this.j2 = new Joueur();
@@ -181,7 +192,6 @@ public class Plateau
 	
 	public boolean verification()
 	{
-		System.out.println("ça check");
 		
 		//Si un Architecte possède 9 Dalles
 		int g = j1.getNbDalle();
@@ -195,21 +205,19 @@ public class Plateau
 		System.out.println(pilierTotal + "");
 		System.out.println(g + " " + m);
 		if ( pilierTotal == 0 )
-		{
-			if ( m == g )
-			{
-				this.verifEgalite();
-			}
-				
-			else
-			{
-				this.bMVictoire = m>g;
-				this.bGVictoire = !this.bMVictoire;
-			}
-			
-		}
-		return this.bMVictoire || this.bGVictoire || this.bEgalite;
-	}
+        {
+            if ( m == g )
+            {
+                this.verifEgalite();
+            }
+            else
+            {
+                this.bMVictoire = m>g;
+                this.bGVictoire = !this.bMVictoire;
+            }   
+        }
+        return this.bMVictoire || this.bGVictoire || this.bEgalite;
+    }
   
 	public void verifEgalite()
 	{
@@ -232,7 +240,16 @@ public class Plateau
 			
 			enfermement(d, coin);
 			
-			
+			if(this.num != 1)
+			if ( this.verification() ) {
+				if (this.bGVictoire) {
+					this.vainqueur = this.j1;
+				} else {
+					this.vainqueur = this.j2;
+				}
+				Controleur.getInstance().setFrameSuiviVisible(false);
+				Controleur.getInstance().setFrameJeuActuelle(new FrameFinPartie());
+			}
 			
 
 			Plateau.ajoutTour();
@@ -362,7 +379,10 @@ public class Plateau
 	}
 	
 	
-	public int getNbTour()	{return Plateau.compteur;}
+	public int getNbTour          () { return Plateau.compteur;  }
+	public Joueur getVainqeur     () { return this.vainqueur;    }
+	public String getTypeVictoire () { return this.typeVictoire; }
+	
 	private static void ajoutTour(){Plateau.compteur++;}
 	
 	public void affichage()
