@@ -135,7 +135,7 @@ public class Plateau
 		String sCoul1 = this.getSaisie();
 		//String sCoul1 = "bleu";
 		System.out.print("Avatar joueur 1 : ");
-		String sAvatar1 this.getSaisie();
+		String sAvatar1 = this.getSaisie();
 		//String sAvatar1 = "1664";
 		
 		System.out.print("Nom joueur 2 : ");
@@ -448,15 +448,16 @@ public class Plateau
 	
 	public void scenario(String sMode)
 	{
+		String sChoix ="";
 		if(sMode.equals("CUI"))
 		{
 			
 			System.out.println("Numéro du scénario à charger");
-			String sChoix = this.getSaisie();
+			sChoix = this.getSaisie();
 			while( Integer.parseInt(sChoix) < 0 || Integer.parseInt(sChoix) > 18)
 			{
 				System.out.println("Numéro du scénario à charger");
-				String sChoix = this.getSaisie();
+				sChoix = this.getSaisie();
 			}
 		}
 		else
