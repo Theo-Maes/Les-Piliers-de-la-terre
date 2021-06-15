@@ -43,6 +43,7 @@ public class PanelJoueur extends JPanel implements DocumentListener
 
 		this.txtPseudo.setHorizontalAlignment(JTextField.CENTER);
 
+
 		//positionnement
 		this.panelPseudo.add ( new JLabel( "Pseudo", JLabel.CENTER ) );
 		this.panelPseudo.add ( this.txtPseudo );
