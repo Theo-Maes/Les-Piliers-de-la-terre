@@ -154,7 +154,7 @@ public class FrameFinPartie extends JFrame implements ActionListener
 	{
 		Controleur.getInstance().setFrameSuiviVisible(true);
 
-		Controleur.getInstance().setframeSuiviActuelle(new FrameJoueur(Controleur..getInstance().getJoueur1()), new FrameJoueur(Controleur..getInstance().getJoueur2()) ) );
+		Controleur.getInstance().setFrameSuiviActuelle(new FrameJoueur(Controleur.getInstance().getJoueur1()), new FrameJoueur(Controleur.getInstance().getJoueur2()) );
 		Controleur.getInstance().setFrameJeuActuelle(new FrameMenu() );
 	}
 }
