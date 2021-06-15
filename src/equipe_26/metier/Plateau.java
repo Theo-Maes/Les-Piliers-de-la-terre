@@ -39,10 +39,12 @@ public class Plateau
 	private Joueur jPerdant;
 	
 	private String sTypeVictoire;
+	private String sScenario;
 	
 	public Plateau(int iNum)
 	{
 		this.iNum = iNum;
+		this.sScenario = "scenario1";
 
 		this.ensDalles = new ArrayList<>();
 
@@ -455,14 +457,21 @@ public class Plateau
 		}
 		else
 		{
-			//récupéré le numéro du scénario dans sChoix
+			sChoix = this.getScenario
+			sChoix = sChoix.substring(8);
 		}
 		
-		this.chargerScenario(Integer.parseInt(sChoix));
+		this.chargerScenario(Integer.parseInt(sChoix), sMode);
 		
 	}
 	
-	public void chargerScenario(int num)
+	public void setScenario(String s)
+	{
+		this.sScenario = s;
+	}
+	public String getScenario(){return this.sScenario;}
+	
+	public void chargerScenario(int num, String sMode)
 	{
 		int iNumDalle1;
 		int iNumDalle2;
@@ -481,7 +490,7 @@ public class Plateau
 			{
 				String s = sc.nextLine();
 				iNumDalle1 = (int)(s.charAt(0) - 'A');
-				iCote     = Character.getNumericValue(s.charAt(1)      );
+				iCote     = Character.getNumericValue(s.charAt(1));
 				iNumDalle2 = (int)(s.charAt(2) - 'A');
 				this.ensDalles.get(iNumDalle1).ajouterVoisine(iCote, this.ensDalles.get(iNumDalle2));			
 			}			
@@ -498,7 +507,10 @@ public class Plateau
 			}
 			
 		}catch (Exception e){ e.printStackTrace(); }
-			
-		this.jeuCUI();
+
+		if(sMode.equals("CUI"))
+			this.jeuCUI();
+		else
+			//Je sais pas comment lancer en GUI
 	}
 }
