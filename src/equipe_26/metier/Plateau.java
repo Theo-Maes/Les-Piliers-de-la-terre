@@ -457,7 +457,7 @@ public class Plateau
 		}
 		else
 		{
-			sChoix = this.getScenario
+			sChoix = this.getScenario();
 			sChoix = sChoix.substring(8);
 		}
 		
@@ -510,7 +510,7 @@ public class Plateau
 
 		if(sMode.equals("CUI"))
 			this.jeuCUI();
-		else
+		//else
 			//Je sais pas comment lancer en GUI
 	}
 }
