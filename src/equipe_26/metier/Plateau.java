@@ -73,6 +73,7 @@ public class Plateau
 	
 	public void dalleInit()
 	{
+		Dalle.reinitialiser();
 		for(int i=0; i< this.MAX_DALLE; i++)
 			this.ensDalles.add(new Dalle());
 	}
@@ -245,7 +246,7 @@ public class Plateau
 				this.joueur2.decrementer();
 			
 			
-			//this.enfermement(d, iCoin);
+			// this.enfermement(d, iCoin);
 			
 			if(this.iNum != 1)
 				if ( this.verification() ) {
@@ -510,7 +511,8 @@ public class Plateau
 
 		if(sMode.equals("CUI"))
 			this.jeuCUI();
-		//else
-			//Je sais pas comment lancer en GUI
+		else
+			{}//Je sais pas comment lancer en GUI
+
 	}
 }
