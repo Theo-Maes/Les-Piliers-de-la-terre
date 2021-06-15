@@ -46,11 +46,9 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		{
 			this.joueur1 = new Joueur();
 			this.joueur2 = new Joueur();
-			
-			this.plateau   = new Plateau(0);
 
 			this.setFrameJeuActuelle(new FrameMenu());
-			this.setframeSuiviActuelle(new FrameJoueur(this.joueur1), new FrameJoueur(this.joueur2));
+			this.setFrameSuiviActuelle(new FrameJoueur(this.joueur1), new FrameJoueur(this.joueur2));
 
 
 			this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - 5 - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
@@ -61,12 +59,13 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		
 	}
 		
-
+	
 	public static Controleur getInstance() { return instance; }	
 	public        Plateau    getPlateau () { return plateau;  }
 	public        Joueur     getJoueur1 () { return joueur1;  }
 	public        Joueur     getJoueur2 () { return joueur2;  }
 
+	public void setPlateau(Plateau plateau) { this.plateau = plateau; }
 
 	public void setFrameJeuActuelle(JFrame frameJeuActuelle) 
 	{
@@ -77,7 +76,7 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 	}
 
 
-	public void setframeSuiviActuelle(JFrame frameSuiviActuelleG, JFrame frameSuiviActuelleD) 
+	public void setFrameSuiviActuelle(JFrame frameSuiviActuelleG, JFrame frameSuiviActuelleD) 
 	{
 		if(this.frameSuiviActuelleG != null && this.frameSuiviActuelleD != null)
 		{
