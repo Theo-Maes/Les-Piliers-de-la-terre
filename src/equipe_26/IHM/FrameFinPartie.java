@@ -31,7 +31,7 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		
 
 		// Affectation vainqueur
-		this.vainqueur = Controleur.getInstance().getPlateau().getVainqeur();
+		//this.vainqueur = Controleur.getInstance().getPlateau().getVainqueur();
 
 
 		//Création des differents panel
