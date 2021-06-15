@@ -1,6 +1,5 @@
 package equipe_26.metier;
 
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -29,40 +28,39 @@ public class Plateau
   
 	private Boolean bEgalite   = false;
 	
-	private static int compteur = 0;
-
-	private int num;
+	private static int iCompteur = 0;
+	
+	private int iNum;
 	
 	private Joueur joueur1;	//G
 	private Joueur joueur2;	//M
   
-	private Joueur vainqueur;
-	private Joueur perdant;
-
-	private String typeVictoire;
+	private Joueur jVainqueur;
+	private Joueur jPerdant;
 	
-	public Plateau(int num)
+	private String sTypeVictoire;
+	
+	public Plateau(int iNum)
 	{
-		this.num = num;
+		this.iNum = iNum;
 
 		this.ensDalles = new ArrayList<>();
 
 		this.joueur1 = Controleur.getInstance().getJoueur1();
 		this.joueur2 = Controleur.getInstance().getJoueur2();
 		
-		if (num == 1)
+		if (iNum == 1)
 		{
 			System.out.println("(1) -> Plateau de base"     +
 						     "\n(2) -> Plateau personnalisé"+
 						     "\n(3) -> Scénarios"            );
 			Scanner chx = new Scanner (System.in);
-			int choix = chx.nextInt();
+			int iChoix = chx.nextInt();
 			
-
-			switch(choix)
+			switch(iChoix)
 			{
-				case 2 -> System.out.println("choix 2");
-				case 3 -> scenario("CUI");
+				case 2   -> System.out.println("choix 2");
+				case 3   -> scenario("CUI");
 				default  -> plateauAutoCUI();
 				
 			}
@@ -81,8 +79,8 @@ public class Plateau
 	{
 		this.dalleInit();
 		
-		int numDalle1;
-		int numDalle2;
+		int iNumDalle1;
+		int iNumDalle2;
 		int iCote;
 		
 		try
@@ -93,10 +91,10 @@ public class Plateau
 			while(sc.hasNext())
 			{
 				String s = sc.nextLine();
-				numDalle1 = (int)(s.charAt(0) - 'A');
+				iNumDalle1 = (int)(s.charAt(0) - 'A');
 				iCote     = Character.getNumericValue(s.charAt(1)      );
-				numDalle2 = (int)(s.charAt(2) - 'A');
-				this.ensDalles.get(numDalle1).ajouterVoisine(iCote, this.ensDalles.get(numDalle2));			
+				iNumDalle2 = (int)(s.charAt(2) - 'A');
+				this.ensDalles.get(iNumDalle1).ajouterVoisine(iCote, this.ensDalles.get(iNumDalle2));			
 			}
 			
 		}catch (Exception e){ e.printStackTrace(); }
@@ -104,14 +102,14 @@ public class Plateau
 	
 	public void plateauAutoCUI()
 	{
-		initPlateauBase();		
-		choixJoueur();
-		jeuCUI();
+		this.initPlateauBase();		
+		this.choixJoueur();
+		this.jeuCUI();
 	}
 	
 	public void plateauAuto()
 	{
-		initPlateauBase();		
+		this.initPlateauBase();		
 	}
 	
 	public String getSaisie()
@@ -130,38 +128,43 @@ public class Plateau
 		//Création des joueurs
 		System.out.print("Nom joueur 1 : ");
 		String sNom1 = this.getSaisie();
-		//String sNom1 = "Alan";
 		System.out.print("Couleur joueur 1 : ");
 		String sCoul1 = this.getSaisie();
-		//String sCoul1 = "bleu";
 		System.out.print("Avatar joueur 1 : ");
 		String sAvatar1 = this.getSaisie();
-		//String sAvatar1 = "1664";
 		
 		System.out.print("Nom joueur 2 : ");
 		String sNom2 = this.getSaisie();
-		//String sNom2 = "Paul";
 		System.out.print("Couleur joueur 2 : ");
 		String sCoul2 = this.getSaisie();
-		//String sCoul2 = "rouge";
 		System.out.print("Avatar joueur 2: ");
 		String sAvatar2 = this.getSaisie();
-		//String sAvatar2 = "Lardon";
+		
 		System.out.println();
+		
+		/*
+		String sNom1 = "Alan";
+		String sCoul1 = "bleu";
+		String sAvatar1 = "1664";
+		String sNom2 = "Paul";
+		String sCoul2 = "rouge";
+		String sAvatar2 = "Lardon";
+		*/
 
 		this.joueur1 = new Joueur(sNom1, sCoul1, sAvatar1);
 		this.joueur2 = new Joueur(sNom2, sCoul2, sAvatar2);
+		
 	}
 	
 	public void jeuCUI()
 	{
 		
 		String sCase = "";
-		while(!verification())
+		while(!this.verification())
 		{
 			affichage();
-			if (getNbTour()%2 == 0)System.out.println("Au tour de " + this.joueur1.getNom() + " de poser un pilier");
-			else                   System.out.println("Au tour de " + this.joueur2.getNom() + " de poser un pilier");
+			if (this.getNbTour()%2 == 0)System.out.println("Au tour de " + this.joueur1.getNom() + " de poser un pilier");
+			else                        System.out.println("Au tour de " + this.joueur2.getNom() + " de poser un pilier");
 			
 			char cDalle = 'A';
 			int iCoin   =  0 ;
@@ -175,10 +178,7 @@ public class Plateau
 				if(sCase.length() == 2)
 				{
 					cDalle    = Character.toUpperCase    (sCase.charAt(0));
-					iCoin     = Character.getNumericValue(sCase.charAt(1));  
-					
-					System.out.println(cDalle +" "+iCoin);
-			
+					iCoin     = Character.getNumericValue(sCase.charAt(1));			
 					bOk = cDalle >= 'A' && cDalle <= 'P' && iCoin >= 0 && iCoin <= 5;
 				}				
 			}
@@ -187,30 +187,23 @@ public class Plateau
 			System.out.println("Fin du tour n°" + (this.getNbTour()));
 		}
 	}
-	public void jeu()
-	{
-		
-	}
 	
 	public boolean verification()
 	{
 		
 		//Si un Architecte possède 9 Dalles
-		int g = joueur1.getNbDalle();
-		int m = joueur2.getNbDalle();
+		int g = this.joueur1.getNbDalle();
+		int m = this.joueur2.getNbDalle();
 		
 		if( m > 8) this.bMVictoire = true;
 		if( g > 8) this.bGVictoire = true;
 		
-		this.typeVictoire = "Victoire après avoir concquit 9 dalles ou plus";
+		this.sTypeVictoire = "Victoire après avoir concquit 9 dalles ou plus";
 		
 		//Lorsque chaque Architectes ont construit 24 Piliers
-		int pilierTotal = this.joueur1.getNbPilier() + this.joueur2.getNbPilier();
+		int iPilierTotal = this.joueur1.getNbPilier() + this.joueur2.getNbPilier();
     
-		System.out.println(pilierTotal + "");
-		System.out.println(g + " " + m);
-    
-		if ( pilierTotal == 0 )
+		if ( iPilierTotal == 0 )
         {
             if ( m == g )
             {
@@ -218,9 +211,9 @@ public class Plateau
             }
             else
             {
-                this.bMVictoire = m>g;
-                this.bGVictoire = !this.bMVictoire;
-		this.typeVictoire = "Victoire grâce à un nombre de dalle supérieur";
+                this.bMVictoire    = m>g;
+                this.bGVictoire    = !this.bMVictoire;
+				this.sTypeVictoire = "Victoire grâce à un nombre de dalle supérieur";
             }   
         }
         return this.bMVictoire || this.bGVictoire || this.bEgalite;
@@ -235,40 +228,40 @@ public class Plateau
 
         if( this.joueur2.getPilierDetruit() >  this.joueur1.getPilierDetruit() ) this.bMVictoire = true;
 
-		this.typeVictoire = this.bEgalite == true ? "Egalité parfaite" : "Victoire par destruction de pilier";
+		this.sTypeVictoire = this.bEgalite == true ? "Egalité parfaite" : "Victoire par destruction de pilier";
     }
 	
-	public void ajoutPilier(Dalle d, int coin)	//Ajout d'un pilier
+	public void ajoutPilier(Dalle d, int iCoin)	//Ajout d'un pilier
 	{
-		if(d.ajouterPilier(coin))
+		if(d.ajouterPilier(iCoin))
 		{
 			for(Dalle dalle : this.ensDalles)dalle.RAZConstruire();
 			
-			if( getNbTour()%2 == 0)		//Si c'est pair, c'est le premier joueur qui joue
+			if( this.getNbTour()%2 == 0)		//Si c'est pair, c'est le premier joueur qui joue
 				this.joueur1.decrementer();	//Nombre de pilier du joueur qui baisse
 			else
 				this.joueur2.decrementer();
 			
 			
-			this.enfermement(d, coin);
+			this.enfermement(d, iCoin);
 			
-			if(this.num != 1)
-			if ( this.verification() ) {
-					if (this.bGVictoire) 
-					{
-						this.vainqueur = this.joueur1;
-						this.perdant   = this.joueur2;
-					} 
-					else 
-					{
-						this.vainqueur = this.joueur2;
-						this.perdant   = this.joueur1;
-					}
-				
-					Joueur[] conclJoueur = new Joueur[]{ this.vainqueur,this.perdant };
-					Controleur.getInstance().setFrameSuiviVisible(true);
-					Controleur.getInstance().setFrameJeuActuelle(new FrameFinPartie( conclJoueur , this.typeVictoire));
-			}
+			if(this.iNum != 1)
+				if ( this.verification() ) {
+						if (this.bGVictoire) 
+						{
+							this.jVainqueur = this.joueur1;
+							this.jPerdant   = this.joueur2;
+						} 
+						else 
+						{
+							this.jVainqueur = this.joueur2;
+							this.jPerdant   = this.joueur1;
+						}
+					
+						Joueur[] conclJoueur = new Joueur[]{ this.jVainqueur,this.jPerdant };
+						Controleur.getInstance().setFrameSuiviVisible(true);
+						Controleur.getInstance().setFrameJeuActuelle(new FrameFinPartie( conclJoueur , this.sTypeVictoire));
+				}
 
 			Plateau.ajoutTour();
 		}
@@ -397,15 +390,15 @@ public class Plateau
 	}
 	
 	
-	public int getNbTour          () { return Plateau.compteur;  }
-	public Joueur getVainqueur    () { return this.vainqueur;    }
-	public String getTypeVictoire () { return this.typeVictoire; }
+	public int getNbTour          () { return Plateau.iCompteur;  }
+	public Joueur getVainqueur    () { return this.jVainqueur;    }
+	public String getTypeVictoire () { return this.sTypeVictoire; }
 
-	private static void ajoutTour(){Plateau.compteur++;}
+	private static void ajoutTour(){Plateau.iCompteur++;}
 	
 	public void affichage()
 	{
-		System.out.println("\n" + toString() + "\n" + toStringP() + "\n" + toStringC()) ;		
+		System.out.println("\n" + this.toString() + "\n" + this.toStringP() + "\n" + this.toStringC()) ;		
 	}
 	public String toString()
     {
@@ -448,7 +441,7 @@ public class Plateau
 	
 	public void scenario(String sMode)
 	{
-		String sChoix ="";
+		String sChoix = "";
 		if(sMode.equals("CUI"))
 		{
 			
@@ -465,15 +458,15 @@ public class Plateau
 			//récupéré le numéro du scénario dans sChoix
 		}
 		
-		chargerScenario(Integer.parseInt(sChoix));
+		this.chargerScenario(Integer.parseInt(sChoix));
 		
 	}
 	
 	public void chargerScenario(int num)
 	{
-		int numDalle1;
-		int numDalle2;
-		int numDalle3;
+		int iNumDalle1;
+		int iNumDalle2;
+		int iNumDalle3;
 		int iCote;
 		int iCoin;
 		
@@ -487,10 +480,10 @@ public class Plateau
 			while(!sc.hasNext("Pilier"))
 			{
 				String s = sc.nextLine();
-				numDalle1 = (int)(s.charAt(0) - 'A');
+				iNumDalle1 = (int)(s.charAt(0) - 'A');
 				iCote     = Character.getNumericValue(s.charAt(1)      );
-				numDalle2 = (int)(s.charAt(2) - 'A');
-				this.ensDalles.get(numDalle1).ajouterVoisine(iCote, this.ensDalles.get(numDalle2));			
+				iNumDalle2 = (int)(s.charAt(2) - 'A');
+				this.ensDalles.get(iNumDalle1).ajouterVoisine(iCote, this.ensDalles.get(iNumDalle2));			
 			}			
 			
 			sc.nextLine();
@@ -499,13 +492,13 @@ public class Plateau
 			while(sc.hasNext())
 			{
 				String sPilier = sc.nextLine();
-				numDalle3 = (int)(sPilier.charAt(0) - 'A');
+				iNumDalle3 = (int)(sPilier.charAt(0) - 'A');
 				iCoin     = Character.getNumericValue(sPilier.charAt(1));
-				ajoutPilier(this.ensDalles.get(numDalle3), iCoin);
+				this.ajoutPilier(this.ensDalles.get(iNumDalle3), iCoin);
 			}
 			
 		}catch (Exception e){ e.printStackTrace(); }
 			
-		jeu();
+		this.jeu();
 	}
 }
