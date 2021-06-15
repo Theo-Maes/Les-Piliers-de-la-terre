@@ -390,9 +390,9 @@ public class Plateau
 	// }
 	
 	
-	public int    getNbTour       () { return Plateau.compteur;  }
-	public Joueur getVainqueur    () { return this.vainqueur;    }
-	public String getTypeVictoire () { return this.typeVictoire; }
+	public int    getNbTour       () { return Plateau.iCompteur;  }
+	public Joueur getVainqueur    () { return this.jVainqueur;    }
+	public String getTypeVictoire () { return this.sTypeVictoire; }
 
 	private static void ajoutTour(){Plateau.iCompteur++;}
 	
@@ -499,6 +499,6 @@ public class Plateau
 			
 		}catch (Exception e){ e.printStackTrace(); }
 			
-		this.jeu();
+		this.jeuCUI();
 	}
 }
