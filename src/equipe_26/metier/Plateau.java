@@ -269,7 +269,7 @@ public class Plateau
 					Joueur[] conclJoueur = new Joueur[]{ this.vainqueur,this.perdant };
 					Controleur.getInstance().setFrameSuiviVisible(true);
 					Controleur.getInstance().setFrameJeuActuelle(new FrameFinPartie( conclJoueur , this.typeVictoire));
-			
+			}
 
 			Plateau.ajoutTour();
 		}
