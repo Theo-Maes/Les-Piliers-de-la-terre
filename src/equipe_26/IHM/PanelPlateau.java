@@ -302,6 +302,7 @@ public class PanelPlateau extends JPanel implements MouseListener, MouseMotionLi
 				if (d.getNom() == btnName.charAt(0))
 					if (d.isConstructible(numPilier))
 						Controleur.getInstance().getPlateau().ajoutPilier(d, numPilier);
+			Controleur.getInstance().majFrameSuivi();
 		}
 	}
 

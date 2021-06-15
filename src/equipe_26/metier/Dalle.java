@@ -1,5 +1,9 @@
 package equipe_26.metier;
 
+import javax.naming.ldap.Control;
+
+import equipe_26.Controleur;
+
 public class Dalle
 {
 	private final  int[] MODIF_X  = new int[] {  0, 49, 49,  0,-49,-49};
@@ -128,14 +132,16 @@ public class Dalle
 			if(p != null && p.getCoul() != tmp.getCoul()){this.detruire(cpt);}
 			cpt++;
 		}
+		if(Controleur.getInstance().getPlateau().getNbTour()%2 == 0) Controleur.getInstance().getJoueur1().priseDalle(1);
+		else                                                         Controleur.getInstance().getJoueur2().priseDalle(1);
 	}
 	
 	public void detruire(int coin)
 	{
 		switch(this.piliers[coin].getCoul())
 		{
-			case 'G' -> Dalle.nbPiliersDetruitParJ1++;
-			case 'M' -> Dalle.nbPiliersDetruitParJ2++;
+			case 'G' -> { Dalle.nbPiliersDetruitParJ1++; Controleur.getInstance().getJoueur2().detruirePilier(1);}
+			case 'M' -> { Dalle.nbPiliersDetruitParJ2++; Controleur.getInstance().getJoueur1().detruirePilier(1);}
 		}
 			
 		this.piliers[coin]    =  null;

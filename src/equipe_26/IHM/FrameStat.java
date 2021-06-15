@@ -31,4 +31,9 @@ public class FrameStat extends JFrame
 		this.setResizable(false);
 		this.setVisible(true);
 	}
+
+	public void majIHM()
+	{
+		this.panelStat.majIHM();
+	}
 }
