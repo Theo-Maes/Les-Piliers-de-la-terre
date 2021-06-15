@@ -37,6 +37,7 @@ public class Plateau
 	private Joueur joueur2;	//M
   
 	private Joueur vainqueur;
+	private Joueur perdant;
 
 	private String typeVictoire;
 	
@@ -202,6 +203,8 @@ public class Plateau
 		if( m > 8) this.bMVictoire = true;
 		if( g > 8) this.bGVictoire = true;
 		
+		this.typeVictoire = "Victoire après avoir concquit 9 dalles ou plus";
+		
 		//Lorsque chaque Architectes ont construit 24 Piliers
 		int pilierTotal = this.joueur1.getNbPilier() + this.joueur2.getNbPilier();
     
@@ -218,16 +221,22 @@ public class Plateau
             {
                 this.bMVictoire = m>g;
                 this.bGVictoire = !this.bMVictoire;
+		this.typeVictoire = "Victoire grâce à un nombre de dalle supérieur";
             }   
         }
         return this.bMVictoire || this.bGVictoire || this.bEgalite;
     }
   
-    public void verifEgalite()
+	
+   public void verifEgalite()
     {
-        if( this.joueur1.getPilierDetruit() == this.joueur2.getPilierDetruit() )  this.bEgalite   = true;
-        if( this.joueur1.getPilierDetruit() >  this.joueur2.getPilierDetruit() )  this.bGVictoire = true;
-        if( this.joueur2.getPilierDetruit() >  this.joueur1.getPilierDetruit() )  this.bMVictoire = true;
+        if( this.joueur1.getPilierDetruit() == this.joueur2.getPilierDetruit() ) this.bEgalite   = true;
+
+        if( this.joueur1.getPilierDetruit() >  this.joueur2.getPilierDetruit() ) this.bGVictoire = true;
+
+        if( this.joueur2.getPilierDetruit() >  this.joueur1.getPilierDetruit() ) this.bMVictoire = true;
+
+		this.typeVictoire = this.bEgalite == true ? "Egalité parfaite" : "Victoire par destruction de pilier";
     }
 	
 	public void ajoutPilier(Dalle d, int coin)	//Ajout d'un pilier
@@ -246,14 +255,20 @@ public class Plateau
 			
 			if(this.num != 1)
 			if ( this.verification() ) {
-				if (this.bGVictoire) {
-					this.vainqueur = this.joueur1;
-				} else {
-					this.vainqueur = this.joueur2;
-				}
-				Controleur.getInstance().setFrameSuiviVisible(false);
-				Controleur.getInstance().setFrameJeuActuelle(new FrameFinPartie());
-			}
+					if (this.bGVictoire) 
+					{
+						this.vainqueur = this.joueur1;
+						this.perdant   = this.joueur2;
+					} 
+					else 
+					{
+						this.vainqueur = this.joueur2;
+						this.perdant   = this.joueur1;
+					}
+				
+					Joueur[] conclJoueur = new Joueur[]{ this.vainqueur,this.perdant };
+					Controleur.getInstance().setFrameSuiviVisible(true);
+					Controleur.getInstance().setFrameJeuActuelle(new FrameFinPartie( conclJoueur , this.typeVictoire));
 			
 
 			Plateau.ajoutTour();
@@ -384,7 +399,7 @@ public class Plateau
 	
 	
 	public int getNbTour          () { return Plateau.compteur;  }
-	public Joueur getVainqeur     () { return this.vainqueur;    }
+	public Joueur getVainqueur    () { return this.vainqueur;    }
 	public String getTypeVictoire () { return this.typeVictoire; }
 
 	private static void ajoutTour(){Plateau.compteur++;}
