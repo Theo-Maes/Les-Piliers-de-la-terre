@@ -245,6 +245,7 @@ public class Plateau
 					} else {
 						this.vainqueur = this.joueur2;
 					}
+					Controleur.getInstance().setFrameSuiviVisible(false);
 					Controleur.getInstance().setFrameJeuActuelle(new FrameFinPartie());
 				}
 					

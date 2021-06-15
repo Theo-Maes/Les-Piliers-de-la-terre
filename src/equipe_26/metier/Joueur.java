@@ -65,7 +65,7 @@ public class Joueur
 
 	public void reinitialiser()
 	{
-		this.nbPilier         =  6;
+		this.nbPilier         = 24;
 		this.nbDalle          =  0;
 		this.pilierDetruit    =  0;
 		this.nbDallePerdue    =  0;
