@@ -84,8 +84,10 @@ public class Joueur
 	public boolean perteDalle(int nb)
 	{
 		if(nb > this.iNbDalle){return false;}
-		this.iNbDalle -= nb;
+		
+    this.iNbDalle -= nb;
 		this.iNbDallePerdue += nb;
+    
 		return true;
 	}
 	

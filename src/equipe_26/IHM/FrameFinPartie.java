@@ -28,9 +28,6 @@ public class FrameFinPartie extends JFrame implements ActionListener
 		this.setLayout(new BorderLayout(5,5));
 		
 
-		// Affectation vainqueur
-
-
 		//Création des differents panel
 		JPanel panelMilieu     = new JPanel( new GridLayout  (2,1,5,5) );
 		JPanel panelMilieuHaut = new JPanel( new BorderLayout(5,5    ) );
@@ -132,7 +129,7 @@ public class FrameFinPartie extends JFrame implements ActionListener
 	public void actionPerformed(ActionEvent e)
 	{
 		Controleur.getInstance().setFrameSuiviVisible(true);
-		Controleur.getInstance().setframeSuiviActuelle(new FrameJoueur(new Joueur()), new FrameJoueur(new Joueur() ) );
-		Controleur.getInstance().setFrameJeuActuelle(new FrameMenu() );
+		Controleur.getInstance().setFrameSuiviActuelle(new FrameJoueur(Controleur.getInstance().getJoueur1()), new FrameJoueur(Controleur.getInstance().getJoueur2()) );
+		Controleur.getInstance().setFrameJeuActuelle  (new FrameMenu() );
 	}
 }

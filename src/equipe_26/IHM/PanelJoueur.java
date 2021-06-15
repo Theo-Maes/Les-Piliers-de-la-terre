@@ -22,6 +22,7 @@ public class PanelJoueur extends JPanel implements DocumentListener
 	public PanelJoueur(Joueur joueur)
 	{
 		this.joueur = joueur;
+		this.joueur.reinitialiser();
 
 		this.setPreferredSize(new Dimension (200,200));
 
@@ -40,6 +41,7 @@ public class PanelJoueur extends JPanel implements DocumentListener
 		this.setAvatar         ( this.joueur.getAvatar() == null ? "equipe"  : this.joueur.getAvatar() );
 		this.setCouleur        ( this.joueur.getCoul  () == null ? "gris"    : this.joueur.getCoul  () );
 
+		this.txtPseudo.setHorizontalAlignment(JTextField.CENTER);
 
 
 		//positionnement
@@ -57,14 +59,14 @@ public class PanelJoueur extends JPanel implements DocumentListener
 
 	public void setAvatar(String nomAvatar)
 	{
-		this.lblAvatar.setIcon  ( new ImageIcon(new ImageIcon("./ressource/avatar/" + nomAvatar + ".png").getImage().getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH))  );
+		this.lblAvatar.setIcon  ( new ImageIcon(new ImageIcon("ressource/avatar/" + nomAvatar + ".png").getImage().getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH))  );
 		this.joueur   .setAvatar(nomAvatar);
 	}
 	
 
 	public void setCouleur(String nomCouleur)
 	{
-		this.lblCouleur.setIcon (new ImageIcon(new ImageIcon("./ressource/couleur/" + nomCouleur + ".png").getImage().getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH))  );
+		this.lblCouleur.setIcon (new ImageIcon(new ImageIcon("ressource/couleur/" + nomCouleur + ".png").getImage().getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH))  );
 		this.joueur    .setCoul (nomCouleur);
 	}
 
