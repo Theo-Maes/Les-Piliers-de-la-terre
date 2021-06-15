@@ -1,9 +1,9 @@
 package equipe_26.IHM;
 
+import javax.swing.JFrame;
+
 import equipe_26.Controleur;
 import equipe_26.metier.Joueur;
-
-import javax.swing.*;
 
 public class FrameStat extends JFrame
 {

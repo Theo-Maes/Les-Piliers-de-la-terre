@@ -1,11 +1,13 @@
 package equipe_26.IHM;
 
-import javax.swing.*;
-
-import equipe_26.Controleur;
 import equipe_26.metier.Joueur;
 
 import java.awt.*;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 
 public class PanelStat extends JPanel
 {
