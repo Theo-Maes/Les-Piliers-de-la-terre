@@ -4,57 +4,55 @@ import java.awt.Color;
 
 public class Joueur
 {
-	private String nom;
-	private String nomCouleur;
-	private String nomAvatar;
+	private String sNom;
+	private String sNomCouleur;
+	private String sNomAvatar;
 	
-	private Color couleur;
+	private Color cCouleur;
 	
-	private int nbPilier;
-	private int nbDalle ;
-	private int pilierDetruit;
-	private int nbDallePerdue;
-	private int nbDalleTourAvant;
+	private int iNbPilier     ;
+	private int iNbDalle      ;
+	private int iPilierDetruit;
+	private int iNbDallePerdue;
 	
-	public Joueur(String nom, String coul, String avatar)
+	public Joueur(String sNom, String sCoul, String sAvatar)
 	{
-		this.nomCouleur = coul;
-		this.nomAvatar  = avatar;
-		this.nom = nom;
-
-		if(coul != null)
-		this.couleur = this.setCouleur();
+		this.sNom        = sNom   ;
+		this.sNomCouleur = sCoul  ;
+		this.sNomAvatar  = sAvatar;
 		
-		this.nbPilier         = 24;
-		this.nbDalle          =  0;
-		this.pilierDetruit    =  0;
-		this.nbDallePerdue    =  0;
-		this.nbDalleTourAvant =  0;
+		this.iNbPilier         = 24;
+		this.iNbDalle          =  0;
+		this.iPilierDetruit    =  0;
+		this.iNbDallePerdue    =  0;
+
+		if(sCoul != null)
+		this.cCouleur = this.setCouleur();
 	}
 	
 	public Joueur() { this(null,null,null); }
 	
-	public String getNom           () {return this.nom          ;}
-	public String getCoul          () {return this.nomCouleur   ;}
-	public String getAvatar        () {return this.nomAvatar    ;}
-	public Color  getCouleur       () {return this.couleur      ;}
-	public int    getNbPilier      () {return this.nbPilier     ;}
-	public int    getNbDalle       () {return this.nbDalle      ;}
-	public int    getPilierDetruit () {return this.pilierDetruit;}
-	public int    getDallePerdue   () {return this.nbDallePerdue;}
+	public String getNom            () {return this.sNom          ;}
+	public String getCoul           () {return this.sNomCouleur   ;}
+	public String getAvatar         () {return this.sNomAvatar    ;}
+	public Color  getCouleur        () {return this.cCouleur      ;}
+	public int    getNbPilier       () {return this.iNbPilier     ;}
+	public int    getNbDalle        () {return this.iNbDalle      ;}
+	public int    getPilierDetruit  () {return this.iPilierDetruit;}
+	public int    getDallePerdue    () {return this.iNbDallePerdue;}
 	
 	
-	public void setNom   (String nom)    {this.nom = nom;           }
-	public void setAvatar(String avatar) {this.nomAvatar  = avatar; }
-	public void setCoul  (String coul)   
+	public void setNom   (String sNom)    {this.sNom       = sNom    ;}
+	public void setAvatar(String sAvatar) {this.sNomAvatar = sAvatar ;}
+	public void setCoul  (String sCoul)   
 	{
-		this.nomCouleur = coul;
-		this.couleur = this.setCouleur();
+		this.sNomCouleur = sCoul;
+		this.cCouleur = this.setCouleur();
 	}
 	
 	private Color setCouleur()
 	{
-		switch(this.nomCouleur)
+		switch(this.sNomCouleur)
 		{
 			case "rouge"  -> {return new Color( 255,   0,   0  );}
 			case "marron" -> {return new Color(  96,  64,  44  );}
@@ -64,46 +62,49 @@ public class Joueur
 			case "bleu"   -> {return new Color(  27,  32, 240  );}
 			case "jaune"  -> {return new Color( 196, 205,  36  );}
 			case "orange" -> {return new Color( 255, 129,  50  );}
-			default       -> {return new Color(  48,  46,  46  );}//Gris
-			
+			default       -> {return new Color(  48,  46,  46  );}//gris
 		}
+	}
+
+	public void reinitialiser()
+	{
+		this.iNbPilier         =  24;
+		this.iNbDalle          =  0;
+		this.iPilierDetruit    =  0;
+		this.iNbDallePerdue    =  0;
 	}
 	
 	public boolean priseDalle(int nb)
 	{
 		if(nb < 0){return false;}
-		this.nbDalle += nb;
+		this.iNbDalle += nb;
 		return true;
 	}
 	
 	public boolean perteDalle(int nb)
 	{
-		if(nb > this.nbDalle){return false;}
-		this.nbDalle -= nb;
+		if(nb > this.iNbDalle){return false;}
+		this.iNbDalle -= nb;
+		this.iNbDallePerdue += nb;
 		return true;
 	}
 	
 	public boolean detruirePilier(int nb)
 	{
 		if(nb < 0){return false;}
-		this.pilierDetruit += nb;
+		this.iPilierDetruit += nb;
 		return true;
 	}
 	
 	public boolean decrementer()
 	{
-		if(this.nbPilier<1){return false;}
-		this.nbPilier--;
+		if(this.iNbPilier<1){return false;}
+		this.iNbPilier--;
 		return true;
 	}
-	
-	public void dallePerdue()
-	{
-		if(this.nbDalleTourAvant > this.nbDalle)this.nbDallePerdue++;
-		this.nbDalleTourAvant = this.nbDalle;
-	}
+
 	public String toString()
 	{
-		return this.nom + " [ " + this.nomCouleur + " ] ";
+		return this.sNom + " [ " + this.sNomCouleur + " ] ";
 	}
 }
