@@ -3,6 +3,10 @@ package equipe_26.metier;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import equipe_26.Controleur;
+import equipe_26.IHM.FrameFinPartie;
+
 import java.io.FileInputStream;
 
 /** Les Piliers de la terres
@@ -26,15 +30,24 @@ public class Plateau
 	private Boolean bEgalite   = false;
 	
 	private static int compteur = 0;
+
+	private int num;
 	
-	private Joueur j1;	//G
-	private Joueur j2;	//M
+	private Joueur joueur1;	//G
+	private Joueur joueur2;	//M
+  
+	private Joueur vainqueur;
+
+	private String typeVictoire;
 	
 	public Plateau(int num)
 	{
+		this.num = num;
+
 		this.ensDalles = new ArrayList<>();
-		this.j1 = new Joueur();
-		this.j2 = new Joueur();
+
+		this.joueur1 = Controleur.getInstance().getJoueur1();
+		this.joueur2 = Controleur.getInstance().getJoueur2();
 		
 		if (num == 1)
 		{
@@ -135,9 +148,9 @@ public class Plateau
 		// String sAvatar2 = this.getSaisie();
 		String sAvatar2 = "Lardon";
 		System.out.println();
-		
-		this.j1 = new Joueur(sNom1, sCoul1, sAvatar1);
-		this.j2 = new Joueur(sNom2, sCoul2, sAvatar2);
+
+		this.joueur1 = new Joueur(sNom1, sCoul1, sAvatar1);
+		this.joueur2 = new Joueur(sNom2, sCoul2, sAvatar2);
 	}
 	
 	public void jeuCUI()
@@ -147,8 +160,8 @@ public class Plateau
 		while(!verification())
 		{
 			affichage();
-			if (getNbTour()%2 == 0)System.out.println("Au tour de " + this.j1.getNom() + " de poser un pilier");
-			else                   System.out.println("Au tour de " + this.j2.getNom() + " de poser un pilier");
+			if (getNbTour()%2 == 0)System.out.println("Au tour de " + this.joueur1.getNom() + " de poser un pilier");
+			else                   System.out.println("Au tour de " + this.joueur2.getNom() + " de poser un pilier");
 			
 			char cDalle = 'A';
 			int iCoin   =  0 ;
@@ -181,42 +194,41 @@ public class Plateau
 	
 	public boolean verification()
 	{
-		System.out.println("ça check");
 		
 		//Si un Architecte possède 9 Dalles
-		int g = j1.getNbDalle();
-		int m = j2.getNbDalle();
+		int g = joueur1.getNbDalle();
+		int m = joueur2.getNbDalle();
 		
 		if( m > 8) this.bMVictoire = true;
 		if( g > 8) this.bGVictoire = true;
 		
 		//Lorsque chaque Architectes ont construit 24 Piliers
-		int pilierTotal = this.j1.getNbPilier() + this.j2.getNbPilier();
+		int pilierTotal = this.joueur1.getNbPilier() + this.joueur2.getNbPilier();
+    
 		System.out.println(pilierTotal + "");
 		System.out.println(g + " " + m);
+    
 		if ( pilierTotal == 0 )
-		{
-			if ( m == g )
-			{
-				this.verifEgalite();
-			}
-				
-			else
-			{
-				this.bMVictoire = m>g;
-				this.bGVictoire = !this.bMVictoire;
-			}
-			
-		}
-		return this.bMVictoire || this.bGVictoire || this.bEgalite;
-	}
+        {
+            if ( m == g )
+            {
+                this.verifEgalite();
+            }
+            else
+            {
+                this.bMVictoire = m>g;
+                this.bGVictoire = !this.bMVictoire;
+            }   
+        }
+        return this.bMVictoire || this.bGVictoire || this.bEgalite;
+    }
   
-	public void verifEgalite()
-	{
-		if( this.j1.getPilierDetruit() == this.j2.getPilierDetruit() )  this.bEgalite   = true;
-		if( this.j1.getPilierDetruit() >  this.j2.getPilierDetruit() )  this.bGVictoire = true;
-		if( this.j2.getPilierDetruit() >  this.j1.getPilierDetruit() )  this.bMVictoire = true;
-	}
+    public void verifEgalite()
+    {
+        if( this.joueur1.getPilierDetruit() == this.joueur2.getPilierDetruit() )  this.bEgalite   = true;
+        if( this.joueur1.getPilierDetruit() >  this.joueur2.getPilierDetruit() )  this.bGVictoire = true;
+        if( this.joueur2.getPilierDetruit() >  this.joueur1.getPilierDetruit() )  this.bMVictoire = true;
+    }
 	
 	public void ajoutPilier(Dalle d, int coin)	//Ajout d'un pilier
 	{
@@ -225,14 +237,23 @@ public class Plateau
 			for(Dalle dalle : this.ensDalles)dalle.RAZConstruire();
 			
 			if( getNbTour()%2 == 0)		//Si c'est pair, c'est le premier joueur qui joue
-				this.j1.decrementer();	//Nombre de pilier du joueur qui baisse
+				this.joueur1.decrementer();	//Nombre de pilier du joueur qui baisse
 			else
-				this.j2.decrementer();
+				this.joueur2.decrementer();
 			
 			
-			enfermement(d, coin);
+			this.enfermement(d, coin);
 			
-			
+			if(this.num != 1)
+			if ( this.verification() ) {
+				if (this.bGVictoire) {
+					this.vainqueur = this.joueur1;
+				} else {
+					this.vainqueur = this.joueur2;
+				}
+				Controleur.getInstance().setFrameSuiviVisible(false);
+				Controleur.getInstance().setFrameJeuActuelle(new FrameFinPartie());
+			}
 			
 
 			Plateau.ajoutTour();
@@ -362,7 +383,10 @@ public class Plateau
 	}
 	
 	
-	public int getNbTour()	{return Plateau.compteur;}
+	public int getNbTour          () { return Plateau.compteur;  }
+	public Joueur getVainqeur     () { return this.vainqueur;    }
+	public String getTypeVictoire () { return this.typeVictoire; }
+
 	private static void ajoutTour(){Plateau.compteur++;}
 	
 	public void affichage()
