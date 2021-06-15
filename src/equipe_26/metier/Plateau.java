@@ -53,8 +53,8 @@ public class Plateau
 		if (num == 1)
 		{
 			System.out.println("(1) -> Plateau de base"     +
-						 "\n(2) -> Plateau personnalisé"+
-						 "\n(3) -> Scénarios");
+						     "\n(2) -> Plateau personnalisé"+
+						     "\n(3) -> Scénarios"            );
 			Scanner chx = new Scanner (System.in);
 			int choix = chx.nextInt();
 			
@@ -62,7 +62,7 @@ public class Plateau
 			switch(choix)
 			{
 				case 2 -> System.out.println("choix 2");
-				case 3 -> scenario();
+				case 3 -> scenario("CUI");
 				default  -> plateauAutoCUI();
 				
 			}
@@ -117,10 +117,9 @@ public class Plateau
 	public String getSaisie()
 	{
 		String sRet = "";
-		Scanner sc = new Scanner( System.in );
         try
         {
-			sRet = sc.nextLine(); 
+			sRet = this.getSaisie();
         }catch(Exception e){}
 		
 		return sRet;
@@ -130,24 +129,24 @@ public class Plateau
 	{		
 		//Création des joueurs
 		System.out.print("Nom joueur 1 : ");
-		// String sNom1 = sc.nextLine();
-		String sNom1 = "Alan";
+		String sNom1 = this.getSaisie();
+		//String sNom1 = "Alan";
 		System.out.print("Couleur joueur 1 : ");
-		// String sCoul1 = sc.nextLine();
-		String sCoul1 = "bleu";
+		String sCoul1 = this.getSaisie();
+		//String sCoul1 = "bleu";
 		System.out.print("Avatar joueur 1 : ");
-		// String sAvatar1 = sc.nextLine();
-		String sAvatar1 = "1664";
+		String sAvatar1 = this.getSaisie();
+		//String sAvatar1 = "1664";
 		
 		System.out.print("Nom joueur 2 : ");
-		// String sNom2 = sc.nextLine();
-		String sNom2 = "Paul";
+		String sNom2 = this.getSaisie();
+		//String sNom2 = "Paul";
 		System.out.print("Couleur joueur 2 : ");
-		// String sCoul2 = sc.nextLine();
-		String sCoul2 = "rouge";
+		String sCoul2 = this.getSaisie();
+		//String sCoul2 = "rouge";
 		System.out.print("Avatar joueur 2: ");
-		// String sAvatar2 = this.getSaisie();
-		String sAvatar2 = "Lardon";
+		String sAvatar2 = this.getSaisie();
+		//String sAvatar2 = "Lardon";
 		System.out.println();
 
 		this.joueur1 = new Joueur(sNom1, sCoul1, sAvatar1);
@@ -447,14 +446,26 @@ public class Plateau
         return sRet;
     }
 	
-	public void scenario()
+	public void scenario(String sMode)
 	{
-		System.out.println("Numéro du scénario à charger");
-		Scanner sc = new Scanner (System.in);
-		String sChoix = sc.nextLine();
+		String sChoix ="";
+		if(sMode.equals("CUI"))
+		{
+			
+			System.out.println("Numéro du scénario à charger");
+			sChoix = this.getSaisie();
+			while( Integer.parseInt(sChoix) < 0 || Integer.parseInt(sChoix) > 18)
+			{
+				System.out.println("Numéro du scénario à charger");
+				sChoix = this.getSaisie();
+			}
+		}
+		else
+		{
+			//récupéré le numéro du scénario dans sChoix
+		}
 		
-		if( Integer.parseInt(sChoix) > 0 && Integer.parseInt(sChoix) < 18)
-			chargerScenario(Integer.parseInt(sChoix));
+		chargerScenario(Integer.parseInt(sChoix));
 		
 	}
 	
