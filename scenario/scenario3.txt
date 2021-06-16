@@ -32,42 +32,7 @@ M4O
 N2P
 O4P
 Pilier 
-A0
-G1
-A1
-G2
-A2
-G3
-A3
-G4
-E2
-D0
-E3
-D3
-E4
-B0
-H0
-K3
-H1
-K4
-H3
-N2
-L2
-N3
-L3
-N4
-I1
-P2
-I2
-P3
-F0
-J0
-F1
-J1
-B1
-J2
-O1
-J3
+
 
 
 

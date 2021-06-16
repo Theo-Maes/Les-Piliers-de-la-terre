@@ -173,6 +173,8 @@ public class Dalle
 		Pilier tmp = new Pilier(this.x+33 + PILIER_X[coin], this.y+33 + PILIER_Y[coin]);
 		this.pPiliers[coin] = tmp;
 		
+		Controleur.getInstance().getPlateau().enfermement(this, coin);
+		
 		this.piliersCapture(tmp);
 		
 		if(this.dDallesVoisines[coin] != null)
