@@ -310,7 +310,7 @@ public class Plateau
 			}
 		} 
 		
-		((FrameJeu)Controleur.getInstance().getFrameJeuActuelle()).majIHM();
+		// ((FrameJeu)Controleur.getInstance().getFrameJeuActuelle()).majIHM();
 		return false;
 	}
 	

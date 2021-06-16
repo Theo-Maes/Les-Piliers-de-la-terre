@@ -23,7 +23,6 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 {
 	private JButton   btnPlateauAuto;
 	private JButton   btnPlateauCustom;
-	private JButton   btnQuitter;
 	private JComboBox cbScenario;
 	private JButton   btnScenario;
 	private final int NB_SCENARIO = 9;
@@ -41,7 +40,6 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 		this.btnPlateauCustom = new JButton ("Plateau Personalisable" );
 		this.cbScenario       = new JComboBox                        ();
 		this.btnScenario      = new JButton ("Lancer Scenario"        );
-		//this.btnQuitter       = new JButton ("Quitter"                );
 
 		for(int cpt=1; cpt <= NB_SCENARIO; cpt++)
 			cbScenario.addItem("scenario" + cpt);
@@ -52,15 +50,12 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 		this.btnPlateauCustom.setBounds(700/2-360/2, 385   , 360, 20);
 		this.cbScenario      .setBounds(700/2-200/2, 450   , 200, 20);
 		this.btnScenario     .setBounds(700/2-300/2, 480   , 300, 25);
-		//this.btnQuitter       .setBounds(700-115    , 600-75, 120, 50);
 
 
 		this.btnPlateauAuto  .setFont(new Font ("Franklin Gothic Medium", Font.BOLD, 25) );
 		this.btnPlateauCustom.setFont(new Font ("Franklin Gothic Medium", Font.BOLD, 25) );
 		this.cbScenario      .setFont(new Font ("Franklin Gothic Medium", Font.BOLD, 15) );
 		this.btnScenario     .setFont(new Font ("Franklin Gothic Medium", Font.BOLD, 25) );
-		//this.btnQuitter.setFont(new Font ("Franklin Gothic Medium", Font.BOLD, 25) );
-		//this.btnPlateauCustom.setFont(new Font ("Matura MT Script Capitals", Font.BOLD, 30) );
 
 
 		this.btnPlateauAuto.setOpaque           (false);
@@ -78,16 +73,10 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 		this.btnScenario.setBorderPainted    (false);
 		this.btnScenario.setFocusPainted     (false);
 
-		//this.btnQuitter.setOpaque            (false);
-		//this.btnQuitter.setContentAreaFilled (false);
-		//this.btnQuitter.setBorderPainted     (false);
-
 		this.btnPlateauAuto  .setForeground(new Color(116, 54, 0  ));
 		this.btnPlateauCustom.setForeground(new Color(116, 54, 0  ));
 		this.btnScenario     .setForeground(new Color(116, 54, 0  ));
 		this.cbScenario      .setForeground(new Color(116, 54, 0  ));
-		//this.btnQuitter.setForeground(new Color(116, 54, 0  ));
-		//this.btnPlateauCustom.setForeground(new Color(123, 54, 37 ));
 
 		/*-----------------------*/
 		/*----Positionnement-----*/
@@ -97,7 +86,6 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 		this.add(this.btnPlateauCustom );
 		this.add(this.cbScenario       );
 		this.add(this.btnScenario      );
-		//this.add(this.btnQuitter       );
 
 		/*-----------------------*/
 		/*------activation-------*/
@@ -106,7 +94,6 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 		this.btnPlateauAuto  .addActionListener(this);
 		this.btnPlateauCustom.addActionListener(this);
 		this.btnScenario     .addActionListener(this);
-		//this.btnQuitter    .addActionListener(this);
 
 	}
 
@@ -121,16 +108,9 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 	
 	public void actionPerformed(ActionEvent e) 
 	{
-		//if (e.getSource() == this.btnQuitter) System.exit(0);
-		if (e.getSource() == this.btnScenario)
-		{
-			Controleur.getInstance().getPlateau().setScenario(cbScenario.getSelectedItem().toString());
-			Controleur.getInstance().getPlateau().scenario("GUI");
-		}
-
 		Joueur j1 = Controleur.getInstance().getJoueur1();
 		Joueur j2 = Controleur.getInstance().getJoueur2();
-
+		
 		if( j1.getNom() == null || j2.getNom() == null )
 		{
 			JOptionPane.showMessageDialog(this, "Pseudo(s) manquant(s), veuillez renseigner vos pseudos", "Pseudo manquant", JOptionPane.ERROR_MESSAGE);
@@ -152,12 +132,17 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 				}
 			}
 		}
-
+		
 		Controleur.getInstance().setPlateau(new Plateau(0));
 		if(e.getSource() == this.btnPlateauAuto) {
 			Controleur.getInstance().getPlateau().plateauAuto();
 		}
-
+		if (e.getSource() == this.btnScenario)
+		{
+			Controleur.getInstance().getPlateau().setScenario(cbScenario.getSelectedItem().toString());
+			Controleur.getInstance().getPlateau().scenario("GUI");
+		}
+		
 		Controleur.getInstance().setFrameSuiviActuelle (new FrameStat(j1), new FrameStat(j2) );
 		Controleur.getInstance().setFrameJeuActuelle   (new FrameJeu()                       );
 	}
