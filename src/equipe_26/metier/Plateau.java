@@ -285,6 +285,7 @@ public class Plateau
 						this.jPerdant   = this.joueur1;
 					}
 					
+					
 					Joueur[] conclJoueur = new Joueur[]{ this.jVainqueur,this.jPerdant };
 					Controleur.getInstance().setFrameSuiviVisible(false);
 					Controleur.getInstance().setFrameJeuActuelle(new FrameFinPartie( conclJoueur , this.sTypeVictoire));
