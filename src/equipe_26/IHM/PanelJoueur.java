@@ -1,6 +1,6 @@
 package equipe_26.IHM;
 
-import     equipe_26.metier.Joueur;
+import equipe_26.metier.Joueur;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -72,7 +72,6 @@ public class PanelJoueur extends JPanel implements DocumentListener
         this.lblCouleur.setIcon (new ImageIcon(new ImageIcon("ressource/couleur/" + nomCouleur + ".png").getImage().getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH))  );
         this.joueur    .setCoul (nomCouleur);
     }
-
 
     public void insertUpdate(DocumentEvent e) { this.changedUpdate(e); }
     public void removeUpdate(DocumentEvent e) { this.changedUpdate(e); }

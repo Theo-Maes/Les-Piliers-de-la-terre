@@ -314,10 +314,10 @@ public class Plateau
 				this.pilierMarque.clear();
 			}
 		} 
-		
+
 		if (Controleur.getInstance().getFrameJeuActuelle() instanceof FrameJeu )
 			( (FrameJeu) Controleur.getInstance().getFrameJeuActuelle()).majIHM();
-			
+
 		return false;
 	}
 	
