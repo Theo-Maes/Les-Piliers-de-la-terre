@@ -132,10 +132,11 @@ public class Plateau
 	  */
 	public String getSaisie()
 	{
+		Scanner sc = new Scanner( System.in );
 		String sRet = "";
 		try
 		{
-			sRet = this.getSaisie();
+			sRet = sc.nextLine();
 		}catch(Exception e){}
 		
 		return sRet;
@@ -221,7 +222,7 @@ public class Plateau
 		if( m > 8) this.bMVictoire = true;
 		if( g > 8) this.bGVictoire = true;
 		
-		this.sTypeVictoire = "Victoire après avoir concquit 9 dalles ou plus";
+		this.sTypeVictoire = "Victoire après avoir conquis 9 dalles ou plus";
 		
 		//Lorsque chaque Architectes ont construit 24 Piliers
 		int iPilierTotal = this.joueur1.getNbPilier() + this.joueur2.getNbPilier();
@@ -262,7 +263,6 @@ public class Plateau
 	{
 		if(d.ajouterPilier(iCoin))
 		{
-			this.enfermement(d, iCoin);
 
 			for(Dalle dalle : this.ensDalles)
 				dalle.RAZConstruire();
@@ -286,7 +286,7 @@ public class Plateau
 					}
 					
 					Joueur[] conclJoueur = new Joueur[]{ this.jVainqueur,this.jPerdant };
-					Controleur.getInstance().setFrameSuiviVisible(true);
+					Controleur.getInstance().setFrameSuiviVisible(false);
 					Controleur.getInstance().setFrameJeuActuelle(new FrameFinPartie( conclJoueur , this.sTypeVictoire));
 				}
       
@@ -294,6 +294,11 @@ public class Plateau
 		}
 	}
 	
+	/** Verifie si l'on enferme des piliers
+	  * @param dalle Dalle où l'on ajoute un pilier
+	  * @param coin indice du coin où l'on ajoute un pilier
+	  * @return true si des piliers sont enfermé
+	  */
 	public boolean enfermement(Dalle dalle, int coin)
 	{
 		for (Pilier p : this.getPilierAutour(dalle, coin)) {
@@ -309,11 +314,18 @@ public class Plateau
 				this.pilierMarque.clear();
 			}
 		} 
-		
-		// ((FrameJeu)Controleur.getInstance().getFrameJeuActuelle()).majIHM();
+
+		if (Controleur.getInstance().getFrameJeuActuelle() instanceof FrameJeu )
+			( (FrameJeu) Controleur.getInstance().getFrameJeuActuelle()).majIHM();
+
 		return false;
 	}
 	
+	/** Verifie si l'on enferme des piliers
+	  * @param d Dalle où l'on ajoute un pilier
+	  * @param c indice du coin où l'on ajoute un pilier
+	  * @return true si des piliers sont enfermé
+	  */
 	private boolean verifEnfermement(Dalle d, int c) {
 		Pilier tmp = d.getPiliers()[c];
 		this.pilierMarque.add(tmp);
@@ -332,7 +344,12 @@ public class Plateau
 		}
 		return true;
 	}
-
+	
+	/** Retourne les piliers autour du pilier en paramètre
+	   * @param d Dalle où le pilier se trouve
+	   * @param c indice du coin où le pilier se trouve
+	   * @return la liste des Piliers voisin
+	   */
 	private ArrayList<Pilier> getPilierAutour(Dalle d, int coin) {
 		int coinSvt = coin+1;
 		int coinPrc = coin-1;
@@ -361,7 +378,11 @@ public class Plateau
 		}
 		return null;
 	}
-
+	
+	/** retourne le coté du pilier en paramètre
+	  * @param d dalle du pilier que l'on cherche
+	  * @param p pilier pour connaitre son coin
+	  */
 	private int getCotePilier(Dalle d, Pilier p) {
 		for (int i = 0; i < d.getPiliers().length; i++) {
 			if (d.getPiliers()[i] != null && d.getPiliers()[i] == p) {
@@ -493,15 +514,15 @@ public class Plateau
 		int iNumDalle3;
 		int iCote;
 		int iCoin;
-		
+		//Dalle.reinitialiser();
 		dalleInit();
-		
+
 		try
 		{
 			Scanner sc = new Scanner ( new FileInputStream ("scenario/scenario" + num + ".txt") );
 			
 			//Lecture de la position des dalles
-			while(!sc.hasNext("Pilier"))
+			while(sc.hasNext() && !sc.hasNext("Pilier"))
 			{
 				String s = sc.nextLine();
 				iNumDalle1 = (int)(s.charAt(0) - 'A');

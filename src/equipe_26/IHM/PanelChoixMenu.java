@@ -25,7 +25,7 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 	private JButton   btnPlateauCustom;
 	private JComboBox cbScenario;
 	private JButton   btnScenario;
-	private final int NB_SCENARIO = 9;
+	private final int NB_SCENARIO = 6;
 
 	public PanelChoixMenu() 
 	{
@@ -134,15 +134,17 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 		}
 		
 		Controleur.getInstance().setPlateau(new Plateau(0));
-		if(e.getSource() == this.btnPlateauAuto) {
-			Controleur.getInstance().getPlateau().plateauAuto();
-		}
+
 		if (e.getSource() == this.btnScenario)
 		{
 			Controleur.getInstance().getPlateau().setScenario(cbScenario.getSelectedItem().toString());
 			Controleur.getInstance().getPlateau().scenario("GUI");
 		}
-		
+
+		if(e.getSource() == this.btnPlateauAuto) {
+			Controleur.getInstance().getPlateau().plateauAuto();
+		}
+    
 		Controleur.getInstance().setFrameSuiviActuelle (new FrameStat(j1), new FrameStat(j2) );
 		Controleur.getInstance().setFrameJeuActuelle   (new FrameJeu()                       );
 	}

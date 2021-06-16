@@ -51,6 +51,18 @@ Pour lancer l'application, il vous suffit de suivre les étapes suivantes :
 - Exécutez à l'aide de la commande " **java equipe_26.Controleur CUI** "  (Pour lancer en CUI)
 - Exécutez à l'aide de la commande " **java equipe_26.Controleur GUI** "  (Pour lancer en GUI)
 
+**OU** 
+
+Sous Linux, faire dans un terminale :
+> sh run.sh [GUI ou CUI]
+
+Sous Windows, faire :
+- cliquez sur le fichier pour éxecuté en GUI
+
+ **OU** 
+ faire la commande 
+ > run [GUI ou CUI]
+
 **/!\ Vous devez exécuter dans le repertoire Les-Piliers-de-la-terre !**
 
 <div align="center">

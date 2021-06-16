@@ -50,8 +50,8 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		
 		if(s.equals("GUI"))
 		{
-			this.joueur1 = new Joueur();
-			this.joueur2 = new Joueur();
+			this.joueur1 = new Joueur(null,"gris"  ,"Avatar1");
+			this.joueur2 = new Joueur(null,"marron","Avatar6");
 
 			this.setFrameJeuActuelle(new FrameMenu());
 			this.setFrameSuiviActuelle(new FrameJoueur(this.joueur1), new FrameJoueur(this.joueur2));
@@ -90,21 +90,16 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 	  */
 	public void setPlateau(Plateau plateau) { this.plateau = plateau; }
 
-	/**
-	 * Lance l'application.
-	 * @param args argument au lancement du Controleur
-	 */
-	public static void main(String[] args) 
-	{
-		new Controleur(args.length == 0 ? "GUI" : args[0]);
-	}
 	
 	
 	public void setFrameJeuActuelle(JFrame frameJeuActuelle) 
 	{
 		if(this.frameJeuActuelle != null) this.frameJeuActuelle.dispose();
+
 		this.frameJeuActuelle = frameJeuActuelle;
+
 		this.frameJeuActuelle.setSize(670, 610);
+
 		this.frameJeuActuelle.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width /2-this.frameJeuActuelle.getWidth ()/2, 
 										Toolkit.getDefaultToolkit().getScreenSize().height/2-this.frameJeuActuelle.getHeight()/2);
 	}
@@ -121,6 +116,9 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		this.frameSuiviActuelleG = frameSuiviActuelleG;
 		this.frameSuiviActuelleD = frameSuiviActuelleD;
 
+		this.frameSuiviActuelleG.setSize(300, 605);
+		this.frameSuiviActuelleD.setSize(300, 605);
+ 
 		this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
 		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + this.frameJeuActuelle   .getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
 	}
@@ -209,5 +207,14 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 			frameStatD.majIHM();
 			frameStatG.majIHM();
 		}
+	}
+
+		/**
+	 * Lance l'application.
+	 * @param args argument au lancement du Controleur
+	 */
+	public static void main(String[] args) 
+	{
+		new Controleur(args.length == 0 ? "GUI" : args[0]);
 	}
 }
