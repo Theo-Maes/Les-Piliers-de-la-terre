@@ -38,7 +38,6 @@ public class PanelJoueur extends JPanel implements DocumentListener
         this.lblAvatar  = new JLabel();
         this.lblCouleur = new JLabel();
 
-		this.txtPseudo.setFont(new Font ("Calibri (Corps)", Font.PLAIN, 15) );
 
         this.txtPseudo.setText ( this.joueur.getNom   () == null ? ""        : this.joueur.getNom   () );
         this.setAvatar         ( this.joueur.getAvatar() == null ? "equipe"  : this.joueur.getAvatar() );

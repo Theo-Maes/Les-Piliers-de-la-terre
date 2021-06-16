@@ -132,7 +132,7 @@ public class Plateau
 	  */
 	public String getSaisie()
 	{
-		Scanner sc = new Scanner()
+		Scanner sc = new Scanner(System.in);
 		String sRet = "";
 		try
 		{
@@ -284,6 +284,7 @@ public class Plateau
 						this.jVainqueur = this.joueur2;
 						this.jPerdant   = this.joueur1;
 					}
+					
 					
 					Joueur[] conclJoueur = new Joueur[]{ this.jVainqueur,this.jPerdant };
 					Controleur.getInstance().setFrameSuiviVisible(false);
