@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import equipe_26.Controleur;
+import equipe_26.IHM.FrameFinPartie;
 import equipe_26.IHM.FrameJeu;
 
 /** Classe Plateau
@@ -261,7 +262,7 @@ public class Plateau
 	{
 		if(d.ajouterPilier(iCoin))
 		{
-			this.enfermement(d, coin);
+			this.enfermement(d, iCoin);
 
 			for(Dalle dalle : this.ensDalles)
 				dalle.RAZConstruire();
@@ -269,7 +270,7 @@ public class Plateau
 			if( this.getNbTour()%2 == 0)		//Si c'est pair, c'est le premier joueur qui joue
 				this.joueur1.decrementer();	//Nombre de pilier du joueur qui baisse
 			else
-				this.j2.decrementer();
+				this.joueur2.decrementer();
 				
 			if(this.iNum != 1)
 				if ( this.verification() ) {
