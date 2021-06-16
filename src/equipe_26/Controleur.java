@@ -16,15 +16,15 @@ import javax.swing.JFrame;
 
 import java.awt.Toolkit;
 
-/** Les Piliers de la terres
- * @author Paul
- * @author Alan
- * @author Théo
- * @author Thomas
- * @author Jason
- * @author Pierre
- */
-
+/** Classe Controleur
+  * Classe qui fait le lien entre l'ihm et le metier
+  * @author Paul
+  * @author Alan
+  * @author Théo
+  * @author Thomas
+  * @author Jason
+  * @author Pierre
+  */
 public class Controleur extends ComponentAdapter implements	WindowListener 
 {
 	
@@ -38,6 +38,12 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 
 	private static Controleur instance;
 
+	
+	/** Constructeur de la Classe Controleur
+	  * Lance le jeu en mode CUI ou GUI 
+	  * selon la chaine en paramètre
+	  * @param s mode du jeu (CUI | GUI)
+	  */
 	public Controleur(String s) 
 	{
 		Controleur.instance = this;
@@ -59,14 +65,41 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		
 	}
 		
-	
+	/** Retourne l'instance de ce controleur
+	  * @return l'instance de ce controleur
+	  */
 	public static Controleur getInstance() { return instance; }	
+	
+	/** Retourne le plateau
+	  * @return le plateau
+	  */
 	public        Plateau    getPlateau () { return plateau;  }
+	
+	/** Retourne le joueur 1
+	  * @return le joueur 1
+	  */
 	public        Joueur     getJoueur1 () { return joueur1;  }
+	
+	/** Retourne le joueur 2
+	  * @return le joueur 2
+	  */
 	public        Joueur     getJoueur2 () { return joueur2;  }
 
+	/** Définit le plateau à lancer
+	  * @param plateau plateau à définir
+	  */
 	public void setPlateau(Plateau plateau) { this.plateau = plateau; }
 
+	/**
+	 * Lance l'application.
+	 * @param args argument au lancement du Controleur
+	 */
+	public static void main(String[] args) 
+	{
+		new Controleur(args.length == 0 ? "GUI" : args[0]);
+	}
+	
+	
 	public void setFrameJeuActuelle(JFrame frameJeuActuelle) 
 	{
 		if(this.frameJeuActuelle != null) this.frameJeuActuelle.dispose();
@@ -174,9 +207,6 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 			frameStatG.majIHM();
 		}
 	}
-
-	public static void main(String[] args) 
-	{
-		new Controleur(args.length == 0 ? "GUI" : args[0]);
-	}
+	
+	
 }
