@@ -53,7 +53,15 @@ Pour lancer l'application, il vous suffit de suivre les étapes suivantes :
 
 **OU** 
 
-- Cliquez sur run.sh
+Sous Linux, faire dans un terminale :
+> sh run.sh [GUI ou CUI]
+
+Sous Windows, faire :
+- cliquez sur le fichier pour éxecuté en GUI
+
+ **OU** 
+ faire la commande 
+ > run [GUI ou CUI]
 
 **/!\ Vous devez exécuter dans le repertoire Les-Piliers-de-la-terre !**
 
