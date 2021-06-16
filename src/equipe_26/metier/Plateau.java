@@ -221,7 +221,7 @@ public class Plateau
 		if( m > 8) this.bMVictoire = true;
 		if( g > 8) this.bGVictoire = true;
 		
-		this.sTypeVictoire = "Victoire après avoir concquit 9 dalles ou plus";
+		this.sTypeVictoire = "Victoire après avoir conquis 9 dalles ou plus";
 		
 		//Lorsque chaque Architectes ont construit 24 Piliers
 		int iPilierTotal = this.joueur1.getNbPilier() + this.joueur2.getNbPilier();
