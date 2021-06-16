@@ -262,7 +262,6 @@ public class Plateau
 	{
 		if(d.ajouterPilier(iCoin))
 		{
-			this.enfermement(d, iCoin);
 
 			for(Dalle dalle : this.ensDalles)
 				dalle.RAZConstruire();
