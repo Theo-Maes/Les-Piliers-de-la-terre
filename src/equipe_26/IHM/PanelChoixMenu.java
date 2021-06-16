@@ -122,11 +122,6 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 	public void actionPerformed(ActionEvent e) 
 	{
 		//if (e.getSource() == this.btnQuitter) System.exit(0);
-		if (e.getSource() == this.btnScenario)
-		{
-			Controleur.getInstance().getPlateau().setScenario(cbScenario.getSelectedItem().toString());
-			Controleur.getInstance().getPlateau().scenario("GUI");
-		}
 
 		Joueur j1 = Controleur.getInstance().getJoueur1();
 		Joueur j2 = Controleur.getInstance().getJoueur2();
@@ -154,6 +149,13 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 		}
 
 		Controleur.getInstance().setPlateau(new Plateau(0));
+
+		if (e.getSource() == this.btnScenario)
+		{
+			Controleur.getInstance().getPlateau().setScenario(cbScenario.getSelectedItem().toString());
+			Controleur.getInstance().getPlateau().scenario("GUI");
+		}
+
 		if(e.getSource() == this.btnPlateauAuto) {
 			Controleur.getInstance().getPlateau().plateauAuto();
 		}

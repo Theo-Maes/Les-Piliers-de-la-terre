@@ -90,14 +90,6 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 	  */
 	public void setPlateau(Plateau plateau) { this.plateau = plateau; }
 
-	/**
-	 * Lance l'application.
-	 * @param args argument au lancement du Controleur
-	 */
-	public static void main(String[] args) 
-	{
-		new Controleur(args.length == 0 ? "GUI" : args[0]);
-	}
 	
 	
 	public void setFrameJeuActuelle(JFrame frameJeuActuelle) 
@@ -121,6 +113,9 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		this.frameSuiviActuelleG = frameSuiviActuelleG;
 		this.frameSuiviActuelleD = frameSuiviActuelleD;
 
+		this.frameSuiviActuelleG.setSize(300, 605);
+		this.frameSuiviActuelleD.setSize(300, 605);
+ 
 		this.frameSuiviActuelleG.setLocation( (int) this.frameJeuActuelle.getLocation().getX() - this.frameSuiviActuelleG.getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
 		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + this.frameJeuActuelle   .getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
 	}
@@ -209,5 +204,14 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 			frameStatD.majIHM();
 			frameStatG.majIHM();
 		}
+	}
+
+		/**
+	 * Lance l'application.
+	 * @param args argument au lancement du Controleur
+	 */
+	public static void main(String[] args) 
+	{
+		new Controleur(args.length == 0 ? "GUI" : args[0]);
 	}
 }
