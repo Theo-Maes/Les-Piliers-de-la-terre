@@ -28,7 +28,7 @@ public class FrameJeu extends JFrame
 		this.setVisible(true);
 	}
 
-	private void majIHM() {
+	public void majIHM() {
 		this.panelPlateau.repaint();
 	}
 }

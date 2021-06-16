@@ -89,6 +89,8 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + this.frameJeuActuelle   .getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
 	}
 
+	public JFrame getFrameJeuActuelle() {return this.frameJeuActuelle;}
+
 
 	public void ActivationButton() 
 	{
@@ -168,6 +170,6 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 
 	public static void main(String[] args) 
 	{
-		new Controleur(args[0]);
+		new Controleur("GUI");
 	}
 }

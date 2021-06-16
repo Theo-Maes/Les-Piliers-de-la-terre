@@ -15,10 +15,9 @@ public class Pilier
 	private int y;
 	private char coul;
 	private static int nbPilier = 0;
-	 
 	
 	public Pilier(){this(0,0);}
-	
+
 	public Pilier(int x, int y)
 	{
 		this.x = x;
