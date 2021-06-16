@@ -285,6 +285,7 @@ public class Dalle
 		
 		
 	}
+	
 	/** Définit le controle de la Dalle
 	  * @param c caractère du Joueur du controle la Dalle
 	  */

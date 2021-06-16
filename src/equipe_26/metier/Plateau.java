@@ -132,7 +132,7 @@ public class Plateau
 	  */
 	public String getSaisie()
 	{
-		Scanner sc = new Scanner()
+		Scanner sc = new Scanner( System.in );
 		String sRet = "";
 		try
 		{
@@ -294,6 +294,11 @@ public class Plateau
 		}
 	}
 	
+	/** Verifie si l'on enferme des piliers
+	  * @param dalle Dalle où l'on ajoute un pilier
+	  * @param coin indice du coin où l'on ajoute un pilier
+	  * @return true si des piliers sont enfermé
+	  */
 	public boolean enfermement(Dalle dalle, int coin)
 	{
 		for (Pilier p : this.getPilierAutour(dalle, coin)) {
@@ -316,6 +321,11 @@ public class Plateau
 		return false;
 	}
 	
+	/** Verifie si l'on enferme des piliers
+	  * @param d Dalle où l'on ajoute un pilier
+	  * @param c indice du coin où l'on ajoute un pilier
+	  * @return true si des piliers sont enfermé
+	  */
 	private boolean verifEnfermement(Dalle d, int c) {
 		Pilier tmp = d.getPiliers()[c];
 		this.pilierMarque.add(tmp);
@@ -334,7 +344,12 @@ public class Plateau
 		}
 		return true;
 	}
-
+	
+	/** Retourne les piliers autour du pilier en paramètre
+	   * @param d Dalle où le pilier se trouve
+	   * @param c indice du coin où le pilier se trouve
+	   * @return la liste des Piliers voisin
+	   */
 	private ArrayList<Pilier> getPilierAutour(Dalle d, int coin) {
 		int coinSvt = coin+1;
 		int coinPrc = coin-1;
@@ -363,7 +378,11 @@ public class Plateau
 		}
 		return null;
 	}
-
+	
+	/** retourne le coté du pilier en paramètre
+	  * @param d dalle du pilier que l'on cherche
+	  * @param p pilier pour connaitre son coin
+	  */
 	private int getCotePilier(Dalle d, Pilier p) {
 		for (int i = 0; i < d.getPiliers().length; i++) {
 			if (d.getPiliers()[i] != null && d.getPiliers()[i] == p) {
