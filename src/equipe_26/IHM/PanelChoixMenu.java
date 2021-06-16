@@ -139,17 +139,13 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 
 		if (e.getSource() == this.btnScenario)
 		{
-			System.out.println("passage 1");
 			Controleur.getInstance().getPlateau().setScenario(cbScenario.getSelectedItem().toString());
-			System.out.println("passage 2");
 			Controleur.getInstance().getPlateau().scenario("GUI");
-			System.out.println("passage 3");
 		}
 
 		if(e.getSource() == this.btnPlateauAuto) {
 			Controleur.getInstance().getPlateau().plateauAuto();
 		}
-		System.out.println("passage 4");
 		Controleur.getInstance().setFrameSuiviActuelle (new FrameStat(j1), new FrameStat(j2) );
 		Controleur.getInstance().setFrameJeuActuelle   (new FrameJeu()                       );
 	}
