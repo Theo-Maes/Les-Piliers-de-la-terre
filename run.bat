@@ -1,8 +1,8 @@
 @ECHO off
 
-REM !/bin/sh
+REM !/bin/bat
 
-REM  run.sh
+REM  run.bat
 REM  run
 REM
 REM  Created by Thomas Chevalier on 16/06/2021.
