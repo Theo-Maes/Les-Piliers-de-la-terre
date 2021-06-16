@@ -73,7 +73,6 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 		this.btnScenario.setBorderPainted    (false);
 		this.btnScenario.setFocusPainted     (false);
 
-
 		this.btnPlateauAuto  .setForeground(new Color(116, 54, 0  ));
 		this.btnPlateauCustom.setForeground(new Color(116, 54, 0  ));
 		this.btnScenario     .setForeground(new Color(116, 54, 0  ));
@@ -109,10 +108,9 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 	
 	public void actionPerformed(ActionEvent e) 
 	{
-
 		Joueur j1 = Controleur.getInstance().getJoueur1();
 		Joueur j2 = Controleur.getInstance().getJoueur2();
-
+		
 		if( j1.getNom() == null || j2.getNom() == null )
 		{
 			JOptionPane.showMessageDialog(this, "Pseudo(s) manquant(s), veuillez renseigner vos pseudos", "Pseudo manquant", JOptionPane.ERROR_MESSAGE);
@@ -134,7 +132,7 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 				}
 			}
 		}
-
+		
 		Controleur.getInstance().setPlateau(new Plateau(0));
 
 		if (e.getSource() == this.btnScenario)
@@ -146,6 +144,7 @@ public class PanelChoixMenu extends JPanel implements ActionListener
 		if(e.getSource() == this.btnPlateauAuto) {
 			Controleur.getInstance().getPlateau().plateauAuto();
 		}
+    
 		Controleur.getInstance().setFrameSuiviActuelle (new FrameStat(j1), new FrameStat(j2) );
 		Controleur.getInstance().setFrameJeuActuelle   (new FrameJeu()                       );
 	}
