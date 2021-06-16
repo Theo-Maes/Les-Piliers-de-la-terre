@@ -132,10 +132,11 @@ public class Plateau
 	  */
 	public String getSaisie()
 	{
+		Scanner sc = new Scanner()
 		String sRet = "";
 		try
 		{
-			sRet = this.getSaisie();
+			sRet = sc.nextLine();
 		}catch(Exception e){}
 		
 		return sRet;
@@ -494,15 +495,15 @@ public class Plateau
 		int iNumDalle3;
 		int iCote;
 		int iCoin;
-		
+		//Dalle.reinitialiser();
 		dalleInit();
-		
+
 		try
 		{
 			Scanner sc = new Scanner ( new FileInputStream ("scenario/scenario" + num + ".txt") );
 			
 			//Lecture de la position des dalles
-			while(!sc.hasNext("Pilier"))
+			while(sc.hasNext() && !sc.hasNext("Pilier"))
 			{
 				String s = sc.nextLine();
 				iNumDalle1 = (int)(s.charAt(0) - 'A');
