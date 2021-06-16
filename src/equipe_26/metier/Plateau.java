@@ -286,7 +286,7 @@ public class Plateau
 					}
 					
 					Joueur[] conclJoueur = new Joueur[]{ this.jVainqueur,this.jPerdant };
-					Controleur.getInstance().setFrameSuiviVisible(true);
+					Controleur.getInstance().setFrameSuiviVisible(false);
 					Controleur.getInstance().setFrameJeuActuelle(new FrameFinPartie( conclJoueur , this.sTypeVictoire));
 				}
       
@@ -310,7 +310,9 @@ public class Plateau
 			}
 		} 
 		
-		((FrameJeu)Controleur.getInstance().getFrameJeuActuelle()).majIHM();
+		if (Controleur.getInstance().getFrameJeuActuelle() instanceof FrameJeu )
+			( (FrameJeu) Controleur.getInstance().getFrameJeuActuelle()).majIHM();
+			
 		return false;
 	}
 	
