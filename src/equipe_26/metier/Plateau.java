@@ -8,15 +8,15 @@ import equipe_26.IHM.FrameFinPartie;
 
 import java.io.FileInputStream;
 
-/** Les Piliers de la terres
- * @author Paul
- * @author Alan
- * @author Pierre
- * @author Théo
- * @author Thomas
- * @author Jason
- */
-
+/** Classe Plateau
+  * Classe qui définit un Plateau
+  * @author Paul
+  * @author Alan
+  * @author Théo
+  * @author Thomas
+  * @author Jason
+  * @author Pierre
+  */
 public class Plateau
 {
 	private final int MAX_DALLE = 16;
@@ -41,6 +41,10 @@ public class Plateau
 	private String sTypeVictoire;
 	private String sScenario;
 	
+	/** Constructeur du Plateau
+	  * Initialise tous les paramètres selon le mode
+	  * @param iNum numéro du mode (0->GUI | 1->CUI)
+	  */
 	public Plateau(int iNum)
 	{
 		this.iNum = iNum;
@@ -68,9 +72,13 @@ public class Plateau
 			}
 		}
 	}
-
+	
+	/** Retourne la liste des Dalle du Plateau
+	  * @return la liste des Dalle du Plateau
+	  */
 	public ArrayList<Dalle> getEnsDalles() {return this.ensDalles;}
 	
+	/** Initialise les Dalles*/
 	public void dalleInit()
 	{
 		Dalle.reinitialiser();
@@ -78,6 +86,7 @@ public class Plateau
 			this.ensDalles.add(new Dalle());
 	}
 	
+	/** Initialise le Plateau de base*/
 	public void initPlateauBase()
 	{
 		this.dalleInit();
@@ -103,6 +112,7 @@ public class Plateau
 		}catch (Exception e){ e.printStackTrace(); }
 	}
 	
+	/** Lance le plateau automatique en CUI*/
 	public void plateauAutoCUI()
 	{
 		this.initPlateauBase();		
@@ -110,22 +120,27 @@ public class Plateau
 		this.jeuCUI();
 	}
 	
+	/** Lance le plateau automatique en GUI*/
 	public void plateauAuto()
 	{
 		this.initPlateauBase();		
 	}
 	
+	/** Retourne la saisie du cmd
+	  * @return la saisie du cmd
+	  */
 	public String getSaisie()
 	{
 		String sRet = "";
-        try
-        {
+		try
+		{
 			sRet = this.getSaisie();
-        }catch(Exception e){}
+		}catch(Exception e){}
 		
 		return sRet;
 	}
 	
+	/** Créer les joueurs à partir de donnée fournies par le joueur*/
 	public void choixJoueur()
 	{		
 		//Création des joueurs
@@ -159,6 +174,7 @@ public class Plateau
 		
 	}
 	
+	/** Lance le jeu en mode CUI*/
 	public void jeuCUI()
 	{
 		
@@ -191,6 +207,9 @@ public class Plateau
 		}
 	}
 	
+	/** Vérifie si il y a une victoire ou une égalité
+	  * @return true si quelqu'un a gagné ou qu'il y a une égalité 
+	  */
 	public boolean verification()
 	{
 		
@@ -207,33 +226,37 @@ public class Plateau
 		int iPilierTotal = this.joueur1.getNbPilier() + this.joueur2.getNbPilier();
     
 		if ( iPilierTotal == 0 )
-        {
-            if ( m == g )
-            {
-                this.verifEgalite();
-            }
-            else
-            {
-                this.bMVictoire    = m>g;
-                this.bGVictoire    = !this.bMVictoire;
+		{
+			if ( m == g )
+			{
+				this.verifEgalite();
+			}
+			else
+			{
+				this.bMVictoire    = m>g;
+				this.bGVictoire    = !this.bMVictoire;
 				this.sTypeVictoire = "Victoire grâce à un nombre de dalle supérieur";
-            }   
-        }
-        return this.bMVictoire || this.bGVictoire || this.bEgalite;
-    }
-  
-	
-   public void verifEgalite()
-    {
-        if( this.joueur1.getPilierDetruit() == this.joueur2.getPilierDetruit() ) this.bEgalite   = true;
+			}
+		}
+		return this.bMVictoire || this.bGVictoire || this.bEgalite;
+	}
 
-        if( this.joueur1.getPilierDetruit() >  this.joueur2.getPilierDetruit() ) this.bGVictoire = true;
+	/** Vérifie si il y a égalité*/
+	public void verifEgalite()
+	{
+		if( this.joueur1.getPilierDetruit() == this.joueur2.getPilierDetruit() ) this.bEgalite   = true;
 
-        if( this.joueur2.getPilierDetruit() >  this.joueur1.getPilierDetruit() ) this.bMVictoire = true;
+		if( this.joueur1.getPilierDetruit() >  this.joueur2.getPilierDetruit() ) this.bGVictoire = true;
+
+		if( this.joueur2.getPilierDetruit() >  this.joueur1.getPilierDetruit() ) this.bMVictoire = true;
 
 		this.sTypeVictoire = this.bEgalite == true ? "Egalité parfaite" : "Victoire par destruction de pilier";
-    }
+	}
 	
+	/** Ajoute un pilier
+	  * @param d Dalle où l'on veut ajouter un pilier
+	  * @param coin coin où l'on veut ajouter un pilier
+	  */
 	public void ajoutPilier(Dalle d, int iCoin)	//Ajout d'un pilier
 	{
 		if(d.ajouterPilier(iCoin))
@@ -392,56 +415,82 @@ public class Plateau
 	// 	return false;
 	// }
 	
-	
+	/** Retourne le nombre de tour
+	  * @return le nombre de tour
+	  */
 	public int    getNbTour       () { return Plateau.iCompteur;  }
+	
+	/** Retourne le vainqueur
+	  * @return le joueur qui à gagné
+	  */
 	public Joueur getVainqueur    () { return this.jVainqueur;    }
+	
+	/** Retourne le type de victoire
+	  * @return le type de victoire
+	  */
 	public String getTypeVictoire () { return this.sTypeVictoire; }
 
+	/** Ajoute un tour*/
 	private static void ajoutTour(){Plateau.iCompteur++;}
 	
+	/** Fait l'affichage en CUI*/
 	public void affichage()
 	{
 		System.out.println("\n" + this.toString() + "\n" + this.toStringP() + "\n" + this.toStringC()) ;		
 	}
+	
+	/** Retourne les informations du Plateau
+	 * @return les informations du Plateau
+	 */
 	public String toString()
-    {
-        String sRet = String.format("%35s",           "+-----------------------+") + "\n"
+	{
+		String sRet = String.format("%35s",           "+-----------------------+") + "\n"
                     + String.format("%35s",           "|         Lié à         |") + "\n"
                     + String.format("%35s",           "+---+---+---+---+---+---+") + "\n"
                     + String.format("%35s",           "| 0 | 1 | 2 | 3 | 4 | 5 |") + "\n"
                     + String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
-        for(Dalle d : this.ensDalles)
-        {
-            sRet += d.toString() + "\n";
-            sRet += String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
-        }
-        return sRet;
+		for(Dalle d : this.ensDalles)
+		{
+			sRet += d.toString() + "\n";
+			sRet += String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
+		}
+		return sRet;
 	}
-    public String toStringC()
-    {
-    	String sRet="";
-    	for(Dalle d : this.ensDalles)
-        {
-            sRet += d.toStringC() + "\n";
-        }
-        return sRet;
-    }
-    
-    public String toStringP()
-    {
-        String sRet = String.format("%35s",           "+-----------------------+") + "\n"
+	
+	/** Retourne les informations du controle des Dalles
+	 * @return les informations du controle des Dalles
+	 */
+	public String toStringC()
+	{
+		String sRet="";
+		for(Dalle d : this.ensDalles)
+		{
+			sRet += d.toStringC() + "\n";
+		}
+		return sRet;
+	}
+
+	/** Retourne les informations des piliers des Dalles
+	 * @return les informations des piliers des Dalles
+	 */
+	public String toStringP()
+	{
+		String sRet = String.format("%35s",           "+-----------------------+") + "\n"
                     + String.format("%35s",           "|         Pilier        |") + "\n"
                     + String.format("%35s",           "+---+---+---+---+---+---+") + "\n"
                     + String.format("%35s",           "| 0 | 1 | 2 | 3 | 4 | 5 |") + "\n"
                     + String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
-        for(Dalle d : this.ensDalles)
-        {
-            sRet += d.toStringP() + "\n";
-            sRet += String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
-        }
-        return sRet;
-    }
+		for(Dalle d : this.ensDalles)
+		{
+			sRet += d.toStringP() + "\n";
+			sRet += String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
+		}
+		return sRet;
+	}
 	
+	/** Permet de lancer le mode scénario
+	  * @param sMode mode du jeu (CUI ou GUI)
+	  */
 	public void scenario(String sMode)
 	{
 		String sChoix = "";
@@ -466,12 +515,23 @@ public class Plateau
 		
 	}
 	
+	/** Définit le scénario à lire
+	  * @param s scénario à lire
+	  */
 	public void setScenario(String s)
 	{
 		this.sScenario = s;
 	}
+	
+	/** Retourne le scénario actuel
+	  * @return le scénario actuel
+	  */
 	public String getScenario(){return this.sScenario;}
 	
+	/** Charge le scénario passé en paramètre
+	  * @param num numéro du scénario à charger
+	  * @param sMode mode du scénario
+	  */
 	public void chargerScenario(int num, String sMode)
 	{
 		int iNumDalle1;
@@ -511,8 +571,6 @@ public class Plateau
 
 		if(sMode.equals("CUI"))
 			this.jeuCUI();
-		else
-			{}//Je sais pas comment lancer en GUI
 
 	}
 }
