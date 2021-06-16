@@ -1,6 +1,6 @@
 @ECHO off
 
-REM!/bin/sh
+REM !/bin/sh
 
 REM  run.sh
 REM  run
