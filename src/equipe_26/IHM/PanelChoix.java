@@ -15,7 +15,7 @@ public class PanelChoix extends JPanel implements ActionListener
 	private boolean     bAvatar  = true;
 	private JButton[]   boutons;
 
-	private String []   avatars  = new String[] {"Lardon", "1664"  , "lutin" , "Cookie", "fine", "equipe" , "pachimari", "krokmou", "Kookee"  };
+	private String []   avatars  = new String[] {"Lardon", "1664"  , "lutin" , "Cookie", "equipe", "fine" , "pachimari", "krokmou", "Kookee"  };
 	private String []   couleurs = new String[] {"gris"  , "marron", "violet", "rouge" , "vert", "cyan"   , "bleu"     , "jaune"  , "orange"  };
 	
 	private int buttonBloquer;
@@ -30,7 +30,7 @@ public class PanelChoix extends JPanel implements ActionListener
 		//creation
 		for(int cpt=0; cpt<this.avatars.length; cpt++)
 		{
-			ImageIcon imgicn = new ImageIcon("./ressource/avatar/" + this.avatars[cpt] + ".png");
+			ImageIcon imgicn = new ImageIcon("ressource/avatar/" + this.avatars[cpt] + ".png");
 			Image     tmp    = imgicn.getImage();
 			Image     tmp2   = tmp   .getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH);
 

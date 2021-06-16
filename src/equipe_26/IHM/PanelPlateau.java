@@ -7,13 +7,15 @@ import equipe_26.metier.Pilier;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import java.awt.event.*;
 import java.util.ArrayList;
+
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.*;
+
 
 public class PanelPlateau extends JPanel implements MouseListener, MouseMotionListener {
 	private static Image imgDalle = Toolkit.getDefaultToolkit().getImage("./ressource/images/Dalle.png");
@@ -294,15 +296,16 @@ public class PanelPlateau extends JPanel implements MouseListener, MouseMotionLi
 						}
 					}
 				}
-				this.repaint();
 			}
 		} else {
 			int numPilier = Integer.parseInt(btnName.charAt(1)+"");
 			for (Dalle d : Controleur.getInstance().getPlateau().getEnsDalles())
-				if (d.getNom() == btnName.charAt(0))
-					if (d.isConstructible(numPilier))
-						Controleur.getInstance().getPlateau().ajoutPilier(d, numPilier);
+			if (d.getNom() == btnName.charAt(0))
+			if (d.isConstructible(numPilier))
+			Controleur.getInstance().getPlateau().ajoutPilier(d, numPilier);
+			Controleur.getInstance().majFrameSuivi();
 		}
+		this.repaint();
 	}
 
 	@Override

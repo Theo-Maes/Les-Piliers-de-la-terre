@@ -1,9 +1,9 @@
 package equipe_26.IHM;
 
+import javax.swing.JFrame;
+
 import equipe_26.Controleur;
 import equipe_26.metier.Joueur;
-
-import javax.swing.*;
 
 public class FrameStat extends JFrame
 {
@@ -13,6 +13,7 @@ public class FrameStat extends JFrame
 	public FrameStat(Joueur joueur)
 	{
 		this.joueur = joueur;
+		
 		this.setTitle("Statistique de " + this.joueur.getNom() );
 		this.setLocation(50,50);
 		this.setSize(300, 600);
@@ -30,5 +31,10 @@ public class FrameStat extends JFrame
 		this.setUndecorated(true);
 		this.setResizable(false);
 		this.setVisible(true);
+	}
+
+	public void majIHM()
+	{
+		this.panelStat.majIHM();
 	}
 }

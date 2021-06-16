@@ -2,87 +2,94 @@ package equipe_26.IHM;
 
 import equipe_26.metier.Joueur;
 
-import javax.swing.*;
 import java.awt.*;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 
 public class PanelStat extends JPanel
 {
-	private Joueur joueur;
+	private Joueur   joueur;
+	private JLabel   lblNbPilierDetruit;
+	private JLabel   lblNbDalle;
+	private JLabel   lblDallePerdue;
+	private JLabel   lblDalleTotal;
+	private JLabel   lblPilierRestant;
 	private JLabel[] ensLabelPilierRestant;
 	
 	public PanelStat(Joueur joueur)
 	{
 		this.joueur = joueur;
+
 		this.setLayout(new BorderLayout(5,5));
-		
-		JPanel panelHaut = new JPanel();
-		
-		Font fontNomJoueur = new Font("Courier", Font.BOLD, 30);
-		JLabel lblNomJoueur = new JLabel(this.joueur.getNom(), JLabel.CENTER);
-		lblNomJoueur.setForeground(this.joueur.getCouleur());
-		lblNomJoueur.setFont(fontNomJoueur);
-		
-		ImageIcon imgAvatar = new ImageIcon("./ressource/avatar/" + this.joueur.getAvatar() + ".png");
-		Image imageAvt = imgAvatar.getImage();
-		Image newAvt = imageAvt.getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH); 
-		imgAvatar = new ImageIcon(newAvt);
-		panelHaut.add(new JLabel(imgAvatar));
-		panelHaut.add(lblNomJoueur);
-		
-		JPanel panelMilieu = new JPanel(new GridLayout(2,1));
-		JPanel panelInfoMilieu = new JPanel(new GridLayout(2,1));
-		
-		JPanel panelPilierRestant = new JPanel(new BorderLayout());
-		JPanel panelImgPilier = new JPanel();
-		JPanel panelTmp = new JPanel();
-		
-		JLabel lblPilierRestant = new JLabel("Nombre de pilier restant : " + this.joueur.getNbPilier() + "/24");
-		
-		ImageIcon imgPilier = new ImageIcon("./ressource/images/pilier.png");
-		Image image = imgPilier.getImage();
-		Image newimg = image.getScaledInstance(25, 25,  java.awt.Image.SCALE_SMOOTH); 
-		imgPilier = new ImageIcon(newimg);
-		
-		
+
 		this.ensLabelPilierRestant = new JLabel[24];
+
+
+		JPanel panelHaut          = new JPanel (                                   );
+		JPanel panelMilieu        = new JPanel (new GridLayout   (2,1)             );
+		JPanel panelInfoMilieu    = new JPanel (new GridLayout   (2,1)             );	
+		JPanel panelPilierRestant = new JPanel (new BorderLayout ()                );
+		JPanel panelImgPilier     = new JPanel (                                   );
+		JPanel panelTmp           = new JPanel (                                   );
+		JPanel panelInfo          = new JPanel (new FlowLayout   (FlowLayout.LEFT) );
+
+
+		JLabel lblNomJoueur = new JLabel ( this.joueur.getNom(), JLabel.CENTER );
+
+		lblNomJoueur.setFont( new Font ("Courier", Font.BOLD, 30 ) );
+		lblNomJoueur.setForeground( this.joueur.getCouleur() );
+	
+		for(int i=0; i < this.ensLabelPilierRestant.length; i++)
+			this.ensLabelPilierRestant[i] = new JLabel(new ImageIcon(new ImageIcon("ressource/images/pilier.png").getImage().getScaledInstance(25, 25,  java.awt.Image.SCALE_SMOOTH)));
 		
-		for(int i=0; i<ensLabelPilierRestant.length; i++)
-			ensLabelPilierRestant[i] = new JLabel(imgPilier);
+		this.lblNbPilierDetruit = new JLabel("Nombre de pilier detruit : "             +   this.joueur.getPilierDetruit ()                                  );
+		this.lblNbDalle         = new JLabel("Nombre de dalle(s) possédé(s) : "        +   this.joueur.getNbDalle       () + "/9"                           );
+		this.lblDallePerdue     = new JLabel("Nombre de dalle(s) perdue(s) : "         +   this.joueur.getDallePerdue   ()                                  );
+		this.lblDalleTotal      = new JLabel("Nombre de dalle(s) gagnée(s) en tout : " + ( this.joueur.getNbDalle       () + this.joueur.getDallePerdue() ) );
+		this.lblPilierRestant   = new JLabel("Nombre de pilier restant : "             +   this.joueur.getNbPilier()       + "/24"                          );
+
 		
-		for(int i=0; i<this.joueur.getNbPilier(); i++)
+
+		panelHaut.add ( new JLabel(new ImageIcon(new ImageIcon("ressource/avatar/" + this.joueur.getAvatar() + ".png").getImage().getScaledInstance(50, 50,  java.awt.Image.SCALE_SMOOTH))));
+		panelHaut.add (lblNomJoueur);
+
+
+		for(int i=0; i < 24; i++)
 			panelImgPilier.add(ensLabelPilierRestant[i]);
+
+
+		panelPilierRestant.add( this.lblPilierRestant, BorderLayout.NORTH  );
+		panelPilierRestant.add( panelImgPilier       , BorderLayout.CENTER );
+
+
+
+		panelInfo      .add (lblNbPilierDetruit );
+		panelInfo      .add (lblNbDalle         );
+		panelInfo      .add (lblDallePerdue     );
+		panelInfo      .add (lblDalleTotal      );
+
+		panelInfoMilieu.add (panelPilierRestant );
+		panelInfoMilieu.add (panelInfo          );
+
+		panelMilieu    .add (panelInfoMilieu    );
+		panelMilieu    .add (panelTmp           );
 		
-		
-		panelPilierRestant.add(lblPilierRestant, BorderLayout.NORTH);
-		panelPilierRestant.add(panelImgPilier, BorderLayout.CENTER);
-		
-		
-		
-		
-		JPanel panelInfo = new JPanel(new FlowLayout(FlowLayout.LEFT));
-		JLabel lblNbPilierDetruit = new JLabel("Nombre de pilier detruit : " + this.joueur.getPilierDetruit());
-		JLabel lblNbDalle         = new JLabel("Nombre de dalle(s) possédé(s) : " + this.joueur.getNbDalle() + "/9");
-		JLabel lblDallePerdue     = new JLabel("Nombre de dalle(s) perdue(s) : " + this.joueur.getDallePerdue());
-		JLabel lblDalleTotal      = new JLabel("Nombre de dalle(s) gagnée(s) en tout : " + ( this.joueur.getNbDalle() + this.joueur.getDallePerdue() ) );
-		
-		
-		panelInfo.add(lblNbPilierDetruit);
-		panelInfo.add(lblNbDalle);
-		panelInfo.add(lblDallePerdue);
-		panelInfo.add(lblDalleTotal);
-		
-		panelInfoMilieu.add(panelPilierRestant);
-		panelInfoMilieu.add(panelInfo);
-		
-		panelMilieu.add(panelInfoMilieu);
-		panelMilieu.add(panelTmp);
-		
-		this.add(panelHaut, BorderLayout.NORTH);
+		this.add(panelHaut  , BorderLayout.NORTH );
 		this.add(panelMilieu, BorderLayout.CENTER);
 	}
-	
-	public PanelStat getPanelStat()
+
+	public void majIHM()
 	{
-		return this;
+		for(int cpt = 0; cpt < 24; cpt++)
+			this.ensLabelPilierRestant[cpt].setVisible(cpt < this.joueur.getNbPilier() ? true : false);
+
+		this.lblPilierRestant  .setText("Nombre de pilier restant : "             +   this.joueur.getNbPilier()       + "/24"                          );
+		this.lblNbPilierDetruit.setText("Nombre de pilier detruit : "             +   this.joueur.getPilierDetruit ()                                  );
+		this.lblNbDalle        .setText("Nombre de dalle(s) possédé(s) : "        +   this.joueur.getNbDalle       () + "/9"                           );
+		this.lblDallePerdue    .setText("Nombre de dalle(s) perdue(s) : "         +   this.joueur.getDallePerdue   ()                                  );
+		this.lblDalleTotal     .setText("Nombre de dalle(s) gagnée(s) en tout : " + ( this.joueur.getNbDalle       () + this.joueur.getDallePerdue() ) );
 	}
 }

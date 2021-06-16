@@ -7,15 +7,15 @@ import java.util.Scanner;
 import equipe_26.Controleur;
 import equipe_26.IHM.FrameJeu;
 
-/** Les Piliers de la terres
- * @author Paul
- * @author Alan
- * @author Pierre
- * @author Théo
- * @author Thomas
- * @author Jason
- */
-
+/** Classe Plateau
+  * Classe qui définit un Plateau
+  * @author Paul
+  * @author Alan
+  * @author Théo
+  * @author Thomas
+  * @author Jason
+  * @author Pierre
+  */
 public class Plateau
 {
 	private final int MAX_DALLE = 16;
@@ -28,215 +28,268 @@ public class Plateau
 	
 	private Boolean bEgalite   = false;
 	
-	private static int compteur = 0;
+	private static int iCompteur = 0;
 	
-	private Joueur j1;	//G
-	private Joueur j2;	//M
+	private int iNum;
 	
-	public Plateau(int num)
+	private Joueur joueur1;	//G
+	private Joueur joueur2;	//M
+  
+	private Joueur jVainqueur;
+	private Joueur jPerdant;
+	
+	private String sTypeVictoire;
+	private String sScenario;
+	
+	/** Constructeur du Plateau
+	  * Initialise tous les paramètres selon le mode
+	  * @param iNum numéro du mode (0->GUI | 1->CUI)
+	  */
+	public Plateau(int iNum)
 	{
+		this.iNum = iNum;
+		this.sScenario = "scenario1";
+
 		this.ensDalles = new ArrayList<>();
-		this.j1 = new Joueur();
-		this.j2 = new Joueur();
+
+		this.joueur1 = Controleur.getInstance().getJoueur1();
+		this.joueur2 = Controleur.getInstance().getJoueur2();
 		
-		if (num == 1)
+		if (iNum == 1)
 		{
 			System.out.println("(1) -> Plateau de base"     +
-						 "\n(2) -> Plateau personnalisé"+
-						 "\n(3) -> Scénarios");
+						     "\n(2) -> Plateau personnalisé"+
+						     "\n(3) -> Scénarios"            );
 			Scanner chx = new Scanner (System.in);
-			int choix = chx.nextInt();
-			chx.close();
-
-			switch(choix)
+			int iChoix = chx.nextInt();
+			
+			switch(iChoix)
 			{
-				case 2 -> System.out.println("choix 2");
-				case 3 -> scenario();
+				case 2   -> System.out.println("choix 2");
+				case 3   -> scenario("CUI");
 				default  -> plateauAutoCUI();
 				
 			}
 		}
 	}
-
+	
+	/** Retourne la liste des Dalle du Plateau
+	  * @return la liste des Dalle du Plateau
+	  */
 	public ArrayList<Dalle> getEnsDalles() {return this.ensDalles;}
 	
+	/** Initialise les Dalles*/
 	public void dalleInit()
 	{
+		Dalle.reinitialiser();
 		for(int i=0; i< this.MAX_DALLE; i++)
 			this.ensDalles.add(new Dalle());
 	}
 	
+	/** Initialise le Plateau de base*/
 	public void initPlateauBase()
 	{
 		this.dalleInit();
 		
-		int numDalle1;
-		int numDalle2;
+		int iNumDalle1;
+		int iNumDalle2;
 		int iCote;
 		
 		try
 		{
-			Scanner sc = new Scanner ( new FileInputStream ("scenario/plateau.txt") );
+			Scanner sc = new Scanner ( new FileInputStream ("./scenario/plateau.txt") );
 			
 			//Lecture de la position des dalles
 			while(sc.hasNext())
 			{
 				String s = sc.nextLine();
-				numDalle1 = (int)(s.charAt(0) - 'A');
+				iNumDalle1 = (int)(s.charAt(0) - 'A');
 				iCote     = Character.getNumericValue(s.charAt(1)      );
-				numDalle2 = (int)(s.charAt(2) - 'A');
-				this.ensDalles.get(numDalle1).ajouterVoisine(iCote, this.ensDalles.get(numDalle2));			
+				iNumDalle2 = (int)(s.charAt(2) - 'A');
+				this.ensDalles.get(iNumDalle1).ajouterVoisine(iCote, this.ensDalles.get(iNumDalle2));			
 			}
 			
 		}catch (Exception e){ e.printStackTrace(); }
 	}
 	
+	/** Lance le plateau automatique en CUI*/
 	public void plateauAutoCUI()
 	{
-		initPlateauBase();		
-		choixJoueur();
-		jeuCUI();
+		this.initPlateauBase();		
+		this.choixJoueur();
+		this.jeuCUI();
 	}
 	
+	/** Lance le plateau automatique en GUI*/
 	public void plateauAuto()
 	{
-		initPlateauBase();		
+		this.initPlateauBase();		
 	}
 	
-	public void choixJoueur()
+	/** Retourne la saisie du cmd
+	  * @return la saisie du cmd
+	  */
+	public String getSaisie()
 	{
-		Scanner sc = new Scanner ( System.in );
+		String sRet = "";
+		try
+		{
+			sRet = this.getSaisie();
+		}catch(Exception e){}
 		
+		return sRet;
+	}
+	
+	/** Créer les joueurs à partir de donnée fournies par le joueur*/
+	public void choixJoueur()
+	{		
 		//Création des joueurs
 		System.out.print("Nom joueur 1 : ");
-		// String sNom1 = sc.nextLine();
-		String sNom1 = "Alan";
+		String sNom1 = this.getSaisie();
 		System.out.print("Couleur joueur 1 : ");
-		// String sCoul1 = sc.nextLine();
-		String sCoul1 = "bleu";
+		String sCoul1 = this.getSaisie();
 		System.out.print("Avatar joueur 1 : ");
-		// String sAvatar1 = sc.nextLine();
-		String sAvatar1 = "1664";
+		String sAvatar1 = this.getSaisie();
 		
 		System.out.print("Nom joueur 2 : ");
-		// String sNom2 = sc.nextLine();
-		String sNom2 = "Paul";
+		String sNom2 = this.getSaisie();
 		System.out.print("Couleur joueur 2 : ");
-		// String sCoul2 = sc.nextLine();
-		String sCoul2 = "rouge";
+		String sCoul2 = this.getSaisie();
 		System.out.print("Avatar joueur 2: ");
-		// String sAvatar2 = sc.nextLine();
-		String sAvatar2 = "Lardon";
+		String sAvatar2 = this.getSaisie();
+		
 		System.out.println();
 		
-		this.j1 = new Joueur(sNom1, sCoul1, sAvatar1);
-		this.j2 = new Joueur(sNom2, sCoul2, sAvatar2);
+		/*
+		String sNom1 = "Alan";
+		String sCoul1 = "bleu";
+		String sAvatar1 = "1664";
+		String sNom2 = "Paul";
+		String sCoul2 = "rouge";
+		String sAvatar2 = "Lardon";
+		*/
 
-		sc.close();
+		this.joueur1 = new Joueur(sNom1, sCoul1, sAvatar1);
+		this.joueur2 = new Joueur(sNom2, sCoul2, sAvatar2);
+		
 	}
 	
+	/** Lance le jeu en mode CUI*/
 	public void jeuCUI()
 	{
-		Scanner sc = new Scanner ( System.in );
-		String sCase = "";
 		
-		while(!verification())
+		String sCase = "";
+		while(!this.verification())
 		{
 			affichage();
-			if (getNbTour()%2 == 0)System.out.println("Au tour de " + this.j1.getNom() + " de poser un pilier");
-			else                   System.out.println("Au tour de " + this.j2.getNom() + " de poser un pilier");
+			if (this.getNbTour()%2 == 0)System.out.println("Au tour de " + this.joueur1.getNom() + " de poser un pilier");
+			else                        System.out.println("Au tour de " + this.joueur2.getNom() + " de poser un pilier");
 			
 			char cDalle = 'A';
 			int iCoin   =  0 ;
 			boolean bOk = false;
-			
+
 			while(!bOk)
 			{
 				System.out.println("Où voulez-vous poser un pilier? (Lettre de la dalle puis coté de la dalle)");
-				sCase = sc.nextLine();
+				sCase = this.getSaisie();
+				
 				if(sCase.length() == 2)
 				{
 					cDalle    = Character.toUpperCase    (sCase.charAt(0));
-					iCoin     = Character.getNumericValue(sCase.charAt(1));  
-					
-					System.out.println(cDalle +" "+iCoin);
-			
+					iCoin     = Character.getNumericValue(sCase.charAt(1));			
 					bOk = cDalle >= 'A' && cDalle <= 'P' && iCoin >= 0 && iCoin <= 5;
-				}
-				
-				
+				}				
 			}
-			ajoutPilier(this.ensDalles.get((int)(cDalle - 'A') ), iCoin);
 			
-			System.out.println("Fin du tour n°" + (getNbTour()));
+			this.ajoutPilier(this.ensDalles.get((int)(cDalle - 'A') ), iCoin);
+			System.out.println("Fin du tour n°" + (this.getNbTour()));
 		}
-		sc.close();
-	}
-	public void jeu()
-	{
-		/*
-		while(!verification())
-		{
-			
-			ajoutPilier(this.ensDalles.get((int)(cDalle - 'A') ), iCoin);
-			
-			System.out.println("Fin du tour n°" + (getNbTour()));
-		}
-		*/
 	}
 	
+	/** Vérifie si il y a une victoire ou une égalité
+	  * @return true si quelqu'un a gagné ou qu'il y a une égalité 
+	  */
 	public boolean verification()
 	{
 		
 		//Si un Architecte possède 9 Dalles
-		int g = j1.getNbDalle();
-		int m = j2.getNbDalle();
+		int g = this.joueur1.getNbDalle();
+		int m = this.joueur2.getNbDalle();
 		
-		if( m == 9) this.bMVictoire = true;
-		if( g == 9) this.bGVictoire = true;
+		if( m > 8) this.bMVictoire = true;
+		if( g > 8) this.bGVictoire = true;
+		
+		this.sTypeVictoire = "Victoire après avoir concquit 9 dalles ou plus";
 		
 		//Lorsque chaque Architectes ont construit 24 Piliers
-		int pilierTotal = this.j1.getNbPilier() + this.j2.getNbPilier();
-		if ( pilierTotal == 0 )
+		int iPilierTotal = this.joueur1.getNbPilier() + this.joueur2.getNbPilier();
+    
+		if ( iPilierTotal == 0 )
 		{
 			if ( m == g )
 			{
 				this.verifEgalite();
 			}
-				
 			else
 			{
-				this.bMVictoire = m>g;
-				this.bGVictoire = !this.bMVictoire;
+				this.bMVictoire    = m>g;
+				this.bGVictoire    = !this.bMVictoire;
+				this.sTypeVictoire = "Victoire grâce à un nombre de dalle supérieur";
 			}
-			
 		}
 		return this.bMVictoire || this.bGVictoire || this.bEgalite;
 	}
-  
+
+	/** Vérifie si il y a égalité*/
 	public void verifEgalite()
 	{
-		if( this.j1.getPilierDetruit() == this.j2.getPilierDetruit() )  this.bEgalite   = true;
-		if( this.j1.getPilierDetruit() >  this.j2.getPilierDetruit() )  this.bGVictoire = true;
-		if( this.j2.getPilierDetruit() >  this.j1.getPilierDetruit() )  this.bMVictoire = true;
+		if( this.joueur1.getPilierDetruit() == this.joueur2.getPilierDetruit() ) this.bEgalite   = true;
+
+		if( this.joueur1.getPilierDetruit() >  this.joueur2.getPilierDetruit() ) this.bGVictoire = true;
+
+		if( this.joueur2.getPilierDetruit() >  this.joueur1.getPilierDetruit() ) this.bMVictoire = true;
+
+		this.sTypeVictoire = this.bEgalite == true ? "Egalité parfaite" : "Victoire par destruction de pilier";
 	}
 	
-	public void ajoutPilier(Dalle d, int coin)	//Ajout d'un pilier
+	/** Ajoute un pilier
+	  * @param d Dalle où l'on veut ajouter un pilier
+	  * @param coin coin où l'on veut ajouter un pilier
+	  */
+	public void ajoutPilier(Dalle d, int iCoin)	//Ajout d'un pilier
 	{
-		if(d.ajouterPilier(coin))
+		if(d.ajouterPilier(iCoin))
 		{
 			this.enfermement(d, coin);
 
 			for(Dalle dalle : this.ensDalles)
 				dalle.RAZConstruire();
 			
-			if( getNbTour()%2 == 0)		//Si c'est pair, c'est le premier joueur qui joue
-				this.j1.decrementer();	//Nombre de pilier du joueur qui baisse
+			if( this.getNbTour()%2 == 0)		//Si c'est pair, c'est le premier joueur qui joue
+				this.joueur1.decrementer();	//Nombre de pilier du joueur qui baisse
 			else
 				this.j2.decrementer();
 				
-			this.verification();
-			Plateau.compteur++;
+			if(this.iNum != 1)
+				if ( this.verification() ) {
+					if (this.bGVictoire) 
+					{
+						this.jVainqueur = this.joueur1;
+						this.jPerdant   = this.joueur2;
+					} 
+					else 
+					{
+						this.jVainqueur = this.joueur2;
+						this.jPerdant   = this.joueur1;
+					}
+					
+					Joueur[] conclJoueur = new Joueur[]{ this.jVainqueur,this.jPerdant };
+					Controleur.getInstance().setFrameSuiviVisible(true);
+					Controleur.getInstance().setFrameJeuActuelle(new FrameFinPartie( conclJoueur , this.sTypeVictoire));
+				}
+      
+			Plateau.iCompteur++;
 		}
 	}
 	
@@ -317,70 +370,126 @@ public class Plateau
 		return 0;
 	}
 
-	public int getNbTour()	{return Plateau.compteur;}
+	/** Retourne le nombre de tour
+	  * @return le nombre de tour
+	  */
+	public int    getNbTour       () { return Plateau.iCompteur;  }
 	
+	/** Retourne le vainqueur
+	  * @return le joueur qui à gagné
+	  */
+	public Joueur getVainqueur    () { return this.jVainqueur;    }
+	
+	/** Retourne le type de victoire
+	  * @return le type de victoire
+	  */
+	public String getTypeVictoire () { return this.sTypeVictoire; }
+
+	
+	/** Fait l'affichage en CUI*/
 	public void affichage()
 	{
-		System.out.println("\n" + toString() + "\n" + toStringP() + "\n" + toStringC()) ;		
+		System.out.println("\n" + this.toString() + "\n" + this.toStringP() + "\n" + this.toStringC()) ;		
 	}
 
+	/** Retourne les informations du Plateau
+	 * @return les informations du Plateau
+	 */
 	public String toString()
-    {
-        String sRet = String.format("%35s",           "+-----------------------+") + "\n"
-                    + String.format("%35s",           "|         Lié à         |") + "\n"
-                    + String.format("%35s",           "+---+---+---+---+---+---+") + "\n"
-                    + String.format("%35s",           "| 0 | 1 | 2 | 3 | 4 | 5 |") + "\n"
-                    + String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
-        for(Dalle d : this.ensDalles)
-        {
-            sRet += d.toString() + "\n";
-            sRet += String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
-        }
-        return sRet;
+	{
+		String sRet = String.format("%35s",           "+-----------------------+") + "\n"
+	                + String.format("%35s",           "|         Lié à         |") + "\n"
+	                + String.format("%35s",           "+---+---+---+---+---+---+") + "\n"
+	                + String.format("%35s",           "| 0 | 1 | 2 | 3 | 4 | 5 |") + "\n"
+	                + String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
+		for(Dalle d : this.ensDalles)
+		{
+			sRet += d.toString() + "\n";
+			sRet += String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
+		}
+		return sRet;
+	}
+  
+	/** Retourne les informations du controle des Dalles
+	 * @return les informations du controle des Dalles
+	 */
+	public String toStringC()
+	{
+		String sRet="";
+		for(Dalle d : this.ensDalles)
+		{
+			sRet += d.toStringC() + "\n";
+		}
+		return sRet;
 	}
 
-    public String toStringC()
-    {
-    	String sRet="";
-    	for(Dalle d : this.ensDalles)
-        {
-            sRet += d.toStringC() + "\n";
-        }
-        return sRet;
-    }
-    
-    public String toStringP()
-    {
-        String sRet = String.format("%35s",           "+-----------------------+") + "\n"
-                    + String.format("%35s",           "|         Pilier        |") + "\n"
-                    + String.format("%35s",           "+---+---+---+---+---+---+") + "\n"
-                    + String.format("%35s",           "| 0 | 1 | 2 | 3 | 4 | 5 |") + "\n"
-                    + String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
-        for(Dalle d : this.ensDalles)
-        {
-            sRet += d.toStringP() + "\n";
-            sRet += String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
-        }
-        return sRet;
-    }
-	
-	public void scenario()
+	/** Retourne les informations des piliers des Dalles
+	 * @return les informations des piliers des Dalles
+	 */
+	public String toStringP()
 	{
-		System.out.println("Numéro du scénario à charger");
-		Scanner sc1 = new Scanner (System.in);
-		String sChoix = sc1.next();
-		
-		if( Integer.parseInt(sChoix) > 0 && Integer.parseInt(sChoix) < 18)
-			chargerScenario(Integer.parseInt(sChoix));
-		
-		sc1.close();
+		String sRet = String.format("%35s",           "+-----------------------+") + "\n"
+	                + String.format("%35s",           "|         Pilier        |") + "\n"
+	                + String.format("%35s",           "+---+---+---+---+---+---+") + "\n"
+	                + String.format("%35s",           "| 0 | 1 | 2 | 3 | 4 | 5 |") + "\n"
+	                + String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
+		for(Dalle d : this.ensDalles)
+		{
+			sRet += d.toStringP() + "\n";
+			sRet += String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
+		}
+		return sRet;
 	}
 	
-	public void chargerScenario(int num)
+	/** Permet de lancer le mode scénario
+	  * @param sMode mode du jeu (CUI ou GUI)
+	  */
+	public void scenario(String sMode)
 	{
-		int numDalle1;
-		int numDalle2;
-		int numDalle3;
+		String sChoix = "";
+		if(sMode.equals("CUI"))
+		{
+			
+			System.out.println("Numéro du scénario à charger");
+			sChoix = this.getSaisie();
+			while( Integer.parseInt(sChoix) < 0 || Integer.parseInt(sChoix) > 18)
+			{
+				System.out.println("Numéro du scénario à charger");
+				sChoix = this.getSaisie();
+			}
+		}
+		else
+		{
+			sChoix = this.getScenario();
+			sChoix = sChoix.substring(8);
+		}
+		
+		this.chargerScenario(Integer.parseInt(sChoix), sMode);
+		
+	}
+	
+	/** Définit le scénario à lire
+	  * @param s scénario à lire
+	  */
+	public void setScenario(String s)
+	{
+		this.sScenario = s;
+	}
+	
+	/** Retourne le scénario actuel
+	  * @return le scénario actuel
+	  */
+	public String getScenario(){return this.sScenario;}
+	
+	/** Charge le scénario passé en paramètre
+	  * @param num numéro du scénario à charger
+	  * @param sMode mode du scénario
+	  */
+	public void chargerScenario(int num, String sMode)
+	{
+		int iNumDalle1;
+		int iNumDalle2;
+		int iNumDalle3;
 		int iCote;
 		int iCoin;
 		
@@ -388,16 +497,16 @@ public class Plateau
 		
 		try
 		{
-			Scanner sc = new Scanner ( new FileInputStream ("scenario" + num + ".txt") );
+			Scanner sc = new Scanner ( new FileInputStream ("scenario/scenario" + num + ".txt") );
 			
 			//Lecture de la position des dalles
 			while(!sc.hasNext("Pilier"))
 			{
 				String s = sc.nextLine();
-				numDalle1 = (int)(s.charAt(0) - 'A');
-				iCote     = Character.getNumericValue(s.charAt(1)      );
-				numDalle2 = (int)(s.charAt(2) - 'A');
-				this.ensDalles.get(numDalle1).ajouterVoisine(iCote, this.ensDalles.get(numDalle2));			
+				iNumDalle1 = (int)(s.charAt(0) - 'A');
+				iCote     = Character.getNumericValue(s.charAt(1));
+				iNumDalle2 = (int)(s.charAt(2) - 'A');
+				this.ensDalles.get(iNumDalle1).ajouterVoisine(iCote, this.ensDalles.get(iNumDalle2));			
 			}			
 			
 			sc.nextLine();
@@ -406,13 +515,15 @@ public class Plateau
 			while(sc.hasNext())
 			{
 				String sPilier = sc.nextLine();
-				numDalle3 = (int)(sPilier.charAt(0) - 'A');
+				iNumDalle3 = (int)(sPilier.charAt(0) - 'A');
 				iCoin     = Character.getNumericValue(sPilier.charAt(1));
-				ajoutPilier(this.ensDalles.get(numDalle3), iCoin);
+				this.ajoutPilier(this.ensDalles.get(iNumDalle3), iCoin);
 			}
 			
 		}catch (Exception e){ e.printStackTrace(); }
-			
-		jeu();
+
+		if(sMode.equals("CUI"))
+			this.jeuCUI();
+
 	}
 }
