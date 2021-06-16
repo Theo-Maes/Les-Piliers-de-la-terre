@@ -124,12 +124,14 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		this.frameSuiviActuelleD.setLocation( (int) this.frameJeuActuelle.getLocation().getX() + this.frameJeuActuelle   .getWidth(), (int) this.frameJeuActuelle.getLocation().getY());
 	}
 
+
+	public JFrame getFrameJeuActuelle() {return this.frameJeuActuelle;}
+
 	public void setFrameSuiviVisible(boolean visible)
 	{
 		this.frameSuiviActuelleD.setVisible(visible);
 		this.frameSuiviActuelleG.setVisible(visible);
 	}
-
 
 	public void ActivationButton() 
 	{
@@ -207,6 +209,4 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 			frameStatG.majIHM();
 		}
 	}
-	
-	
 }

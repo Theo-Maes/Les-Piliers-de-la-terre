@@ -1,12 +1,11 @@
 package equipe_26.metier;
 
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import equipe_26.Controleur;
-import equipe_26.IHM.FrameFinPartie;
-
-import java.io.FileInputStream;
+import equipe_26.IHM.FrameJeu;
 
 /** Classe Plateau
   * Classe qui définit un Plateau
@@ -22,10 +21,11 @@ public class Plateau
 	private final int MAX_DALLE = 16;
 	
 	private ArrayList<Dalle> ensDalles;
+	private ArrayList<Pilier> pilierMarque = new ArrayList<>();
 	
 	private Boolean bMVictoire = false;
 	private Boolean bGVictoire = false;
-  
+	
 	private Boolean bEgalite   = false;
 	
 	private static int iCompteur = 0;
@@ -261,160 +261,115 @@ public class Plateau
 	{
 		if(d.ajouterPilier(iCoin))
 		{
-			for(Dalle dalle : this.ensDalles)dalle.RAZConstruire();
+			this.enfermement(d, coin);
+
+			for(Dalle dalle : this.ensDalles)
+				dalle.RAZConstruire();
 			
 			if( this.getNbTour()%2 == 0)		//Si c'est pair, c'est le premier joueur qui joue
 				this.joueur1.decrementer();	//Nombre de pilier du joueur qui baisse
 			else
-				this.joueur2.decrementer();
-			
-			
-			// this.enfermement(d, iCoin);
-			
+				this.j2.decrementer();
+				
 			if(this.iNum != 1)
 				if ( this.verification() ) {
-						if (this.bGVictoire) 
-						{
-							this.jVainqueur = this.joueur1;
-							this.jPerdant   = this.joueur2;
-						} 
-						else 
-						{
-							this.jVainqueur = this.joueur2;
-							this.jPerdant   = this.joueur1;
-						}
+					if (this.bGVictoire) 
+					{
+						this.jVainqueur = this.joueur1;
+						this.jPerdant   = this.joueur2;
+					} 
+					else 
+					{
+						this.jVainqueur = this.joueur2;
+						this.jPerdant   = this.joueur1;
+					}
 					
-						Joueur[] conclJoueur = new Joueur[]{ this.jVainqueur,this.jPerdant };
-						Controleur.getInstance().setFrameSuiviVisible(true);
-						Controleur.getInstance().setFrameJeuActuelle(new FrameFinPartie( conclJoueur , this.sTypeVictoire));
+					Joueur[] conclJoueur = new Joueur[]{ this.jVainqueur,this.jPerdant };
+					Controleur.getInstance().setFrameSuiviVisible(true);
+					Controleur.getInstance().setFrameJeuActuelle(new FrameFinPartie( conclJoueur , this.sTypeVictoire));
 				}
-
-			Plateau.ajoutTour();
+      
+			Plateau.iCompteur++;
 		}
 	}
 	
-	// public boolean enfermement(Dalle d, int coin)//int coin = indice du pilier posé
-	// {
-	// 	Pilier[] tabPilier = d.getPiliers();	//Les piliers de la dalle où ont ajoute le pilier
-		
-	// 	if(d.getPrc(coin) != null  &&
-	// 	  tabPilier[coin] != null  &&
-	// 	  d.getPrc(coin).getCoul() == tabPilier[coin].getCoul())	return false;	//Si l'un des deux est de la meme couleur
-		
-	// 	if(d.getSvt(coin) != null  &&
-	// 	  tabPilier[coin] != null  &&
-	// 	  d.getSvt(coin).getCoul() == tabPilier[coin].getCoul())	return false;
-		
-	// 	//Pour les précedents
-	// 	if(d.getPrc(coin) != null && d.getPrc(coin).getCoul() != tabPilier[coin].getCoul())
-	// 	{
-	// 		Pilier p = d.getPrc(coin);
-			
-	// 		int coinPrc = coin-1;
-	// 		if (coinPrc<0)coinPrc = 5;
-			
-	// 		if (d.getPrc(coinPrc) != null && d.getPrc(coinPrc).getCoul() != p.getCoul())
-	// 		{
-	// 			int coin0 = coinPrc-1;
-	// 			if (coin0<0)coin0 = 5;
-				
-	// 			if(d.getDalleV(coinPrc) == null)
-	// 			{
-	// 				if(d.getDalleV(coin0) == null)
-	// 				{
-	// 					d.detruire(coinPrc);
-	// 					return true;
-	// 				}
-						
-	// 			}
-	// 			else
-	// 			{
-	// 				if(d.getDalleV(coin0) != null)
-	// 				{
-	// 					Dalle dalle = d.getDalleV(coin0);
-	// 					int coin1 = coinPrc + 2;		
-	// 					if (coin1>5)coin1 = coin1-6;
-	// 					if(dalle.getPrc(coin1) == null || dalle.getPrc(coin1).getCoul() == p.getCoul())
-	// 						return false; //ça detruit pas
-	// 					else
-	// 					{
-	// 						d.detruire(coinPrc);
-	// 						return true;
-	// 					}
-	// 			}	 }
-	// 		}
-	// 		else
-	// 		{
-	// 			if(d.getDalleV(coinPrc) != null)
-	// 			{
-	// 				Dalle dalle = d.getDalleV(coinPrc);
-	// 				int coin1 = coinPrc - 2;
-	// 				if (coin1<0)coin1 = coin1+6;
-	// 				if(dalle.getSvt(coin1) == null || dalle.getSvt(coin1).getCoul() == p.getCoul())
-	// 					return false; //ça detruit pas
-	// 				else
-	// 				{
-	// 					d.detruire(coinPrc);	//les problemes
-	// 					return true;
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-		
-	// 	//Pour les suivants
-	// 	if(d.getSvt(coin) != null && tabPilier[coin] != null && 
-	// 	   d.getSvt(coin).getCoul() != tabPilier[coin].getCoul())
-	// 	{
-	// 		Pilier p = d.getSvt(coin);
-			
-	// 		int coinSvt = coin+1;
-	// 		if (coinSvt>5)coinSvt = 0;
-			
-	// 		if (d.getSvt(coinSvt) != null && d.getSvt(coinSvt).getCoul() != p.getCoul())
-	// 		{
-	// 			int coin0 = coinSvt+1;
-	// 			if (coin0>5)coin0 = 0;
+	public boolean enfermement(Dalle dalle, int coin)
+	{
+		for (Pilier p : this.getPilierAutour(dalle, coin)) {
+			if (p != null && p.getCoul() != dalle.getPiliers()[coin].getCoul()) {
+				Dalle d = this.getDallePilier(p);
+				int c = this.getCotePilier(d, p);
 
-	// 			if(d.getDalleV(coinSvt) == null)
-	// 			{
-	// 				if(d.getDalleV(coin0) == null)
-	// 				{
-	// 					d.detruire(coinSvt);
-	// 					return true;
-	// 				}
-						
-	// 			}
-	// 			else
-	// 			{
-	// 				Dalle dalle = d.getDalleV(coin0);
-	// 				int coin1 = coinSvt - 2;
-	// 				if (coin1<0)coin1 = coin1+6;
-	// 				if(dalle.getSvt(coin1) == null || dalle.getSvt(coin1).getCoul() == p.getCoul())
-	// 					return false; //ça detruit pas
-	// 				else
-	// 				{
-	// 					d.detruire(coinSvt);
-	// 					return true;
-	// 				}
-	// 			}
-	// 		}
-	// 		else
-	// 		{
-	// 			Dalle dalle = d.getDalleV(coinSvt);
-	// 			int coin1 = coinSvt - 2;
-	// 				if (coin1<0)coin1 = coin1+6;
-	// 			if(dalle.getPrc(coin1) == null || dalle.getPrc(coin1).getCoul() == p.getCoul())
-	// 				return false; //ça detruit pas
-	// 			else
-	// 			{
-	// 				d.detruire(coinSvt);
-	// 				return true;
-	// 			}
-	// 		}
-	// 	}
-	// 	return false;
-	// }
+				if (this.verifEnfermement(d, c)) {
+					for (Pilier pDetruit : this.pilierMarque) {
+						this.getDallePilier(pDetruit).detruire(this.getCotePilier(this.getDallePilier(pDetruit), pDetruit));
+					}
+				}
+				this.pilierMarque.clear();
+			}
+		} 
+		
+		((FrameJeu)Controleur.getInstance().getFrameJeuActuelle()).majIHM();
+		return false;
+	}
 	
+	private boolean verifEnfermement(Dalle d, int c) {
+		Pilier tmp = d.getPiliers()[c];
+		this.pilierMarque.add(tmp);
+
+		for(Pilier p : this.getPilierAutour(d, c)) {
+			if (p != null) {
+				if (!this.pilierMarque.contains(p) && p.getCoul() == d.getPiliers()[c].getCoul()) {
+					Dalle dalle = this.getDallePilier(p);
+					int    coin = this.getCotePilier(dalle, p);
+					if (!this.verifEnfermement(dalle, coin))
+						return false;
+				}
+			} else {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private ArrayList<Pilier> getPilierAutour(Dalle d, int coin) {
+		int coinSvt = coin+1;
+		int coinPrc = coin-1;
+		if (coinSvt > 5) {coinSvt = 0;}
+		if (coinPrc < 0) {coinPrc = 5;}
+
+		ArrayList<Pilier> tmp = new ArrayList<>();
+
+		tmp.add(d.getPiliers()[coinSvt]);
+		tmp.add(d.getPiliers()[coinPrc]);
+		if (d.getDalleV(coin) != null)
+			tmp.add(d.getDalleV(coin).getPiliers()[coinPrc]);
+		else if (d.getDalleV(coinPrc) != null)
+			tmp.add(d.getDalleV(coinPrc).getPiliers()[coinSvt]);
+
+		return tmp;
+	}
+
+	private Dalle getDallePilier(Pilier p) {
+		for (Dalle d : this.ensDalles) {
+			for (Pilier pilier : d.getPiliers()) {
+				if (pilier == p) {
+					return d;
+				}
+			}
+		}
+		return null;
+	}
+
+	private int getCotePilier(Dalle d, Pilier p) {
+		for (int i = 0; i < d.getPiliers().length; i++) {
+			if (d.getPiliers()[i] != null && d.getPiliers()[i] == p) {
+				return i;
+			}
+		}
+		return 0;
+	}
+
 	/** Retourne le nombre de tour
 	  * @return le nombre de tour
 	  */
@@ -430,25 +385,23 @@ public class Plateau
 	  */
 	public String getTypeVictoire () { return this.sTypeVictoire; }
 
-	/** Ajoute un tour*/
-	private static void ajoutTour(){Plateau.iCompteur++;}
 	
 	/** Fait l'affichage en CUI*/
 	public void affichage()
 	{
 		System.out.println("\n" + this.toString() + "\n" + this.toStringP() + "\n" + this.toStringC()) ;		
 	}
-	
+
 	/** Retourne les informations du Plateau
 	 * @return les informations du Plateau
 	 */
 	public String toString()
 	{
 		String sRet = String.format("%35s",           "+-----------------------+") + "\n"
-                    + String.format("%35s",           "|         Lié à         |") + "\n"
-                    + String.format("%35s",           "+---+---+---+---+---+---+") + "\n"
-                    + String.format("%35s",           "| 0 | 1 | 2 | 3 | 4 | 5 |") + "\n"
-                    + String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
+	                + String.format("%35s",           "|         Lié à         |") + "\n"
+	                + String.format("%35s",           "+---+---+---+---+---+---+") + "\n"
+	                + String.format("%35s",           "| 0 | 1 | 2 | 3 | 4 | 5 |") + "\n"
+	                + String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
 		for(Dalle d : this.ensDalles)
 		{
 			sRet += d.toString() + "\n";
@@ -456,7 +409,7 @@ public class Plateau
 		}
 		return sRet;
 	}
-	
+  
 	/** Retourne les informations du controle des Dalles
 	 * @return les informations du controle des Dalles
 	 */
@@ -476,10 +429,10 @@ public class Plateau
 	public String toStringP()
 	{
 		String sRet = String.format("%35s",           "+-----------------------+") + "\n"
-                    + String.format("%35s",           "|         Pilier        |") + "\n"
-                    + String.format("%35s",           "+---+---+---+---+---+---+") + "\n"
-                    + String.format("%35s",           "| 0 | 1 | 2 | 3 | 4 | 5 |") + "\n"
-                    + String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
+	                + String.format("%35s",           "|         Pilier        |") + "\n"
+	                + String.format("%35s",           "+---+---+---+---+---+---+") + "\n"
+	                + String.format("%35s",           "| 0 | 1 | 2 | 3 | 4 | 5 |") + "\n"
+	                + String.format("%35s", "+---------+---+---+---+---+---+---+") + "\n" ;
 		for(Dalle d : this.ensDalles)
 		{
 			sRet += d.toStringP() + "\n";
