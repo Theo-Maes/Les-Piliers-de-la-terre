@@ -76,6 +76,6 @@ public class PanelJoueur extends JPanel implements DocumentListener
 
 	public void changedUpdate(DocumentEvent e) 
 	{
-		this.joueur.setNom(String.format("%-14.14s", this.txtPseudo.getText().replace(" ", "_")));
+		this.joueur.setNom(String.format("%-12.12", this.txtPseudo.getText().replace(" ", "_")));
 	}
 }

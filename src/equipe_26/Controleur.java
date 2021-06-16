@@ -50,8 +50,8 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 		
 		if(s.equals("GUI"))
 		{
-			this.joueur1 = new Joueur();
-			this.joueur2 = new Joueur();
+			this.joueur1 = new Joueur(null,"gris"  ,"Avatar1");
+			this.joueur2 = new Joueur(null,"marron","Avatar6");
 
 			this.setFrameJeuActuelle(new FrameMenu());
 			this.setFrameSuiviActuelle(new FrameJoueur(this.joueur1), new FrameJoueur(this.joueur2));
@@ -95,8 +95,11 @@ public class Controleur extends ComponentAdapter implements	WindowListener
 	public void setFrameJeuActuelle(JFrame frameJeuActuelle) 
 	{
 		if(this.frameJeuActuelle != null) this.frameJeuActuelle.dispose();
+
 		this.frameJeuActuelle = frameJeuActuelle;
+
 		this.frameJeuActuelle.setSize(670, 610);
+
 		this.frameJeuActuelle.setLocation(Toolkit.getDefaultToolkit().getScreenSize().width /2-this.frameJeuActuelle.getWidth ()/2, 
 										Toolkit.getDefaultToolkit().getScreenSize().height/2-this.frameJeuActuelle.getHeight()/2);
 	}
