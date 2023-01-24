@@ -19,7 +19,7 @@ L'histoire de ce jeu est simple, nous sommes en Angleterre, au début du 12ème 
 
 Vous aurez à votre disposition un plateau de 16 dalles.
 
-Dont vous devrez prendre le contrôle à l’aide de Piliers que vous bâtirez sur les sommets de chaque Dalles. Vous ne pourrez construire que 24 Piliers par architecte.
+Dont vous devrez prendre le contrôle à l’aide de Piliers que vous bâtirez sur les sommets de chaque dalle. Vous ne pourrez construire que 24 piliers par architecte.
 
 <div align="center">
   <img src="https://user-images.githubusercontent.com/84861609/122020250-e7224900-cdc4-11eb-929d-aa36619cfffb.png" alt="illustration" />
